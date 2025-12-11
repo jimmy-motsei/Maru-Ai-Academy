@@ -1,8 +1,94 @@
-import { STREAMS } from '@/types/modules'
-import { ModuleCard } from '@/components/modules'
-import { Badge } from '@/components/ui'
+'use client';
+
+import { useEffect, useState } from 'react';
+import { ModuleCard } from '@/components/modules';
+import { Badge } from '@/components/ui';
+import api, { ApiModule } from '@/lib/api';
+
+// Group modules by stream
+interface StreamGroup {
+  id: 'beginner' | 'intermediate';
+  title: string;
+  description: string;
+  modules: ApiModule[];
+}
 
 export default function ModulesPage() {
+  const [modules, setModules] = useState<ApiModule[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchModules() {
+      setLoading(true);
+      const { data, error } = await api.getModules();
+      
+      if (error) {
+        setError(error);
+        setLoading(false);
+        return;
+      }
+      
+      if (data?.modules) {
+        setModules(data.modules);
+      }
+      setLoading(false);
+    }
+
+    fetchModules();
+  }, []);
+
+  // Group modules by stream
+  const streams: StreamGroup[] = [
+    {
+      id: 'beginner',
+      title: 'Beginner Stream',
+      description: 'Perfect for getting started with AI. Learn the fundamentals of AI productivity, safety, and basic automation.',
+      modules: modules.filter(m => m.stream === 'BEGINNER').sort((a, b) => a.order - b.order)
+    },
+    {
+      id: 'intermediate',
+      title: 'Intermediate Stream',
+      description: 'For power users ready to scale AI across teams. Advanced workflows, governance, and team automation.',
+      modules: modules.filter(m => m.stream === 'INTERMEDIATE').sort((a, b) => a.order - b.order)
+    }
+  ];
+
+  if (loading) {
+    return (
+      <div className="bg-gray-50 min-h-screen py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center min-h-[400px]">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+              <p className="text-gray-600">Loading modules...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-gray-50 min-h-screen py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center min-h-[400px]">
+            <div className="text-center">
+              <p className="text-red-600 mb-4">Error loading modules: {error}</p>
+              <button 
+                onClick={() => window.location.reload()} 
+                className="text-primary-600 hover:underline"
+              >
+                Try again
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-gray-50 min-h-screen py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -19,7 +105,7 @@ export default function ModulesPage() {
         </div>
 
         <div className="space-y-20">
-          {STREAMS.map((stream) => (
+          {streams.map((stream) => (
             <section key={stream.id} className="relative">
               {/* Stream Header */}
               <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4 border-b border-gray-200 pb-6">
@@ -39,16 +125,32 @@ export default function ModulesPage() {
               </div>
 
               {/* Stream Grid */}
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {stream.modules.map((module) => (
-                  <ModuleCard key={module.id} module={module} />
-                ))}
-              </div>
+              {stream.modules.length > 0 ? (
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {stream.modules.map((module) => (
+                    <ModuleCard 
+                      key={module.id} 
+                      module={{
+                        id: module.id,
+                        title: module.title,
+                        description: module.description,
+                        stream: module.stream.toLowerCase() as 'beginner' | 'intermediate',
+                        order: module.order,
+                        slug: module.slug,
+                        icon: module.icon,
+                        duration: module.duration
+                      }} 
+                    />
+                  ))}
+                </div>
+              ) : (
+                <p className="text-gray-500 italic">No modules available yet.</p>
+              )}
             </section>
           ))}
         </div>
 
-        {/* FAQ Section (Optional Enhancement) */}
+        {/* CTA Section */}
         <div className="mt-24 pt-16 border-t border-gray-200 text-center">
           <h2 className="text-2xl font-heading font-bold text-gray-900 mb-4">
             Not sure where to start?
