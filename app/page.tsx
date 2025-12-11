@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Button, Card, Badge } from './components/ui'
 
 export default function Home() {
@@ -23,12 +24,16 @@ export default function Home() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up animation-delay-400">
-              <Button variant="primary" size="lg">
-                Start Learning Free
-              </Button>
-              <Button variant="outline" size="lg">
-                View Curriculum
-              </Button>
+              <Link href="/pricing">
+                <Button variant="primary" size="lg">
+                  Start Learning Free
+                </Button>
+              </Link>
+              <Link href="/modules">
+                <Button variant="outline" size="lg">
+                  View Curriculum
+                </Button>
+              </Link>
             </div>
             
             {/* Stats */}
@@ -106,9 +111,11 @@ export default function Home() {
                 </div>
               </div>
               
-              <Button variant="primary" fullWidth>
-                Start Beginner Path
-              </Button>
+              <Link href="/modules">
+                <Button variant="primary" fullWidth>
+                  Start Beginner Path
+                </Button>
+              </Link>
             </Card>
 
             {/* Intermediate Stream */}
@@ -154,9 +161,11 @@ export default function Home() {
                 </div>
               </div>
               
-              <Button variant="primary" fullWidth>
-                Start Intermediate Path
-              </Button>
+              <Link href="/modules">
+                <Button variant="primary" fullWidth>
+                  Start Intermediate Path
+                </Button>
+              </Link>
             </Card>
           </div>
         </div>
@@ -248,12 +257,16 @@ export default function Home() {
             Join thousands of professionals mastering AI productivity. Start your journey today.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="outline" size="lg" className="bg-white text-primary-600 hover:bg-gray-100 border-white">
-              Get Started Free
-            </Button>
-            <Button variant="ghost" size="lg" className="text-white border-2 border-white hover:bg-white/10">
-              Schedule a Demo
-            </Button>
+            <Link href="/pricing">
+              <Button variant="outline" size="lg" className="bg-white text-primary-600 hover:bg-gray-100 border-white">
+                Get Started Free
+              </Button>
+            </Link>
+            <Link href="/contact">
+              <Button variant="ghost" size="lg" className="text-white border-2 border-white hover:bg-white/10">
+                Schedule a Demo
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
