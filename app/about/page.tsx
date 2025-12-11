@@ -1,5 +1,15 @@
+import { Metadata } from 'next'
 import { Badge, Button, Card } from '@/components/ui'
 import Image from 'next/image'
+
+export const metadata: Metadata = {
+  title: 'About Us',
+  description: 'Learn about Maru AI Academy - our mission to democratize AI for African professionals. Discover our values, story, and the team behind the platform.',
+  openGraph: {
+    title: 'About Maru AI Academy',
+    description: 'Our mission: Democratizing AI for Everyone. Learn about our values and the team behind the platform.',
+  },
+}
 
 export default function AboutPage() {
   return (

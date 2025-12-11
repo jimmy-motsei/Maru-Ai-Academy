@@ -1,4 +1,14 @@
+import { Metadata } from 'next'
 import { Badge, Button, Input, Textarea } from '@/components/ui'
+
+export const metadata: Metadata = {
+  title: 'Contact Us',
+  description: 'Get in touch with Maru AI Academy. Questions about courses? Want team training? We are here to help you on your AI learning journey.',
+  openGraph: {
+    title: 'Contact Maru AI Academy',
+    description: 'Have questions? We would love to hear from you. Reach out about courses, team training, or partnerships.',
+  },
+}
 
 export default function ContactPage() {
   return (

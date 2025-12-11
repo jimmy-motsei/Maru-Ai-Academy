@@ -1,4 +1,14 @@
+import { Metadata } from 'next'
 import { Badge, Button, Card } from '@/components/ui'
+
+export const metadata: Metadata = {
+  title: 'Pricing',
+  description: 'Simple, transparent pricing for Maru AI Academy. From free starter plans to team training - find the right plan for your AI learning journey.',
+  openGraph: {
+    title: 'Pricing - Maru AI Academy',
+    description: 'Invest in your future productivity. Simple, transparent pricing with a 30-day money-back guarantee.',
+  },
+}
 
 export default function PricingPage() {
   return (
