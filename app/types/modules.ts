@@ -122,10 +122,56 @@ export const STREAMS: Stream[] = [
   }
 ]
 
-export function getModuleBySlug(slug: string): Module | undefined {
-  for (const stream of STREAMS) {
-    const module = stream.modules.find(m => m.slug === slug)
-    if (module) return module
-  }
-  return undefined
+export interface Instructor {
+  name: string
+  role: string
+  image: string
+  bio?: string
+  company?: string
 }
+
+export interface Course {
+  id: string
+  slug: string
+  title: string
+  description: string
+  shortDesc: string
+  level: 'Beginner' | 'Intermediate' | 'Advanced'
+  duration: string
+  rating: number
+  totalReviews: number
+  enrollmentCount: number
+  skills: string[]
+  instructors: Instructor[]
+  modules: Module[]
+}
+
+export const COURSES: Course[] = [
+  {
+    id: 'course-1',
+    slug: 'intro-to-ai',
+    title: 'Introduction to Artificial Intelligence (AI)',
+    shortDesc: 'Master the basics of AI, machine learning, and prompt engineering.',
+    description: 'In this course you will learn what Artificial Intelligence (AI) is, explore use cases and applications of AI, understand AI concepts and terminology like machine learning, deep learning and neural networks. You will be exposed to various issues and concerns surrounding AI such as ethics and bias, and jobs, and get advice from experts about learning and starting a career in AI.',
+    level: 'Beginner',
+    duration: '10 hours',
+    rating: 4.8,
+    totalReviews: 1240,
+    enrollmentCount: 15400,
+    skills: ['Generative AI', 'Prompt Engineering', 'AI Ethics', 'Large Language Models'],
+    instructors: [
+      {
+        name: 'Dr. Sarah Chen',
+        role: 'AI Research Scientist',
+        image: '/instructors/sarah.jpg',
+        company: 'DeepTech AI'
+      }
+    ],
+    modules: STREAMS[0].modules // Reusing the beginner stream modules
+  }
+]
+
+export function getCourseBySlug(slug: string): Course | undefined {
+  return COURSES.find(c => c.slug === slug)
+}
+// Keep existing exports underneath...

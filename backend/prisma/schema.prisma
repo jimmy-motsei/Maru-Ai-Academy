@@ -29,12 +29,33 @@ model User {
   progress  UserProgress[]
 }
 
+model Course {
+  id          String   @id @default(uuid())
+  title       String
+  slug        String   @unique
+  description String   @db.Text
+  shortDesc   String?
+  level       String   @default("Beginner") // e.g., Beginner, Intermediate
+  duration    String   @default("10 hours")
+  rating      Float    @default(5.0)
+  totalEnrolled Int    @default(0)
+  image       String?  // Cover image URL
+  
+  // Relations
+  modules     Module[]
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
 model Module {
   id          String   @id @default(uuid())
   title       String
   description String
   slug        String   @unique
-  stream      Stream
+  courseId    String?  // Optional for now to support legacy streams if needed, but ideally required
+  course      Course?  @relation(fields: [courseId], references: [id])
+  stream      Stream   @default(BEGINNER) // Keeping Stream enum for legacy/grouping
   order       Int
   icon        String?  @default("book")
   duration    String?

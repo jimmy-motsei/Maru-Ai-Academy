@@ -144,7 +144,25 @@
 
 ---
 
-## 📅 WEEK 2: Backend Migration & API Restructuring
+#### **Phase 2.5: Design Refinement (Course Landing Page)**
+*Inspired by Industry Standards (IBM/Coursera style)*
+
+- [ ] **Data Structure Update**: 
+    - Introduce `Course` model (parent of Modules).
+    - Add metadata: `skills`, `level`, `rating`, `enrollmentCount`, `instructors`.
+- [ ] **New Page: `/courses/[slug]`**:
+    - **Hero Section**: High-contrast, university-style header with "Enroll" CTA.
+    - **Stats Bar**: Horizontal strip showing "Level", "Duration", "Schedule", "Reviews".
+    - **What You'll Learn**: Checkmark grid of outcomes.
+    - **Curriculum Accordion**: 
+        - Vertical list of modules.
+        - Detailed metadata per module (e.g., "5 videos • 2 readings • 1 quiz").
+        - Expandable summary for each module.
+    - **Instructor Section**: Photos and bios of course creators.
+- [ ] **Components**: `CourseHero`, `StatsBar`, `CurriculumList`, `SkillsChips`, `InstructorCard`.
+
+### **Phase 3: Backend Migration (Week 2)**
+API Restructuring
 
 ### Day 1 (Monday) - API Consolidation
 **Tasks:**
