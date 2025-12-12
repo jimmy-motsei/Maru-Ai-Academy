@@ -97,8 +97,8 @@ export default async function ModulePage({ params }: { params: { slug: string } 
   const totalLessons = module.lessonsCount || 5 // usage of mock data fallback
   const percentComplete = Math.round((completedCount / totalLessons) * 100)
 
-  // Mock lessons data (since we only have module metadata in mocks)
-  const lessons = Array.from({ length: totalLessons }, (_, i) => ({
+  // Use defined lessons or fallback
+  const lessons = module.lessons || Array.from({ length: totalLessons }, (_, i) => ({
     id: `${module.id}-l${i + 1}`,
     title: `Lesson ${i + 1}: Key Concepts & Application`,
     duration: '15 mins'

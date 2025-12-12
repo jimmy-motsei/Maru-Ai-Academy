@@ -1,3 +1,12 @@
+export interface Lesson {
+  id: string
+  title: string
+  duration: string
+  type: 'video' | 'text' | 'quiz'
+  content?: string
+  videoUrl?: string
+}
+
 export interface Module {
   id: string
   title: string
@@ -8,6 +17,7 @@ export interface Module {
   icon?: string
   duration?: string
   lessonsCount?: number
+  lessons?: Lesson[]
 }
 
 export interface Stream {
@@ -32,7 +42,14 @@ export const STREAMS: Stream[] = [
         slug: 'ai-made-simple',
         icon: 'bulb',
         duration: '2 hours',
-        lessonsCount: 5
+        lessonsCount: 5,
+        lessons: [
+          { id: 'b-m1-l1', title: 'What is Generative AI?', duration: '15 min', type: 'video' },
+          { id: 'b-m1-l2', title: 'LLMs vs Traditional Software', duration: '20 min', type: 'text' },
+          { id: 'b-m1-l3', title: 'AI Safety & Data Privacy', duration: '25 min', type: 'video' },
+          { id: 'b-m1-l4', title: 'The Hallucination Problem', duration: '15 min', type: 'text' },
+          { id: 'b-m1-l5', title: 'Module Quiz: Fundamentals', duration: '10 min', type: 'quiz' }
+        ]
       },
       {
         id: 'b-m2',
