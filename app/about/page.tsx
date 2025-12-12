@@ -101,11 +101,13 @@ export default function AboutPage() {
               </div>
             </div>
             
-            <div className="relative h-[400px] w-full rounded-2xl overflow-hidden shadow-2xl bg-gray-200">
-              {/* Placeholder for Team Image */}
-              <div className="absolute inset-0 flex items-center justify-center text-gray-400">
-                 <span className="text-lg">Team Image Placeholder</span>
-              </div>
+            <div className="relative h-[400px] w-full rounded-2xl overflow-hidden shadow-2xl">
+              <Image
+                src="/team-training.png"
+                alt="Diverse team of professionals in a training session"
+                fill
+                className="object-cover"
+              />
             </div>
           </div>
         </div>
