@@ -34,8 +34,8 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-lg font-bold text-gray-900 mb-1">Email Us</h3>
                   <p className="text-gray-600 mb-1">General Inquiries</p>
-                  <a href="mailto:hello@maruacademy.com" className="text-primary-600 font-semibold hover:text-primary-700">
-                    hello@maruacademy.com
+                  <a href="mailto:hello@maruonline.com" className="text-primary-600 font-semibold hover:text-primary-700">
+                    hello@maruonline.com
                   </a>
                 </div>
               </div>
@@ -46,23 +46,10 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-gray-900 mb-1">Live Chat</h3>
-                  <p className="text-gray-600 mb-1">Available Mon-Fri, 9am-5pm EST</p>
+                  <p className="text-gray-600 mb-1">Available 24/7</p>
                   <button className="text-primary-600 font-semibold hover:text-primary-700 text-left">
                     Start a chat
                   </button>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0 mr-6">
-                  <span className="text-2xl">🏢</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-1">Office</h3>
-                  <p className="text-gray-600">
-                    123 AI Boulevard, Suite 500<br />
-                    San Francisco, CA 94105
-                  </p>
                 </div>
               </div>
             </div>
