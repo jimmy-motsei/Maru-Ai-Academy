@@ -1,15 +1,15 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Button, Input, Card } from '@/components/ui'
 
-export default function SignInPage() {
+function SignInForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const callbackUrl = searchParams.get('callbackUrl') || '/modules'
+  const callbackUrl = searchParams.get('callbackUrl') || '/dashboard'
   const error = searchParams.get('error')
 
   const [email, setEmail] = useState('')
@@ -36,7 +36,8 @@ export default function SignInPage() {
         router.push(callbackUrl)
         router.refresh()
       }
-    } catch (error) {
+    } catch (err) {
+      console.error('Sign in error:', err)
       setErrorMessage('Something went wrong')
     } finally {
       setLoading(false)
@@ -108,5 +109,17 @@ export default function SignInPage() {
         </Card>
       </div>
     </div>
+  )
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <p className="text-gray-500">Loading...</p>
+      </div>
+    }>
+      <SignInForm />
+    </Suspense>
   )
 }
