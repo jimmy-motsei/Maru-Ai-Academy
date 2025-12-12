@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
 import prisma from '@/lib/prisma'
-import { Plan } from '@prisma/client'
 
 export async function POST(request: Request) {
   try {
@@ -27,35 +26,45 @@ export async function POST(request: Request) {
       )
     }
 
-    // Determine Plan
-    let userPlan = Plan.FREE
-    if (plan === 'pro') userPlan = Plan.PRO
-    if (plan === 'team') userPlan = Plan.TEAM
+    // Determine Plan (Use strings to avoid enum import issues)
+    let userPlan = 'FREE'
+    if (plan === 'pro') userPlan = 'PRO'
+    if (plan === 'team') userPlan = 'TEAM'
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 12)
 
     // Create user
-    const user = await prisma.user.create({
-      data: {
-        email,
-        name,
-        password: hashedPassword,
-        plan: userPlan,
-      },
-    })
+    try {
+      const user = await prisma.user.create({
+        data: {
+          email,
+          name,
+          password: hashedPassword,
+          plan: userPlan,
+        } as any,
+      })
 
-    return NextResponse.json({
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-      },
-    })
-  } catch (error) {
+      return NextResponse.json({
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          plan: (user as any).plan
+        },
+      })
+    } catch (dbError: any) {
+      console.error('Database creation error:', dbError)
+      return NextResponse.json(
+        { error: `Database error: ${dbError.message}` },
+        { status: 500 }
+      )
+    }
+
+  } catch (error: any) {
     console.error('Signup error:', error)
     return NextResponse.json(
-      { error: 'Something went wrong' },
+      { error: `Internal error: ${error.message}` },
       { status: 500 }
     )
   }
