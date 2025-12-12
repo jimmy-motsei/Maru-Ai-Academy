@@ -57,7 +57,7 @@ export default async function DashboardPage() {
                 <p className="text-sm text-gray-600">
                   Next Lesson: <strong>Understanding LLMs</strong>
                 </p>
-                <Link href="/modules/module-1">
+                <Link href="/modules/ai-made-simple">
                   <Button size="sm">Continue Learning &rarr;</Button>
                 </Link>
               </div>
@@ -81,7 +81,7 @@ export default async function DashboardPage() {
             <div>
               <h2 className="text-xl font-bold text-gray-900 mb-4">Recommended for You</h2>
               <div className="space-y-4">
-                <Link href="/modules/module-2" className="block p-4 bg-white rounded-xl border border-gray-200 hover:border-primary-300 transition-colors">
+                <Link href="/modules/prompts-that-work" className="block p-4 bg-white rounded-xl border border-gray-200 hover:border-primary-300 transition-colors">
                   <div className="flex items-center">
                     <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4">
                       💡

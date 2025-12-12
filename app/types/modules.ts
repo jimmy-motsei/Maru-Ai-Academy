@@ -29,7 +29,7 @@ export const STREAMS: Stream[] = [
         description: 'Foundations & Safety. Understand what AI is, how it works, and how to use it securely in your workplace.',
         stream: 'beginner',
         order: 1,
-        slug: 'module-1',
+        slug: 'ai-made-simple',
         icon: 'bulb',
         duration: '2 hours',
         lessonsCount: 5
@@ -40,7 +40,7 @@ export const STREAMS: Stream[] = [
         description: 'Master the art of prompting. Learn techniques to get consistent, high-quality results from AI models.',
         stream: 'beginner',
         order: 2,
-        slug: 'module-2',
+        slug: 'prompts-that-work',
         icon: 'message',
         duration: '2.5 hours',
         lessonsCount: 6
@@ -51,7 +51,7 @@ export const STREAMS: Stream[] = [
         description: 'Navigate the AI tool landscape and build simple automations without writing any code.',
         stream: 'beginner',
         order: 3,
-        slug: 'module-3',
+        slug: 'no-code-quick-wins',
         icon: 'tool',
         duration: '3 hours',
         lessonsCount: 4
@@ -62,7 +62,7 @@ export const STREAMS: Stream[] = [
         description: 'Capstone Project. Build and deploy a real-world AI workflow that solves a specific business problem.',
         stream: 'beginner',
         order: 4,
-        slug: 'module-4',
+        slug: 'first-live-workflow',
         icon: 'rocket',
         duration: '4 hours',
         lessonsCount: 3
@@ -80,7 +80,7 @@ export const STREAMS: Stream[] = [
         description: 'Transform one-off success into reliable systems. Standardize your prompts and workflows.',
         stream: 'intermediate',
         order: 1,
-        slug: 'int-module-1',
+        slug: 'ad-hoc-to-repeatable',
         icon: 'repeat',
         duration: '3 hours',
         lessonsCount: 5
@@ -91,7 +91,7 @@ export const STREAMS: Stream[] = [
         description: 'Unlock your company data. Learn about RAG, vector databases, and chatting with your documents.',
         stream: 'intermediate',
         order: 2,
-        slug: 'int-module-2',
+        slug: 'semantic-search-private-knowledge',
         icon: 'search',
         duration: '3.5 hours',
         lessonsCount: 6
@@ -102,7 +102,7 @@ export const STREAMS: Stream[] = [
         description: 'Advanced no-code strategies. Build robust, error-handled automations that run reliably.',
         stream: 'intermediate',
         order: 3,
-        slug: 'int-module-3',
+        slug: 'no-code-automations',
         icon: 'puzzle',
         duration: '4 hours',
         lessonsCount: 8
@@ -113,7 +113,7 @@ export const STREAMS: Stream[] = [
         description: 'Leading AI initiatives. How to measure ROI, ensure compliance, and manage team adoption.',
         stream: 'intermediate',
         order: 4,
-        slug: 'int-module-4',
+        slug: 'measurement-governance',
         icon: 'shield',
         duration: '3 hours',
         lessonsCount: 4
