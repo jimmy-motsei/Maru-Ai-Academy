@@ -3,6 +3,10 @@ import { getModuleBySlug } from '@/types/modules'
 import { Badge, Button, Card } from '@/components/ui'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { LessonItem } from '@/components/modules/LessonItem'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth'
+import prisma from '@/lib/prisma'
 
 type Props = {
   params: { slug: string }
@@ -27,12 +31,44 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default function ModulePage({ params }: { params: { slug: string } }) {
-  const module = getModuleBySlug(params.slug)
+async function getModuleProgress(moduleId: string) {
+  const session = await getServerSession(authOptions)
+  if (!session?.user?.email) return []
 
-  if (!module) {
-    notFound()
-  }
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email }
+  })
+
+  if (!user) return []
+
+  const progress = await prisma.progress.findMany({
+    where: {
+      userId: user.id,
+      moduleId: moduleId
+    }
+  })
+
+  return progress
+}
+
+export default async function ModulePage({ params }: { params: { slug: string } }) {
+  const module = getModuleBySlug(params.slug)
+  if (!module) notFound()
+
+  // Fetch progress
+  const progress = await getModuleProgress(module.id)
+  const completedLessonIds = new Set(progress.filter(p => p.completed).map(p => p.lessonId))
+  
+  const completedCount = completedLessonIds.size
+  const totalLessons = module.lessonsCount || 5 // usage of mock data fallback
+  const percentComplete = Math.round((completedCount / totalLessons) * 100)
+
+  // Mock lessons data (since we only have module metadata in mocks)
+  const lessons = Array.from({ length: totalLessons }, (_, i) => ({
+    id: `${module.id}-l${i + 1}`,
+    title: `Lesson ${i + 1}: Key Concepts & Application`,
+    duration: '15 mins'
+  }))
 
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
@@ -78,13 +114,18 @@ export default function ModulePage({ params }: { params: { slug: string } }) {
 
             <Card className="w-full md:w-80 flex-shrink-0 p-6">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-primary-50 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4">
-                  {module.icon === 'bulb' ? '💡' : module.icon === 'rocket' ? '🚀' : '📚'}
+                <div className="w-16 h-16 bg-primary-50 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-primary-100" style={{ height: `${100 - percentComplete}%` }}></div>
+                  <span className="relative z-10">{module.icon === 'bulb' ? '💡' : module.icon === 'rocket' ? '🚀' : '📚'}</span>
                 </div>
                 <div className="text-sm text-gray-500">Current Status</div>
-                <div className="text-lg font-bold text-gray-900">Not Started</div>
+                <div className="text-lg font-bold text-gray-900">
+                  {percentComplete === 100 ? 'Completed! 🎉' : `${percentComplete}% Complete`}
+                </div>
               </div>
-              <Button fullWidth size="lg">Start Learning</Button>
+              <Button fullWidth size="lg">
+                {percentComplete === 0 ? 'Start Learning' : 'Continue Learning'}
+              </Button>
             </Card>
           </div>
         </div>
@@ -122,20 +163,16 @@ export default function ModulePage({ params }: { params: { slug: string } }) {
             <Card>
               <h3 className="font-bold text-gray-900 mb-4">Course Content</h3>
               <div className="space-y-0">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <div key={i} className="flex items-center p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors border-b last:border-0 border-gray-100">
-                    <div className="w-6 h-6 rounded-full border-2 border-gray-300 flex-shrink-0 mr-3"></div>
-                    <div>
-                      <div className="text-sm font-medium text-gray-900">Lesson {i}</div>
-                      <div className="text-xs text-gray-500">15 mins</div>
-                    </div>
-                    <div className="ml-auto">
-                      <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                  </div>
+                {lessons.map((lesson, i) => (
+                  <LessonItem
+                    key={lesson.id}
+                    lessonId={lesson.id}
+                    moduleId={module.id}
+                    title={lesson.title}
+                    duration={lesson.duration}
+                    index={i + 1}
+                    isCompleted={completedLessonIds.has(lesson.id)}
+                  />
                 ))}
               </div>
             </Card>
