@@ -69,7 +69,7 @@ export default async function SettingsPage() {
               <div>
                 <p className="text-gray-600">Current Plan</p>
                 <div className="flex items-center gap-2 mt-1">
-                  <Badge variant={user.plan === 'FREE' ? 'outline' : 'default'}>
+                  <Badge variant={user.plan === 'FREE' ? 'neutral' : 'primary'}>
                     {user.plan || 'FREE'} PLAN
                   </Badge>
                 </div>
