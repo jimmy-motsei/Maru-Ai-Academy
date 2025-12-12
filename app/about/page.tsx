@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import Link from 'next/link'
 import { Badge, Button, Card } from '@/components/ui'
 import Image from 'next/image'
 
@@ -94,7 +95,9 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="mt-8">
-                <Button variant="primary" size="lg">Join Our Journey</Button>
+                <Link href="/auth/signup">
+                  <Button variant="primary" size="lg">Join Our Journey</Button>
+                </Link>
               </div>
             </div>
             
