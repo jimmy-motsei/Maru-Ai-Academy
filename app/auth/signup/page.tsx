@@ -63,21 +63,10 @@ function SignUpForm() {
         return
       }
 
-      // Sign in automatically
-      const result = await signIn('credentials', {
-        email,
-        password,
-        redirect: false,
-        callbackUrl: '/dashboard',
-      })
-
-      if (result?.ok) {
-        router.push('/dashboard')
-        router.refresh()
-      } else {
-        setError('Account created. Please sign in.')
-        router.push('/auth/signin')
-      }
+      // Account created successfully! Show success and redirect to sign in
+      alert('✅ Account created successfully! Check your email for a welcome message. Click OK to sign in.')
+      router.push('/auth/signin')
+      
     } catch (error) {
       setError('Something went wrong')
     } finally {

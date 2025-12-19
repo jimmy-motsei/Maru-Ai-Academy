@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 interface LessonItemProps {
   lessonId: string
@@ -25,7 +26,8 @@ export const LessonItem = ({
   const [loading, setLoading] = useState(false)
 
   const toggleCompletion = async (e: React.MouseEvent) => {
-    e.stopPropagation() // Prevent navigation if clicking checkbox
+    e.preventDefault() // Link behavior prevention
+    e.stopPropagation() // Click bubbling prevention
     if (loading) return
 
     const newState = !completed
@@ -47,17 +49,20 @@ export const LessonItem = ({
         throw new Error('Failed to update progress')
       }
 
-      router.refresh() // Refresh server components to update overall progress
+      router.refresh()
     } catch (error) {
       console.error(error)
-      setCompleted(!newState) // Revert on error
+      setCompleted(!newState)
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="flex items-center p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors border-b last:border-0 border-gray-100 group">
+    <Link 
+      href={`/modules/${moduleId}/lesson/${lessonId}`}
+      className="flex items-center p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors border-b last:border-0 border-gray-100 group block"
+    >
       <div 
         onClick={toggleCompletion}
         className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 mr-3 transition-colors ${
@@ -88,6 +93,6 @@ export const LessonItem = ({
           </svg>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }

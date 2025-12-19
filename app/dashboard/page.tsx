@@ -1,16 +1,13 @@
 import { getServerSession } from 'next-auth'
-import { signOut } from 'next-auth/react'
 import { authOptions } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import { Card, Badge, Button } from '@/components/ui'
 import Link from 'next/link'
+import { DashboardProgress } from './components/DashboardProgress'
 
 export const metadata = {
   title: 'My Dashboard | Maru AI Academy',
 }
-
-import prisma from '@/lib/prisma'
-import { STREAMS } from '@/types/modules'
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions)
@@ -21,18 +18,6 @@ export default async function DashboardPage() {
 
   const user = session.user
   const userId = (user as any).id
-  
-  // Calculate Progress
-  const completedCount = await prisma.progress.count({
-    where: {
-      userId: userId,
-      completed: true
-    }
-  })
-
-  // Calculate total lessons from static constants
-  const totalLessons = STREAMS.flatMap(s => s.modules).reduce((acc, m) => acc + (m.lessonsCount || 0), 0)
-  const progressPercent = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -53,51 +38,25 @@ export default async function DashboardPage() {
           {/* Main Content Area */}
           <div className="lg:col-span-2 space-y-8">
             
-            {/* Active Course Card */}
-            <Card className="border-l-4 border-l-primary-500">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <Badge variant="primary" className="mb-2">In Progress</Badge>
-                  <h2 className="text-xl font-bold text-gray-900">Beginner Stream: AI Made Simple</h2>
-                </div>
-                <div className="text-right">
-                  <span className="text-2xl font-bold text-primary-600">{progressPercent}%</span>
-                  <p className="text-xs text-gray-500">Global Completion</p>
-                </div>
-              </div>
-              
-              <div className="w-full bg-gray-100 rounded-full h-2.5 mb-6">
-                <div className="bg-primary-600 h-2.5 rounded-full" style={{ width: `${progressPercent}%` }}></div>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <p className="text-sm text-gray-600">
-                  Total Lessons Completed: <strong>{completedCount} / {totalLessons}</strong>
-                </p>
-                <Link href="/modules/ai-made-simple">
-                  <Button size="sm">Continue Learning &rarr;</Button>
-                </Link>
-              </div>
-            </Card>
-
-            {/* Recent Achievements */}
-            <div className="grid sm:grid-cols-2 gap-6">
-              <Card>
-                <div className="text-3xl mb-2">🔥</div>
-                <h3 className="font-bold text-gray-900">Day Streak</h3>
-                <p className="text-gray-500 text-sm">3 Days - Keep it up!</p>
-              </Card>
-              <Card>
-                <div className="text-3xl mb-2">🏆</div>
-                <h3 className="font-bold text-gray-900">Certificates</h3>
-                <p className="text-gray-500 text-sm">0 Earned</p>
-              </Card>
-            </div>
+            {/* Progress Component */}
+            <DashboardProgress userId={userId} />
 
             {/* Recommended Next Steps */}
             <div>
               <h2 className="text-xl font-bold text-gray-900 mb-4">Recommended for You</h2>
               <div className="space-y-4">
+                <Link href="/modules/ai-made-simple" className="block p-4 bg-white rounded-xl border border-gray-200 hover:border-primary-300 transition-colors">
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                      🤖
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">AI Made Simple</h4>
+                      <p className="text-sm text-gray-500">Foundations & Safety (Beginner Stream)</p>
+                    </div>
+                  </div>
+                </Link>
+                
                 <Link href="/modules/prompts-that-work" className="block p-4 bg-white rounded-xl border border-gray-200 hover:border-primary-300 transition-colors">
                   <div className="flex items-center">
                     <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4">
@@ -143,24 +102,37 @@ export default async function DashboardPage() {
                 <Link href="/settings" className="block text-sm text-gray-600 hover:text-primary-600">
                   ⚙️ Account Settings
                 </Link>
-                <button 
-                  onClick={() => signOut({ callbackUrl: '/' })} 
-                  className="block text-sm text-red-600 hover:text-red-700 text-left w-full"
-                >
-                  🚪 Sign Out
-                </button>
+                <Link href="/support" className="block text-sm text-gray-600 hover:text-primary-600">
+                  💬 Get Support
+                </Link>
               </div>
             </Card>
 
-            {/* Quick Stats */}
-            <Card className="bg-primary-900 text-white">
-              <h3 className="font-bold mb-4">Weekly Goal</h3>
-              <div className="flex justify-between items-end mb-2">
-                <span className="text-3xl font-bold">2/5</span>
-                <span className="text-primary-200 text-sm">Lessons</span>
+            {/* Quick Actions */}
+            <Card className="bg-primary-50 border-primary-200">
+              <h3 className="font-bold text-gray-900 mb-4">Quick Actions</h3>
+              <div className="space-y-3">
+                <Link href="/modules">
+                  <Button variant="outline" size="sm" fullWidth>
+                    📚 Browse All Modules
+                  </Button>
+                </Link>
+                <Link href="/contact">
+                  <Button variant="outline" size="sm" fullWidth>
+                    📧 Contact Us
+                  </Button>
+                </Link>
               </div>
-              <p className="text-sm text-primary-200">
-                You're on track! Complete 3 more lessons to hit your weekly target.
+            </Card>
+
+            {/* Help Card */}
+            <Card className="bg-gradient-to-br from-primary-900 to-primary-700 text-white">
+              <h3 className="font-bold mb-2">Need Help?</h3>
+              <p className="text-sm text-primary-100 mb-4">
+                Our AI assistant is available 24/7
+              </p>
+              <p className="text-xs text-primary-200">
+                Click the chat icon in the bottom-right corner! 💬
               </p>
             </Card>
           </div>

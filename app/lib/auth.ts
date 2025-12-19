@@ -75,5 +75,6 @@ export const authOptions: NextAuthOptions = {
     signIn: '/auth/signin',
     error: '/auth/error',
   },
+  debug: true, // Enable debug mode to see what's wrong
   secret: process.env.NEXTAUTH_SECRET,
 }
