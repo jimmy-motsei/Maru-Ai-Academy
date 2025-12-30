@@ -76,11 +76,25 @@ export function LessonView({
 
   // Simple Markdown Renderer
   const renderMarkdown = (text: string) => {
+    const processInline = (line: string) => {
+      // Handle bold text (**text**)
+      const parts = line.split(/(\*\*[^*]+\*\*)/g)
+      return parts.map((part, j) => {
+        if (part.startsWith('**') && part.endsWith('**')) {
+          return <strong key={j} className="font-semibold text-gray-900">{part.slice(2, -2)}</strong>
+        }
+        return part
+      })
+    }
+
     return text.split('\n').map((line, i) => {
-      if (line.startsWith('### ')) return <h3 key={i} className="text-xl font-bold mt-6 mb-3 text-gray-900">{line.replace('### ', '')}</h3>
-      if (line.startsWith('- ')) return <li key={i} className="ml-4 text-gray-700 mb-2">{line.replace('- ', '')}</li>
+      if (line.startsWith('### ')) return <h3 key={i} className="text-xl font-bold mt-6 mb-3 text-gray-900">{processInline(line.replace('### ', ''))}</h3>
+      if (line.startsWith('- ')) return <li key={i} className="ml-4 text-gray-700 mb-2">{processInline(line.replace('- ', ''))}</li>
+      if (line.startsWith('| ')) return <p key={i} className="text-gray-700 font-mono text-sm bg-gray-50 p-2 rounded mb-2">{line}</p>
+      if (line.startsWith('> ')) return <blockquote key={i} className="border-l-4 border-primary-500 pl-4 italic text-gray-600 my-4">{processInline(line.replace('> ', ''))}</blockquote>
+      if (line.startsWith('```')) return null // Skip code fence markers
       if (line.trim() === '') return <div key={i} className="h-4"></div>
-      return <p key={i} className="text-gray-700 leading-relaxed mb-4">{line}</p>
+      return <p key={i} className="text-gray-700 leading-relaxed mb-4">{processInline(line)}</p>
     })
   }
 
@@ -218,7 +232,7 @@ export function LessonView({
               disabled={loading}
               className={completed ? "border-green-500 text-green-600 hover:bg-green-50" : ""}
             >
-              {completed ? 'Valued Completed ✅' : (loading ? 'Saving...' : 'Mark Complete & Continue')}
+              {completed ? 'Lesson Completed ✅' : (loading ? 'Saving...' : 'Mark Complete & Continue')}
             </Button>
           )}
           

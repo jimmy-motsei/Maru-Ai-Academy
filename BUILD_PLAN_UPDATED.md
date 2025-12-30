@@ -48,7 +48,7 @@ Build out core platform features while maintaining deployment flexibility. The a
 
 ## 🚀 **3-Week Sprint Plan**
 
-### **WEEK 1: Essential Features & Integrations**
+### **WEEK 1: Essential Features & Explainer Video Foundation**
 
 #### **Day 1 (Monday): AI Chatbot Activation**
 **Goal**: Enable the Gemini-powered chatbot for user support
@@ -134,33 +134,52 @@ Build out core platform features while maintaining deployment flexibility. The a
 
 ---
 
-#### **Day 4 (Thursday): Content Development**
-**Goal**: Add real lesson content to modules
+#### **Day 4 (Thursday): High-Quality Explainer Video Production**
+**Goal**: Produce professional explainer videos for key lessons
+
+**Modern Explainer Video Strategy**:
+- **AI-powered production** using Synthesia + Canva Pro
+- **Template-based workflow** for consistency and speed
+- **Batch production** to maximize efficiency
+- **Professional animated style** with AI avatars
 
 **Tasks**:
-- [ ] Review current module structure in `/app/types/modules.ts`
-- [ ] For each module, add:
-  - Full lesson descriptions
-  - Video URLs (if available) or placeholders
-  - Reading material content
-  - Quiz questions and answers
-  - Key takeaways
-  
-- [ ] Create at least 3 complete lessons for:
-  - "AI Made Simple" (Beginner)
-  - "Prompt Engineering Fundamentals" (Beginner)
-  - Choose 1 Intermediate module
+- [ ] **Set up explainer video production**:
+  - Subscribe to Synthesia ($30/month) + Canva Pro ($15/month)
+  - Create branded video templates (intro/outro, color schemes)
+  - Develop script framework: Hook → Explain → Apply → Act
+  - Set up quality checklist and batch workflow
 
-- [ ] Update lesson rendering in `/app/modules/[slug]/page.tsx`
-- [ ] Add "Resources" section to each lesson
-- [ ] Test lesson navigation
+- [ ] **AI-powered script generation**:
+  ```
+  Use ChatGPT with prompt:
+  "Create a 5-minute explainer video script for [topic].
+  Target: Business professionals new to AI.
+  Structure: Hook (0-15s), Explain (15s-4min), Apply (4-5min), Act (5-6min).
+  Include visual cues and timing markers."
+  ```
+
+- [ ] **Produce priority explainer videos** (8-10 videos):
+  - **Beginner Priority**: "What is AI? (Explained Simply)" (5 min), "The 5-Part Prompt Formula" (6 min), "No-Code Automation Demo" (8 min)
+  - **Intermediate Priority**: "From Chaos to Templates" (6 min), "RAG Explained Simply" (8 min)
+  - Use Synthesia AI avatars with professional backgrounds
+  - Add custom graphics and animations from Canva
+  - Include captions and accessibility features
+
+- [ ] **Efficient production process** (45 min per video):
+  1. AI script generation (8 min)
+  2. Storyboard in Canva (7 min)
+  3. Synthesia production (20 min)
+  4. Enhancement & polish (8 min)
+  5. Review & export (2 min)
 
 **Deliverables**:
-- 3+ modules with complete content
-- Lessons are engaging and educational
-- Content flows logically
+- 8-10 professional explainer videos
+- Consistent branding and messaging
+- Template system for future videos
+- Multi-format exports with captions
 
-**Time**: 6-8 hours (depends on content creation)
+**Time**: 6-8 hours
 
 ---
 
@@ -212,7 +231,7 @@ Build out core platform features while maintaining deployment flexibility. The a
 
 ---
 
-### **WEEK 2: Payment Integration & Advanced Features**
+### **WEEK 2: Explainer Video Production & Payment Integration**
 
 #### **Day 1 (Monday): Stripe Setup**
 **Goal**: Enable real subscription payments
@@ -244,64 +263,69 @@ Build out core platform features while maintaining deployment flexibility. The a
 
 ---
 
-#### **Day 2 (Tuesday): Stripe Webhooks & Subscription Logic**
-**Goal**: Handle subscription lifecycle events
+#### **Day 2 (Tuesday): Explainer Video Production Scale-Up**
+**Goal**: Complete remaining explainer videos using batch production
 
 **Tasks**:
-- [ ] Configure webhook endpoint in Stripe dashboard
-- [ ] Handle webhook events:
-  - `checkout.session.completed` - New subscription
-  - `customer.subscription.updated` - Plan change
-  - `customer.subscription.deleted` - Cancellation
-  - `invoice.payment_succeeded` - Successful payment
-  - `invoice.payment_failed` - Failed payment
-  
-- [ ] Update user plan in database on events
-- [ ] Send emails on subscription changes
-- [ ] Add subscription status to user profile
-- [ ] Test with Stripe CLI:
-  ```bash
-  stripe listen --forward-to localhost:3000/api/stripe/webhook
-  ```
+- [ ] **Batch script generation for remaining videos**:
+  - Generate scripts for 10-12 additional videos
+  - Focus on complex concepts that benefit from visual explanation
+  - Use AI prompts for consistency across all scripts
+
+- [ ] **Synthesia batch production**:
+  - **Beginner Stream** (6 videos): Email Templates, Tool Selection, Workflow Planning, etc.
+  - **Intermediate Stream** (6 videos): Quality Gates, Knowledge Base Building, ROI Measurement, etc.
+  - Apply consistent branding and templates
+  - Add custom graphics and screen recordings where needed
+
+- [ ] **Video enhancement and optimization**:
+  - Add interactive elements and CTAs
+  - Optimize for mobile viewing
+  - Create video thumbnails and descriptions
+  - Set up video analytics tracking
+
+- [ ] **Platform integration**:
+  - Embed videos in lesson pages
+  - Add video progress tracking
+  - Configure video hosting (YouTube unlisted + Vimeo backup)
+  - Test video loading and playback
 
 **Deliverables**:
-- Subscription changes reflected in database
-- Content gating works based on real subscriptions
-- Users receive payment confirmation emails
+- 18-20 total professional explainer videos
+- All videos embedded and functional in platform
+- Video progress tracking working
+- Mobile-optimized video experience
 
-**Time**: 5-6 hours
+**Time**: 6-8 hours
 
 ---
 
-#### **Day 3 (Wednesday): Certificate Generation**
-**Goal**: Generate PDF certificates on module completion
+#### **Day 3 (Wednesday): Content Development & Video Integration**
+**Goal**: Complete missing content and integrate explainer videos
 
 **Tasks**:
-- [ ] Install PDF generation library:
-  ```bash
-  npm install @react-pdf/renderer
-  ```
-- [ ] Create certificate template component
-- [ ] Create `/app/api/certificates/generate/route.ts`
-- [ ] When user completes all lessons in a module:
-  - Calculate completion percentage
-  - If 100%, generate certificate
-  - Store certificate URL in database
-  - Send congratulations email with certificate
+- [ ] **Complete missing module content files**:
+  - Create `Beginner_Module_3_No-code_quick_wins.md`
+  - Create `Beginner_Module_4_Your_first_live_workflow.md`
+  - Extract content from existing scripts and lesson plans
 
-- [ ] Add "View Certificate" button to dashboard
-- [ ] Add certificate download endpoint
-- [ ] Design professional certificate template with:
-  - User name
-  - Course name
-  - Completion date
-  - Certificate ID (unique)
-  - Maru AI Academy branding
+- [ ] **Update frontend content integration**:
+  - Update `app/types/modules.ts` with complete lesson arrays
+  - Add video URLs from explainer video production
+  - Create content parser utility for markdown files
+  - Update lesson pages to display videos and content
+
+- [ ] **Video platform integration**:
+  - Embed explainer videos in lesson pages
+  - Add video progress tracking
+  - Configure video analytics
+  - Test video loading and mobile playback
 
 **Deliverables**:
-- Users get certificates on module completion
-- Certificates downloadable as PDF
-- Certificates look professional and shareable
+- All 8 modules with complete content
+- Explainer videos integrated into lessons
+- Video progress tracking functional
+- Mobile-optimized video experience
 
 **Time**: 6-8 hours
 
@@ -739,20 +763,24 @@ gcloud run deploy maru-academy \
 
 ## 💰 Cost Estimate (Monthly)
 
-### **Current Stack (Vercel + Neon)**
-- Frontend: $0 (Vercel Hobby)
-- Database: $0 (Neon Free tier - 0.5GB, enough for MVP)
-- Email: $0-5 (Resend - 100 emails/day free)
-- AI: $0-10 (Gemini - generous free tier)
-- Payments: $0 + 2.9% + $0.30 per transaction (Stripe)
-- **Total: $0-15/month + payment processing**
+### **Content Development Tools**
+- **Explainer Videos**: Synthesia ($30/month) + Canva Pro ($15/month)
+- **AI Script Generation**: ChatGPT Plus ($20/month)
+- **Video Hosting**: YouTube (free) + Vimeo Pro ($20/month) backup
+- **Design Assets**: Unsplash Pro ($10/month)
+- **Email**: Resend ($0-5/month)
+- **Analytics**: Vercel Analytics (free)
 
-### **Google Cloud Run Stack**
-- Frontend (Cloud Run): $10-20
-- Backend (Cloud Run): $10-20
-- Database (Cloud SQL): $15-25
-- Storage (Cloud Storage): $1-3
-- **Total: $36-68/month**
+### **Enhanced Stack with Explainer Videos**
+- Frontend: $0 (Vercel Hobby)
+- Database: $0 (Neon Free tier)
+- Explainer Videos: $65/month (Synthesia + Canva + ChatGPT)
+- Video Hosting: $20/month (Vimeo Pro backup)
+- Email: $0-5 (Resend)
+- Payments: $0 + 2.9% + $0.30 per transaction (Stripe)
+- **Total: $85-90/month + payment processing**
+
+**Note**: Video production tools can be canceled after 2-month production period, reducing ongoing costs to $20-25/month.
 
 ### **Azure Stack**
 - App Service: $25-55

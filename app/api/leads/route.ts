@@ -1,5 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { LeadData } from '@/lib/chatbot/types';
+
+// Lead data interface (previously from chatbot types)
+interface LeadData {
+  name: string;
+  email: string;
+  company?: string;
+  phone?: string;
+  interest?: string;
+  message?: string;
+  sourceUrl?: string;
+  conversationTranscript?: string;
+}
 
 export async function POST(request: NextRequest) {
   try {
