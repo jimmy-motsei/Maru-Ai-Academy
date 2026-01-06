@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-async function getModuleProgress(moduleId: string) {
+async function getModuleProgress(moduleSlug: string) {
   const session = await getServerSession(authOptions)
   if (!session?.user?.email) return []
 
@@ -41,10 +41,11 @@ async function getModuleProgress(moduleId: string) {
 
   if (!user) return []
 
-  const progress = await prisma.progress.findMany({
+  // Query the correct table: LessonProgress (Table A) where writes happen
+  const progress = await prisma.lessonProgress.findMany({
     where: {
       userId: user.id,
-      moduleId: moduleId
+      moduleSlug: moduleSlug
     }
   })
 
@@ -90,8 +91,8 @@ export default async function ModulePage({ params }: { params: { slug: string } 
     )
   }
 
-  const progress = await getModuleProgress(module.id)
-  const completedLessonIds = new Set(progress.filter(p => p.completed).map(p => p.lessonId))
+  const progress = await getModuleProgress(module.slug)
+  const completedLessonIds = new Set(progress.filter(p => p.completed).map(p => p.lessonSlug))
   
   const completedCount = completedLessonIds.size
   const totalLessons = module.lessonsCount || 5 // usage of mock data fallback

@@ -10,7 +10,7 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "db:migrate": "node scripts/migrate.js",
-    "db:seed": "node scripts/seed.js",
+
     "postinstall": "prisma generate"
   },
   "dependencies": {
