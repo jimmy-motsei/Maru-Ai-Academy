@@ -2,7 +2,7 @@ import React from 'react'
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger'
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'sm' | 'md' | 'lg' | 'icon'
   fullWidth?: boolean
   loading?: boolean
   children: React.ReactNode
@@ -32,6 +32,7 @@ export const Button: React.FC<ButtonProps> = ({
     sm: 'px-4 py-2 text-sm rounded-md',
     md: 'px-6 py-3 text-base rounded-lg',
     lg: 'px-8 py-4 text-lg rounded-xl',
+    icon: 'h-10 w-10 p-2 rounded-lg',
   }
   
   const widthClass = fullWidth ? 'w-full' : ''
