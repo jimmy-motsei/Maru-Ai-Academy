@@ -9,9 +9,9 @@
 |--------|--------|-------|---------------|--------------|--------------|
 | **1. AI Made Simple** | 1.1 | What AI Actually Is | ✅ **Ready** | ⬜ Pending | ⬜ Pending |
 | | 1.2 | Tool Categories | ✅ **Ready** | ⬜ Pending | ⬜ Pending |
-| | 1.3 | Data Safety (POPIA) | ⬜ Pending | ⬜ Pending | ⬜ Pending |
-| | 1.4 | The CRAFT Framework | ⬜ Pending | ⬜ Pending | ⬜ Pending |
-| | 1.5 | Quick Wins Demo | ⬜ Pending | ⬜ Pending | ⬜ Pending |
+| | 1.3 | Data Safety (POPIA) | ✅ **Ready** | ⬜ Pending | ⬜ Pending |
+| | 1.4 | The CRAFT Framework | ✅ **Ready** | ⬜ Pending | ⬜ Pending |
+| | 1.5 | Quick Wins Demo | ✅ **Ready** | ⬜ Pending | ⬜ Pending |
 | **2. Prompts at Work** | 2.1 | Template Thinking | ⬜ Pending | ⬜ Pending | ⬜ Pending |
 | | 2.2 | The Perfect Email | ⬜ Pending | ⬜ Pending | ⬜ Pending |
 | | 2.3 | Presentation Builder | ⬜ Pending | ⬜ Pending | ⬜ Pending |
