@@ -22,12 +22,12 @@
 
 | Module | Lesson | Topic | Script Status | Video Status | Embed Status |
 |--------|--------|-------|---------------|--------------|--------------|
-| **1. Ad-Hoc to Repeatable** | 1.1 | Systems Thinking | ⬜ Pending | ⬜ Pending | ⬜ Pending |
-| | 1.2 | Documentation | ⬜ Pending | ⬜ Pending | ⬜ Pending |
-| **2. Knowledge Base** | 2.1 | RAG Explained | ⬜ Pending | ⬜ Pending | ⬜ Pending |
-| | 2.2 | Organizing Data | ⬜ Pending | ⬜ Pending | ⬜ Pending |
-| **3. Automations** | 3.1 | Zapier/Make Intro | ⬜ Pending | ⬜ Pending | ⬜ Pending |
-| | 3.2 | Error Handling | ⬜ Pending | ⬜ Pending | ⬜ Pending |
+| **1. Ad-Hoc to Repeatable** | 1.1 | Systems Thinking | ✅ **Ready** | ⬜ Pending | ⬜ Pending |
+| | 1.2 | Documentation | ✅ **Ready** | ⬜ Pending | ⬜ Pending |
+| **2. Knowledge Base** | 2.1 | RAG Explained | ✅ **Ready** | ⬜ Pending | ⬜ Pending |
+| | 2.2 | Organizing Data | ✅ **Ready** | ⬜ Pending | ⬜ Pending |
+| **3. Automations** | 3.1 | Zapier/Make Intro | ✅ **Ready** | ⬜ Pending | ⬜ Pending |
+| | 3.2 | Error Handling | ✅ **Ready** | ⬜ Pending | ⬜ Pending |
 
 ## Next Steps
 1.  Review Script `documents/scripts/M1_L1_What_Is_AI.md`.
