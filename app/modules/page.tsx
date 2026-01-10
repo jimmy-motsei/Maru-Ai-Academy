@@ -207,6 +207,111 @@ export default function ModulesPage() {
           ))}
         </div>
 
+        {/* Coming Soon - Advanced Courses */}
+        <section className="mt-24 pt-16 border-t border-gray-200">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4 border-b border-gray-200 pb-6">
+            <div>
+              <div className="flex items-center gap-3 mb-2">
+                <h2 className="text-3xl font-heading font-bold text-gray-900">
+                  Coming Soon
+                </h2>
+                <Badge variant="warning">Advanced</Badge>
+              </div>
+              <p className="text-lg text-gray-600 max-w-2xl">
+                Expand your skills with role-specific AI mastery courses. Subscribe now to get early access when they launch.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* AI Mastery for Finance */}
+            <div className="relative bg-white rounded-xl border border-gray-200 p-6 hover:border-primary-300 hover:shadow-lg transition-all group opacity-80">
+              <div className="absolute top-4 right-4">
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                  Q2 2026
+                </span>
+              </div>
+              <div className="text-4xl mb-4">💰</div>
+              <div className="text-xs font-medium text-primary-600 uppercase tracking-wide mb-2">
+                Advanced Role-Specific
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">
+                AI Mastery for Finance Professionals
+              </h3>
+              <p className="text-gray-600 text-sm">
+                Automate financial analysis, forecasting, and reporting with AI-powered workflows.
+              </p>
+            </div>
+
+            {/* AI Mastery for Marketing & Sales */}
+            <div className="relative bg-white rounded-xl border border-gray-200 p-6 hover:border-primary-300 hover:shadow-lg transition-all group opacity-80">
+              <div className="absolute top-4 right-4">
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                  Q2 2026
+                </span>
+              </div>
+              <div className="text-4xl mb-4">📈</div>
+              <div className="text-xs font-medium text-primary-600 uppercase tracking-wide mb-2">
+                Advanced Role-Specific
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">
+                AI Mastery for Marketing & Sales
+              </h3>
+              <p className="text-gray-600 text-sm">
+                Build AI-driven lead generation, content creation, and campaign optimization systems.
+              </p>
+            </div>
+
+            {/* AI Mastery for HR */}
+            <div className="relative bg-white rounded-xl border border-gray-200 p-6 hover:border-primary-300 hover:shadow-lg transition-all group opacity-80">
+              <div className="absolute top-4 right-4">
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                  Q3 2026
+                </span>
+              </div>
+              <div className="text-4xl mb-4">👥</div>
+              <div className="text-xs font-medium text-primary-600 uppercase tracking-wide mb-2">
+                Advanced Role-Specific
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">
+                AI Mastery for HR & People Operations
+              </h3>
+              <p className="text-gray-600 text-sm">
+                Streamline recruitment, onboarding, and employee engagement with intelligent automation.
+              </p>
+            </div>
+
+            {/* Industry AI Tech Stack */}
+            <div className="relative bg-white rounded-xl border border-gray-200 p-6 hover:border-primary-300 hover:shadow-lg transition-all group opacity-80">
+              <div className="absolute top-4 right-4">
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                  Q3 2026
+                </span>
+              </div>
+              <div className="text-4xl mb-4">🏗️</div>
+              <div className="text-xs font-medium text-primary-600 uppercase tracking-wide mb-2">
+                Advanced Strategy
+              </div>
+              <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">
+                Building Your Industry AI Tech Stack
+              </h3>
+              <p className="text-gray-600 text-sm">
+                Design and implement the optimal AI toolkit for Hospitality, Retail, Healthcare, and more.
+              </p>
+            </div>
+          </div>
+
+          <div className="text-center mt-10">
+            <p className="text-gray-500 text-sm">
+              Want to be notified when these courses launch?{' '}
+              <a href="/auth/signup" className="text-primary-600 font-medium hover:underline">
+                Create a free account
+              </a>
+              {' '}to get early access.
+            </p>
+          </div>
+        </section>
+
         {/* CTA Section */}
         <div className="mt-24 pt-16 border-t border-gray-200 text-center">
           <h2 className="text-2xl font-heading font-bold text-gray-900 mb-4">

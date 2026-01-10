@@ -11,42 +11,6 @@ export const metadata: Metadata = {
   description: 'Launch pricing for Maru AI Academy. From free starter plans to team training - find the right plan for your AI learning journey.',
 }
 
-// Upcoming courses data
-const upcomingCourses = [
-  {
-    id: 1,
-    title: 'AI Mastery for Finance Professionals',
-    description: 'Automate financial analysis, forecasting, and reporting with AI-powered workflows.',
-    icon: '💰',
-    category: 'Advanced Role-Specific',
-    comingSoon: 'Q2 2026',
-  },
-  {
-    id: 2,
-    title: 'AI Mastery for Marketing & Sales',
-    description: 'Build AI-driven lead generation, content creation, and campaign optimization systems.',
-    icon: '📈',
-    category: 'Advanced Role-Specific',
-    comingSoon: 'Q2 2026',
-  },
-  {
-    id: 3,
-    title: 'AI Mastery for HR & People Operations',
-    description: 'Streamline recruitment, onboarding, and employee engagement with intelligent automation.',
-    icon: '👥',
-    category: 'Advanced Role-Specific',
-    comingSoon: 'Q3 2026',
-  },
-  {
-    id: 4,
-    title: 'Building Your Industry AI Tech Stack',
-    description: 'Design and implement the optimal AI toolkit for Hospitality, Retail, Healthcare, and more.',
-    icon: '🏗️',
-    category: 'Advanced Strategy',
-    comingSoon: 'Q3 2026',
-  },
-];
-
 export default async function PricingPage() {
   const session = await getServerSession(authOptions)
   const user: any = session?.user
@@ -239,54 +203,19 @@ export default async function PricingPage() {
           </Card>
         </div>
 
-        {/* Upcoming Courses Section */}
-        <div className="mt-24 pt-16 border-t border-gray-200">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <Badge variant="primary" className="mb-4">Coming Soon</Badge>
-            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-gray-900 mb-4">
-              Advanced AI Courses
-            </h2>
-            <p className="text-lg text-gray-600">
-              Expand your skills with role-specific AI mastery courses. Subscribe now and get early access when they launch.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {upcomingCourses.map((course) => (
-              <div 
-                key={course.id}
-                className="relative bg-white rounded-xl border border-gray-200 p-6 hover:border-primary-300 hover:shadow-lg transition-all group"
-              >
-                <div className="absolute top-4 right-4">
-                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
-                    {course.comingSoon}
-                  </span>
-                </div>
-                <div className="text-4xl mb-4">{course.icon}</div>
-                <div className="text-xs font-medium text-primary-600 uppercase tracking-wide mb-2">
-                  {course.category}
-                </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">
-                  {course.title}
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  {course.description}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-10">
-            <p className="text-gray-500 text-sm">
-              Want to be notified when these courses launch?{' '}
-              <Link href="/auth/signup" className="text-primary-600 font-medium hover:underline">
-                Create a free account
-              </Link>
-              {' '}to get early access.
-            </p>
-          </div>
+        {/* View All Courses CTA */}
+        <div className="mt-16 text-center">
+          <p className="text-gray-600 mb-4">
+            Want to see what you'll learn?
+          </p>
+          <Link href="/modules">
+            <Button variant="outline" size="lg">
+              View Full Curriculum →
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
   )
 }
+
