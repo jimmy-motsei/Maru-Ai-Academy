@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/prisma';
+import { checkBadgeEligibility } from '@/lib/badges';
 
 export async function POST(req: NextRequest) {
   try {
@@ -75,10 +76,22 @@ export async function POST(req: NextRequest) {
       }
     });
 
+    // CHECK FOR BADGES after feedback submission
+    // This is the trigger point for awarding stream completion badges
+    let newBadges: any[] = [];
+    try {
+      newBadges = await checkBadgeEligibility(userId);
+    } catch (badgeError) {
+      console.error('Badge check failed (non-blocking):', badgeError);
+    }
+
     return NextResponse.json({ 
       success: true, 
       feedback,
-      message: 'Thank you for your feedback!'
+      newBadges,  // Include any newly awarded badges in response
+      message: newBadges.length > 0 
+        ? `🎉 Congratulations! You earned: ${newBadges.map(b => b.name).join(', ')}`
+        : 'Thank you for your feedback!'
     });
 
   } catch (error) {

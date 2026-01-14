@@ -36,6 +36,7 @@ export function FeedbackModal({
 
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [awardedBadges, setAwardedBadges] = useState<any[]>([]);
 
   if (!isOpen) return null;
 
@@ -63,14 +64,23 @@ export function FeedbackModal({
         })
       });
 
+      const data = await res.json();
+
       if (res.ok) {
         setSubmitted(true);
+        
+        // Check for newly awarded badges
+        if (data.newBadges && data.newBadges.length > 0) {
+          setAwardedBadges(data.newBadges);
+        }
+        
         if (onSubmit) onSubmit();
         
-        // Auto-close after 2 seconds
+        // Auto-close after 3 seconds (longer if badge awarded)
+        const closeDelay = data.newBadges?.length > 0 ? 5000 : 2000;
         setTimeout(() => {
           onClose();
-        }, 2000);
+        }, closeDelay);
       } else {
         alert('Failed to submit feedback. Please try again.');
       }
@@ -134,13 +144,44 @@ export function FeedbackModal({
         {submitted ? (
           // Success state
           <div className="text-center py-12">
-            <div className="text-6xl mb-4">🎉</div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
-              Thank You!
-            </h2>
-            <p className="text-gray-600">
-              Your feedback helps us improve the learning experience for everyone.
-            </p>
+            {awardedBadges.length > 0 ? (
+              // Badge awarded state
+              <>
+                <div className="text-6xl mb-4 animate-bounce">🏆</div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  Congratulations! 🎉
+                </h2>
+                <p className="text-gray-600 mb-6">
+                  You've earned {awardedBadges.length > 1 ? 'new badges' : 'a new badge'}!
+                </p>
+                <div className="flex flex-wrap justify-center gap-4 mb-6">
+                  {awardedBadges.map((badge: any) => (
+                    <div 
+                      key={badge.id} 
+                      className="bg-gradient-to-br from-amber-50 to-yellow-100 border-2 border-amber-300 rounded-xl p-4 text-center animate-pulse"
+                    >
+                      <div className="text-4xl mb-2">🎖️</div>
+                      <h3 className="font-bold text-gray-900">{badge.name}</h3>
+                      <p className="text-xs text-gray-600">{badge.description}</p>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-sm text-gray-500">
+                  View all your badges in your Dashboard
+                </p>
+              </>
+            ) : (
+              // Standard thank you state
+              <>
+                <div className="text-6xl mb-4">🎉</div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  Thank You!
+                </h2>
+                <p className="text-gray-600">
+                  Your feedback helps us improve the learning experience for everyone.
+                </p>
+              </>
+            )}
           </div>
         ) : (
           // Feedback form
