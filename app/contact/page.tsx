@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Badge, Button, Input, Textarea } from '@/components/ui'
+import { Send } from 'lucide-react'
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -189,8 +190,14 @@ export default function ContactPage() {
                 fullWidth 
                 size="lg"
                 disabled={loading}
+                className="flex items-center justify-center gap-2"
               >
-                {loading ? 'Sending...' : 'Send Message'}
+                {loading ? 'Sending...' : (
+                  <>
+                    Send Message
+                    <Send size={18} />
+                  </>
+                )}
               </Button>
             </form>
           </div>

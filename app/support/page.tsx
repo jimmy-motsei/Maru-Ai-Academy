@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { Card, Input, Textarea, Button } from '@/components/ui'
-import { MessageCircle, Mail, Book, HelpCircle } from 'lucide-react'
+import { MessageCircle, Mail, Book, HelpCircle, Send } from 'lucide-react'
 
 export default function SupportPage() {
   const { data: session } = useSession()
@@ -186,8 +186,13 @@ export default function SupportPage() {
                   fullWidth
                 />
 
-                <Button variant="primary" size="lg" fullWidth type="submit" disabled={loading}>
-                  {loading ? 'Sending...' : 'Send Message'}
+                <Button variant="primary" size="lg" fullWidth type="submit" disabled={loading} className="flex items-center justify-center gap-2">
+                  {loading ? 'Sending...' : (
+                    <>
+                      Send Message
+                      <Send size={18} />
+                    </>
+                  )}
                 </Button>
               </form>
             </Card>

@@ -274,11 +274,11 @@ export function PromptGym({ challenge, onSuccess }: PromptGymProps) {
             type="submit" 
             disabled={!input.trim() || isTyping}
             className={cn(
-              "h-[46px] w-[46px] rounded-lg p-0 flex items-center justify-center",
-              input.trim() && !isTyping ? "bg-primary-600 hover:bg-primary-700" : "bg-gray-200 text-gray-400"
+              "h-[46px] w-[46px] rounded-lg p-0 flex items-center justify-center transition-all",
+              input.trim() && !isTyping ? "bg-primary-600 hover:bg-primary-700 text-white" : "bg-gray-200 text-gray-400"
             )}
           >
-            <Send size={20} />
+            <Send size={20} className="flex-shrink-0" />
           </Button>
         </form>
         <div className="text-xs text-center text-gray-400 mt-2 flex items-center justify-center gap-1">
