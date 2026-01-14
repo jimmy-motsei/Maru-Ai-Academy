@@ -56,6 +56,7 @@ model User {
   sessions              Session[]
   progress              Progress[]
   lessonProgress        LessonProgress[] @relation("UserLessonProgress")
+  lessonFeedback        LessonFeedback[] @relation("UserLessonFeedback")
   badges                UserBadge[]
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
@@ -131,21 +132,54 @@ model Progress {
 
 // Detailed lesson progress tracking (Week 1 - Day 5)
 model LessonProgress {
-  id          String    @id @default(cuid())
-  userId      String
-  user        User      @relation("UserLessonProgress", fields: [userId], references: [id], onDelete: Cascade)
-  moduleSlug  String
-  lessonSlug  String
-  completed   Boolean   @default(false)
-  completedAt DateTime?
-  timeSpent   Int       @default(0) // in seconds
-  score       Int?      // quiz score percentage
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation("UserLessonProgress", fields: [userId], references: [id], onDelete: Cascade)
+  moduleSlug     String
+  lessonSlug      String
+  completed       Boolean   @default(false)
+  completedAt     DateTime?
+  timeSpent       Int       @default(0) // in seconds
+  score           Int?      // quiz score percentage
+  
+  // Enhanced learning tracking
+  hintsViewed     Int       @default(0)  // Number of hints viewed
+  attemptsCount   Int       @default(0)  // Number of exercise attempts
+  reviewCompleted Boolean   @default(false)  // Lesson review completed
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
   @@unique([userId, moduleSlug, lessonSlug])
   @@index([userId])
   @@index([moduleSlug])
+}
+
+// Lesson Feedback System
+model LessonFeedback {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation("UserLessonFeedback", fields: [userId], references: [id], onDelete: Cascade)
+  moduleSlug      String
+  lessonSlug      String
+  
+  // Ratings (1-10 scale)
+  contentQuality  Int      // How well-explained was the content?
+  difficulty      Int      // Was the difficulty appropriate?
+  relevance       Int      // How relevant is this to your work?
+  overallRating   Int      // Overall lesson rating
+  
+  // Text feedback
+  whatWorked      String?  @db.Text  // What worked well?
+  improvements    String?  @db.Text  // What could be improved?
+  comments        String?  @db.Text  // Additional comments
+  
+  createdAt       DateTime @default(now())
+  
+  @@unique([userId, moduleSlug, lessonSlug])
+  @@index([moduleSlug])
+  @@index([lessonSlug])
+  @@index([createdAt])
 }
 
 // Support ticket system (Week 1 - Day 3)
