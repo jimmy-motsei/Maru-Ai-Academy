@@ -199,18 +199,32 @@ export default async function ModulePage({ params }: { params: { slug: string } 
           <div className="space-y-6">
             <Card>
               <h3 className="font-bold text-gray-900 mb-4">Course Content</h3>
+              <p className="text-sm text-gray-500 mb-4">
+                Complete lessons in order to unlock the next one.
+              </p>
               <div className="space-y-0">
-                {lessons.map((lesson, i) => (
-                  <LessonItem
-                    key={lesson.id}
-                    lessonId={lesson.id}
-                    moduleId={module.slug} // Use slug for better URL/DB matching
-                    title={lesson.title}
-                    duration={lesson.duration}
-                    index={i + 1}
-                    isCompleted={completedLessonIds.has(lesson.id)}
-                  />
-                ))}
+                {lessons.map((lesson, i) => {
+                  const isCompleted = completedLessonIds.has(lesson.id);
+                  // Lesson is locked if previous lesson isn't completed (except first lesson)
+                  const previousLessonCompleted = i === 0 || completedLessonIds.has(lessons[i - 1].id);
+                  const isLocked = !isCompleted && !previousLessonCompleted;
+                  // Current lesson is first incomplete unlocked lesson
+                  const isCurrent = !isCompleted && previousLessonCompleted;
+                  
+                  return (
+                    <LessonItem
+                      key={lesson.id}
+                      lessonId={lesson.id}
+                      moduleId={module.slug}
+                      title={lesson.title}
+                      duration={lesson.duration}
+                      index={i + 1}
+                      isCompleted={isCompleted}
+                      isLocked={isLocked}
+                      isCurrent={isCurrent}
+                    />
+                  );
+                })}
               </div>
             </Card>
           </div>

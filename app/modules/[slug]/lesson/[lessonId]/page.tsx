@@ -49,15 +49,37 @@ export default async function LessonPage({ params }: Props) {
     )
   }
 
-  // 3. Determine Navigation (Next/Prev)
+  // 3. Check Sequential Access (Enforce lesson order)
   const currentIndex = moduleData.lessons?.findIndex(l => l.id === params.lessonId) ?? -1
+  const userId = (session.user as any).id
+  
+  if (currentIndex > 0) {
+    // Get all completed lessons for this module
+    const completedLessons = await prisma.lessonProgress.findMany({
+      where: {
+        userId: userId,
+        moduleSlug: params.slug,
+        completed: true
+      },
+      select: { lessonSlug: true }
+    })
+    
+    const completedSet = new Set(completedLessons.map(p => p.lessonSlug))
+    const previousLesson = moduleData.lessons?.[currentIndex - 1]
+    
+    // If previous lesson isn't completed, redirect back to module
+    if (previousLesson && !completedSet.has(previousLesson.id)) {
+      redirect(`/modules/${params.slug}?locked=true`)
+    }
+  }
+
+  // 4. Determine Navigation (Next/Prev)
   const prevLessonSlug = currentIndex > 0 ? moduleData.lessons?.[currentIndex - 1].id : undefined
   const nextLessonSlug = currentIndex >= 0 && currentIndex < (moduleData.lessons?.length || 0) - 1 
     ? moduleData.lessons?.[currentIndex + 1].id 
     : undefined
 
-  // 4. Fetch User Progress state
-  const userId = (session.user as any).id
+  // 5. Fetch User Progress state
   const progress = await (prisma as any).lessonProgress.findUnique({
     where: {
       userId_moduleSlug_lessonSlug: {
