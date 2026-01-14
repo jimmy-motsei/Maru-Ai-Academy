@@ -113,10 +113,6 @@ const steps = [
            </p>
         </div>
 
-        <div className="bg-gray-100 p-4 rounded-lg border border-gray-200 text-sm font-mono text-gray-600 mb-4">
-          [System]: Uploaded file "meeting_transcript.txt" (15kb)
-        </div>
-
         <div className="space-y-3">
           <h3 className="font-semibold text-gray-900">Requirements:</h3>
           <ul className="space-y-2">
