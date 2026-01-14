@@ -102,6 +102,8 @@ export default async function LessonPage({ params }: Props) {
           nextLessonSlug={nextLessonSlug}
           prevLessonSlug={prevLessonSlug}
           isCompleted={!!progress?.completed}
+          lessonNumber={currentIndex + 1}
+          totalLessons={moduleData.lessons?.length || 5}
         />
       </main>
     </div>
