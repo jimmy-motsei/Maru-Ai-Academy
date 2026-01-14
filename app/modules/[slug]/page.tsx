@@ -158,9 +158,11 @@ export default async function ModulePage({ params }: { params: { slug: string } 
                   {percentComplete === 100 ? 'Completed! 🎉' : `${percentComplete}% Complete`}
                 </div>
               </div>
-              <Button fullWidth size="lg">
-                {percentComplete === 0 ? 'Start Learning' : 'Continue Learning'}
-              </Button>
+              <Link href={`/modules/${module.slug}/lesson/${lessons[0].id}`} className="block">
+                <Button fullWidth size="lg">
+                  {percentComplete === 0 ? 'Start Learning' : 'Continue Learning'}
+                </Button>
+              </Link>
             </Card>
           </div>
         </div>
