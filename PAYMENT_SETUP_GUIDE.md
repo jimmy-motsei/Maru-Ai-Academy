@@ -1,66 +1,122 @@
-# 💳 Payment Integration Guide
+# Payment Integration Guide - Paystack
 
-We have set up **PayFast** as your primary payment gateway for South African (ZAR) payments, and prepared the ground for **PayPal**.
+## Overview
+Maru AI Academy uses **Paystack** as the single payment gateway for all subscriptions and payments.
 
-## 1. PayFast Configuration
-Currently, the system is using **Sandbox Credentials** for testing.
+## Required Environment Variables
 
-To go live, you need to:
-1.  Find your PayFast Merchant ID and Key (from your old account).
-2.  Update your `maru-ai-academy/.env.local` file with these values:
+Add these to your `.env.local` file:
 
 ```bash
-# PayFast Production Credentials
-PAYFAST_MERCHANT_ID=your_merchant_id
-PAYFAST_MERCHANT_KEY=your_merchant_key
-PAYFAST_PASSPHRASE=your_passphrase
-PAYFAST_SANDBOX=false
+# Paystack Configuration
+NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY=pk_test_xxxxx  # Get from Paystack Dashboard
+PAYSTACK_SECRET_KEY=sk_test_xxxxx              # Get from Paystack Dashboard
 ```
 
-### Testing (Current Mode)
-You can test the flow right now!
--   Click "Subscribe" on the Pricing page.
--   It will redirect to the PayFast Sandbox.
--   Use written credentials on the sandbox page to "Complete" the payment.
--   The webhook (ITN) will fire and upgrade your user to PRO.
+## Setup Instructions
 
-> **Note on Localhost**: The PayFast ITN (webhook) cannot reach `localhost:3000`. You need to use a tunneling tool like **ngrok** to test the callback locally, or deploy to Vercel.
->
-> **Workaround for Local Testing**:
-> After "paying" in Sandbox, you can verify the URL parameters on the success page, but the database won't update automatically unless you manually trigger the API or use ngrok.
+### 1. Create Paystack Account
+1. Go to [Paystack](https://paystack.com)
+2. Sign up for an account
+3. Verify your business details
 
-## 2. PayPal Integration (Currently Paused)
-We have implemented the code for PayPal "Smart Payment Buttons", but hidden them in the UI until you have a PayPal Developer Account.
+### 2. Get API Keys
+1. Log in to your Paystack Dashboard
+2. Go to **Settings** → **API Keys & Webhooks**
+3. Copy your **Public Key** (starts with `pk_test_` for test mode)
+4. Copy your **Secret Key** (starts with `sk_test_` for test mode)
+5. Add these to your `.env.local` file
 
-To enable it in the future:
-1.  Log in to the [PayPal Developer Dashboard](https://developer.paypal.com).
-2.  Create a App (Sandbox for testing, Live for production).
-3.  Copy the **Client ID** (you don't strictly need the Secret for the current Client-side flow, but keep it safe).
-4.  Update your `.env.local`:
+### 3. Configure Webhook
+1. In Paystack Dashboard, go to **Settings** → **API Keys & Webhooks  **
+2. Add webhook URL: `https://your-domain.com/api/webhooks/paystack`
+3. Select events to listen for:
+   - `charge.success` (required)
+4. Copy the webhook secret and add to `.env.local` (though we verify using secret key)
 
-```bash
-# PayPal Credentials
-NEXT_PUBLIC_PAYPAL_CLIENT_ID=your_client_id_here
+### 4. Test Payment Flow
+
+**Test Cards (Paystack Sandbox):**
+- **Success**: `4084084084084081` (CVV: 408, Expiry: any future date)
+- **Insufficient Funds**: `5456788888888889`
+- **Declined**: `5078585078585078`
+
+**OTP for Test Transactions:** `123456`
+
+### 5. Go Live
+
+When ready for production:
+1. Complete KYC in Paystack Dashboard
+2. Switch to **Live Mode** in dashboard
+3. Update environment variables with live keys:
+   ```bash
+   NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY=pk_live_xxxxx
+   PAYSTACK_SECRET_KEY=sk_live_xxxxx
+   ```
+
+## Payment Flow
+
+1. **User clicks Subscribe** on pricing page
+2. **PaystackButton component** initializes payment popup
+3. **User completes payment** in Paystack popup
+4. **Payment success** → Paystack sends webhook to `/api/webhooks/paystack`
+5. **Webhook updates database** → User plan upgraded
+6. **User redirected** to success page
+
+## Pricing Tiers
+
+| Tier | Amount | Plan Code |
+|------|--------|-----------|
+| Free Explorer | R0 | FREE |
+| AI Cadet | R199/mo | LEARNER |
+| AI Captain | R399/mo | PRO |
+| AI Crew | R299/user/mo | TEAM |
+
+## File Structure
+
+```
+app/
+├── components/
+│   └── pricing/
+│       └── PaystackButton.tsx          # Payment button component
+├── api/
+│   └── webhooks/
+│       └── paystack/
+│           └── route.ts                # Webhook handler
+└── pricing/
+    └── page.tsx                        # Pricing page using PaystackButton
 ```
 
-### Testing PayPal
--   The buttons currently default to `clientId: "test"` if no env var is found.
--   This connects to the public PayPal Sandbox.
--   You can click the PayPal button, log in with a **Sandbox Personal Account** (create one in PayPal Developer Dashboard), and "pay".
--   The system will capture the order and upgrade the user.
+## Security Notes
 
-## 3. Database Updates
-We updated your user schema to support multiple payment providers:
--   `paymentProvider`: 'payfast' or 'paypal'
--   `subscriptionId`: The ID from the provider
--   `billingToken`: For recurring billing
+- ✅ All payments processed securely by Paystack
+- ✅ Webhook signature verification implemented
+- ✅ No card details stored on our servers
+- ✅ PCI DSS compliant through Paystack
+- ✅ Secret keys never exposed to client
 
-## 4. Recurring Billing
-The current setup creates a **Subscription** (Recurring) transaction with PayFast.
--   Frequency: Monthly
--   Amount: R550 (Pro) or R1800 (Team)
+## Troubleshooting
 
----
-**Next Steps**:
--   Deploy to Vercel (so ITN callbacks work).
--   Find your real PayFast credentials.
+### Payment not updating user plan
+1. Check webhook logs in Paystack Dashboard
+2. Verify webhook URL is accessible
+3. Check server logs for webhook errors
+4. Ensure user ID is being passed correctly in metadata
+
+### Test payments failing
+1. Use exact test card numbers above
+2. Use future expiry date (e.g., 12/25)
+3. Use OTP: 123456
+4. Check you're using test keys (pk_test_, sk_test_)
+
+### Production payments not working
+1. Verify you've switched to live keys
+2. Check KYC is complete in dashboard
+3. Verify webhook URL is HTTPS (required for live)
+4. Check Paystack account is activated
+
+## Support
+
+- **Paystack Docs**: https://paystack.com/docs
+- **Paystack Support**: support@paystack.com
+- **Dashboard**: https://dashboard.paystack.com

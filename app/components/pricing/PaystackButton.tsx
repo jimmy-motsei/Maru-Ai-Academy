@@ -7,43 +7,45 @@ import { useRouter } from 'next/navigation';
 
 interface PaystackButtonProps {
   email: string;
-  amount: number; // in Rands (e.g. 550 for $29 approx)
-  metadata: {
-    plan: 'PRO' | 'TEAM';
-    userId: string;
-  };
+  amount: number; // in Rands (e.g., 199 for R199, 399 for R399)
+  plan: 'LEARNER' | 'PRO' | 'TEAM';
+  userId: string;
   onSuccess?: (reference: any) => void;
   onClose?: () => void;
   label?: string;
 }
 
-export default function PaystackSubscriptionButton({
+export default function PaystackButton({
   email,
   amount,
-  metadata,
+  plan,
+  userId,
   onSuccess,
   onClose,
-  label = 'Pay Now'
+  label
 }: PaystackButtonProps) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
+  // Default labels based on plan
+  const defaultLabel = label || `Subscribe - R${amount}/mo`;
+
   const config = {
     reference: (new Date()).getTime().toString(),
     email: email,
-    amount: amount * 100, // Paystack expects cents
+    amount: amount * 100, // Paystack expects amount in kobo (cents)
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY || '',
     metadata: {
       custom_fields: [
         {
           display_name: "Plan",
           variable_name: "plan",
-          value: metadata.plan
+          value: plan
         },
         {
           display_name: "User ID",
           variable_name: "user_id",
-          value: metadata.userId
+          value: userId
         }
       ]
     }
@@ -56,8 +58,10 @@ export default function PaystackSubscriptionButton({
     initializePayment({
       onSuccess: (reference) => {
         setLoading(false);
+        console.log('Paystack payment successful:', reference);
         if (onSuccess) onSuccess(reference);
-        router.refresh(); // Refresh to show new plan
+        router.push('/pricing/success');
+        router.refresh();
       },
       onClose: () => {
         setLoading(false);
@@ -72,8 +76,9 @@ export default function PaystackSubscriptionButton({
       fullWidth 
       onClick={handlePayment} 
       disabled={loading || !config.publicKey}
+      className="bg-[#00C3F7] hover:bg-[#00B0E8] border-none text-white"
     >
-      {loading ? 'Processing...' : label}
+      {loading ? 'Processing...' : defaultLabel}
     </Button>
   );
 }

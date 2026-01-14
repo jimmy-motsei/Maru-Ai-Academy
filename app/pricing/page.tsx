@@ -3,8 +3,7 @@ import { Badge, Button, Card } from '@/components/ui'
 import Link from 'next/link'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
-import PayFastButton from '@/components/pricing/PayFastButton'
-import PayPalButtonWrapper from '@/components/pricing/PayPalButton'
+import PaystackButton from '@/components/pricing/PaystackButton'
 
 export const metadata: Metadata = {
   title: 'Pricing',
@@ -83,7 +82,13 @@ export default async function PricingPage() {
             
             <div className="w-full mb-6">
               {session ? (
-                <PayFastButton plan="LEARNER" amount={199} label="Subscribe" />
+                <PaystackButton
+                  email={user?.email || ''}
+                  amount={199}
+                  plan="LEARNER"
+                  userId={(user as any)?.id || ''}
+                  label="Subscribe"
+                />
               ) : (
                 <Link href="/auth/signup?plan=learner">
                   <Button variant="outline" fullWidth size="sm">Start 7-Day Trial</Button>
@@ -126,12 +131,14 @@ export default async function PricingPage() {
             </div>
             <p className="text-xs text-green-600 font-medium mb-4">🎉 Launch price – save 28%</p>
             
-            <div className="w-full mb-6 space-y-2">
+            <div className="w-full mb-6">
               {session ? (
-                <>
-                  <PayFastButton plan="PRO" amount={399} />
-                  <p className="text-center text-xs text-gray-400">PayPal coming soon</p>
-                </>
+                <PaystackButton
+                  email={user?.email || ''}
+                  amount={399}
+                  plan="PRO"
+                  userId={(user as any)?.id || ''}
+                />
               ) : (
                 <Link href="/auth/signup?plan=pro">
                   <Button variant="primary" fullWidth size="sm">Start 7-Day Free Trial</Button>
