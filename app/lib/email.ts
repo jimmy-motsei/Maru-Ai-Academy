@@ -223,3 +223,64 @@ export async function sendSupportTicketConfirmation(data: {
     html,
   });
 }
+
+/**
+ * Send password reset email with secure token link
+ */
+export async function sendPasswordResetEmail(email: string, token: string) {
+  const resetUrl = `${process.env.NEXTAUTH_URL || 'https://academy.maruonline.com'}/auth/reset-password?token=${token}`;
+  
+  const html = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Reset Your Password</title>
+      </head>
+      <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px 20px; text-align: center; border-radius: 10px 10px 0 0;">
+          <h1 style="color: white; margin: 0; font-size: 24px;">Reset Your Password 🔐</h1>
+        </div>
+        
+        <div style="background: white; padding: 30px; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 10px 10px;">
+          <p style="font-size: 16px; margin-bottom: 20px;">
+            You recently requested to reset your password for your Maru AI Academy account. Click the button below to reset it.
+          </p>
+          
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${resetUrl}" style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 14px 30px; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 16px;">
+              Reset Password →
+            </a>
+          </div>
+          
+          <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; border-radius: 4px; margin: 20px 0;">
+            <p style="margin: 0; color: #92400e; font-size: 14px;">
+              ⚠️ <strong>Security Notice:</strong> This link will expire in 1 hour. If you didn't request this password reset, please ignore this email.
+            </p>
+          </div>
+          
+          <p style="margin-top: 20px; color: #6b7280; font-size: 14px;">
+            If the button doesn't work, copy and paste this link into your browser:
+          </p>
+          <p style="word-break: break-all; color: #667eea; font-size: 13px;">
+            ${resetUrl}
+          </p>
+          
+          <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb;">
+            <p style="margin: 5px 0; font-weight: 600;">Maru AI Academy Team</p>
+            <p style="margin: 5px 0; color: #6b7280; font-size: 14px;">
+              <a href="https://academy.maruonline.com" style="color: #667eea; text-decoration: none;">academy.maruonline.com</a>
+            </p>
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+
+  return sendEmail({
+    to: email,
+    subject: 'Reset Your Password - Maru AI Academy',
+    html,
+  });
+}
