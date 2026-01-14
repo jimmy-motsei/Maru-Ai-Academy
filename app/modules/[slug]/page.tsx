@@ -181,12 +181,12 @@ export default async function ModulePage({ params }: { params: { slug: string } 
             <Card>
               <h2 className="text-2xl font-bold mb-6">What You'll Learn</h2>
               <ul className="space-y-4">
-                {[1, 2, 3, 4].map((i) => (
+                {module.learningObjectives?.map((objective, i) => (
                   <li key={i} className="flex items-start">
                     <svg className="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    <span className="text-gray-700">Learning objective placeholder {i} goes here. This will come from the content markdown content.</span>
+                    <span className="text-gray-700">{objective}</span>
                   </li>
                 ))}
               </ul>

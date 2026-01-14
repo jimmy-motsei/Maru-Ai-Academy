@@ -18,6 +18,7 @@ export interface Module {
   duration?: string
   lessonsCount?: number
   lessons?: Lesson[]
+  learningObjectives?: string[]
 }
 
 export interface Stream {
@@ -43,6 +44,13 @@ export const STREAMS: Stream[] = [
         icon: 'bulb',
         duration: '2 hours',
         lessonsCount: 5,
+        learningObjectives: [
+          'Understand what AI is and explore different model types in plain English',
+          'Navigate tool categories: Chat, document, slide, meeting, and workflow tools',
+          'Learn safe AI usage including POPIA basics and the green/yellow/red data framework',
+          'Master the 5-part prompt formula: Role, Goal, Inputs, Rules, and Format',
+          'Achieve quick productivity wins with AI in emails, slides, and reports'
+        ],
         lessons: [
           { id: 'b-m1-l1', title: 'What is Generative AI?', duration: '15 min', type: 'video' },
           { id: 'b-m1-l2', title: 'LLMs vs Traditional Software', duration: '20 min', type: 'text' },
@@ -61,6 +69,14 @@ export const STREAMS: Stream[] = [
         icon: 'message',
         duration: '2.5 hours',
         lessonsCount: 7,
+        learningObjectives: [
+          'Master the reusable prompt frame with variables, quality checks, and base templates',
+          'Create professional email templates for customer replies and communication',
+          'Transform bullet points into complete presentation outlines and slide skeletons',
+          'Summarize long documents and reports into actionable decisions',
+          'Implement tracking and follow-through systems with checklists and progress monitoring',
+          'Combine everything to create one prompt that generates many high-quality outputs'
+        ],
         lessons: [
           { id: 'b-m2-l1', title: 'The Reusable Prompt Frame', duration: '20 min', type: 'text' },
           { id: 'b-m2-l2', title: 'Email & Customer Replies', duration: '25 min', type: 'text' },
@@ -81,6 +97,14 @@ export const STREAMS: Stream[] = [
         icon: 'tool',
         duration: '3 hours',
         lessonsCount: 7,
+        learningObjectives: [
+          'Select the right AI tool using a simple 5-point checklist for evaluation',
+          'Understand no-code automation patterns: Triggers, Actions, and Checks',
+          'Build your first micro-automation like an enquiry auto-reply and logging system',
+          'Create tracking dashboards to make automation results visible',
+          'Implement cost caps and privacy guardrails with simple, non-negotiable rules',
+          'Troubleshoot and iterate your automations to improve them each week'
+        ],
         lessons: [
           { id: 'b-m3-l1', title: 'Choose the Right Tool (Simple Checklist)', duration: '15 min', type: 'text' },
           { id: 'b-m3-l2', title: 'No-Code Automation Basics', duration: '20 min', type: 'text' },
@@ -101,6 +125,14 @@ export const STREAMS: Stream[] = [
         icon: 'rocket',
         duration: '4 hours',
         lessonsCount: 7,
+        learningObjectives: [
+          'Select a simple and valuable capstone project that delivers real impact',
+          'Design a complete workflow by mapping steps, roles, and guardrails',
+          'Build and test your workflow with dry runs, edge cases, and tone adjustments',
+          'Measure impact using baselines, scorecards, and weekly review processes',
+          'Document Standard Operating Procedures (SOPs) and create one-page policy documents',
+          'Launch and support your live workflow with monitoring and iteration'
+        ],
         lessons: [
           { id: 'b-m4-l1', title: 'Pick the Right Capstone', duration: '15 min', type: 'text' },
           { id: 'b-m4-l2', title: 'Design the Workflow', duration: '25 min', type: 'text' },
@@ -128,6 +160,14 @@ export const STREAMS: Stream[] = [
         icon: 'repeat',
         duration: '3 hours',
         lessonsCount: 7,
+        learningObjectives: [
+          'Design prompts as reusable templates with variables, constraints, and structured outputs',
+          'Create output contracts with schemas, validation rules, and examples',
+          'Ensure data readiness with clean inputs and POPIA compliance',
+          'Build prompt component libraries with versioning and governance',
+          'Chain template components into workflows with JSON outputs',
+          'Implement quality gates with self-checks, human review loops, and feedback mechanisms'
+        ],
         lessons: [
           { id: 'i-m1-l1', title: 'Design Prompts as Templates', duration: '25 min', type: 'text' },
           { id: 'i-m1-l2', title: 'Output Contracts', duration: '20 min', type: 'text' },
@@ -148,6 +188,14 @@ export const STREAMS: Stream[] = [
         icon: 'search',
         duration: '3.5 hours',
         lessonsCount: 7,
+        learningObjectives: [
+          'Understand semantic search and how meaning-based search provides grounded answers',
+          'Build your mini-library with proper document preparation, metadata, and versioning',
+          'Ask better questions using citation prompts to get precise, referenced answers',
+          'Implement access controls and POPIA-compliant data protection for private knowledge',
+          'Reduce hallucinations through quality checks and systematic evaluation methods',
+          'Create a complete Q&A system hands-on with your own knowledge library'
+        ],
         lessons: [
           { id: 'i-m2-l1', title: 'What is Semantic Search?', duration: '20 min', type: 'text' },
           { id: 'i-m2-l2', title: 'Build Your Mini-Library', duration: '30 min', type: 'text' },
@@ -168,6 +216,14 @@ export const STREAMS: Stream[] = [
         icon: 'puzzle',
         duration: '4 hours',
         lessonsCount: 7,
+        learningObjectives: [
+          'Master automation patterns including triage, routing, approvals, and logging',
+          'Build end-to-end multi-step workflows like lead handling systems',
+          'Implement cost control with model selection, rate limits, and spending caps',
+          'Set up monitoring and dashboards with health metrics, alerts, and reporting',
+          'Run quality checks and A/B tests using golden sets and feedback loops',
+          'Ensure governance with SOPs, access controls, POPIA compliance, and rollback procedures'
+        ],
         lessons: [
           { id: 'i-m3-l1', title: 'Automation Patterns', duration: '25 min', type: 'text' },
           { id: 'i-m3-l2', title: 'Build a Multi-Step Flow', duration: '35 min', type: 'text' },
@@ -188,6 +244,14 @@ export const STREAMS: Stream[] = [
         icon: 'shield',
         duration: '3 hours',
         lessonsCount: 7,
+        learningObjectives: [
+          'Define outcome-focused KPIs that matter and establish baseline measurements',
+          'Design instrumentation and data models with proper logging schemas and retention policies',
+          'Create focused dashboards and establish weekly/monthly review cadences for decision-making',
+          'Develop one-page policy documents and risk frameworks for compliance',
+          'Prepare comprehensive handover documentation and SOPs for team scaling',
+          'Manage workflow portfolios including scale-out strategies and sunset procedures'
+        ],
         lessons: [
           { id: 'i-m4-l1', title: 'KPIs That Matter', duration: '25 min', type: 'text' },
           { id: 'i-m4-l2', title: 'Instrumentation & Data Model', duration: '25 min', type: 'text' },
