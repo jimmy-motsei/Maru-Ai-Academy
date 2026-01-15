@@ -73,12 +73,18 @@ export const Footer = () => {
           <p className="text-gray-400 text-sm">
             © {currentYear} Maru AI Academy. All rights reserved.
           </p>
-          <div className="flex space-x-6 mt-4 md:mt-0">
+          <div className="flex flex-wrap justify-center gap-4 md:gap-6 mt-4 md:mt-0">
             <Link href="/privacy" className="text-gray-400 hover:text-primary-400 text-sm transition-colors">
               Privacy Policy
             </Link>
             <Link href="/terms" className="text-gray-400 hover:text-primary-400 text-sm transition-colors">
               Terms of Service
+            </Link>
+            <Link href="/refund-policy" className="text-gray-400 hover:text-primary-400 text-sm transition-colors">
+              Refund Policy
+            </Link>
+            <Link href="/cancellation-policy" className="text-gray-400 hover:text-primary-400 text-sm transition-colors">
+              Cancellation Policy
             </Link>
           </div>
         </div>
