@@ -31,7 +31,7 @@ export default function CancellationPolicyPage() {
               <li>Click on <strong>Cancel Subscription</strong>.</li>
             </ol>
             <p className="text-gray-700 mb-4">
-              If you have trouble finding the cancellation option, you can email us at <a href="mailto:support@maruonline.com" className="text-primary-600 hover:text-primary-700">support@maruonline.com</a> for assistance.
+              If you have trouble finding the cancellation option, you can email us at <a href="mailto:hello@maruonline.com" className="text-primary-600 hover:text-primary-700">hello@maruonline.com</a> for assistance.
             </p>
 
             <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Effect of Cancellation</h2>
