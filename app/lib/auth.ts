@@ -44,7 +44,7 @@ export const authOptions: NextAuthOptions = {
             plan: (user as any).plan,
           }
         } catch (error) {
-          console.error('Auth error:', error)
+          console.error('Auth error: Authentication failed')
           return null
         }
       },
@@ -75,6 +75,6 @@ export const authOptions: NextAuthOptions = {
     signIn: '/auth/signin',
     error: '/auth/error',
   },
-  debug: true, // Enable debug mode to see what's wrong
+  debug: process.env.NODE_ENV === 'development'
   secret: process.env.NEXTAUTH_SECRET,
 }

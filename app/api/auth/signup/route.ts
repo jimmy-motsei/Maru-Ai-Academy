@@ -64,7 +64,7 @@ export async function POST(request: Request) {
     } catch (dbError: any) {
       console.error('Database creation error:', dbError)
       return NextResponse.json(
-        { error: `Database error: ${dbError.message}` },
+        { error: 'Failed to create user account' },
         { status: 500 }
       )
     }
@@ -73,7 +73,7 @@ export async function POST(request: Request) {
   } catch (error: any) {
     console.error('Signup error:', error)
     return NextResponse.json(
-      { error: `Internal error: ${error.message}` },
+      { error: 'Internal server error' },
       { status: 500 }
     )
   }

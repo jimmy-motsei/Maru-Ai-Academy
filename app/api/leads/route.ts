@@ -50,8 +50,7 @@ export async function POST(request: NextRequest) {
     
     return NextResponse.json(
       {
-        error: 'Failed to process lead data',
-        message: error instanceof Error ? error.message : 'Unknown error'
+        error: 'Failed to process lead data'
       },
       { status: 500 }
     );
@@ -84,10 +83,14 @@ ${leadData.conversationTranscript || 'No transcript available'}
 =====================================
     `.trim();
 
-    // For development/testing: Log to console
+    // For development/testing: Log sanitized version
     console.log('=================================');
-    console.log('NEW ACADEMY LEAD CAPTURED:');
-    console.log(emailContent);
+    console.log('NEW ACADEMY LEAD CAPTURED');
+    console.log('Name: [REDACTED]');
+    console.log('Email: [REDACTED]');
+    console.log('Company:', leadData.company || 'Not provided');
+    console.log('Interest:', leadData.interest || 'Not specified');
+    console.log('Timestamp:', new Date().toISOString());
     console.log('=================================');
 
     // TODO: Implement actual email sending with Resend or similar

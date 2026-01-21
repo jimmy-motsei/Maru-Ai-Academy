@@ -14,11 +14,11 @@ export interface SendCertificateResult {
 }
 
 /**
- * Generate a unique certificate ID
+ * Generate a unique certificate ID using cryptographically secure random
  */
 function generateCertificateId(): string {
   const timestamp = Date.now().toString(36)
-  const randomPart = Math.random().toString(36).substring(2, 8)
+  const randomPart = crypto.randomUUID().replace(/-/g, '').substring(0, 8)
   return `MARU-${timestamp}-${randomPart}`.toUpperCase()
 }
 
@@ -188,16 +188,51 @@ export async function checkStreamCompletion(
   userId: string,
   stream: 'beginner' | 'intermediate'
 ): Promise<{ completed: boolean; modulesCompleted: number; totalModules: number }> {
-  // This would typically check the database for lesson progress
-  // For now, return a placeholder
-  const totalModules = stream === 'beginner' ? 4 : 4
+  try {
+    // Import prisma dynamically to avoid circular dependencies
+    const { default: prisma } = await import('@/lib/prisma')
+    
+    const totalModules = stream === 'beginner' ? 4 : 4
 
-  // TODO: Query database for actual completion status
-  // const completedModules = await prisma.lessonProgress.findMany(...)
+    // Query database for actual completion status
+    const completedLessons = await prisma.lessonProgress.findMany({
+      where: {
+        userId,
+        lesson: {
+          module: {
+            stream: stream.toUpperCase()
+          }
+        },
+        completed: true
+      },
+      include: {
+        lesson: {
+          include: {
+            module: true
+          }
+        }
+      }
+    })
 
-  return {
-    completed: false,
-    modulesCompleted: 0,
-    totalModules,
+    // Count unique completed modules
+    const completedModuleIds = new Set(
+      completedLessons.map(progress => progress.lesson.moduleId)
+    )
+    const modulesCompleted = completedModuleIds.size
+    const completed = modulesCompleted >= totalModules
+
+    return {
+      completed,
+      modulesCompleted,
+      totalModules,
+    }
+  } catch (error) {
+    console.error('Error checking stream completion:', error)
+    // Return safe defaults on error
+    return {
+      completed: false,
+      modulesCompleted: 0,
+      totalModules: stream === 'beginner' ? 4 : 4,
+    }
   }
 }

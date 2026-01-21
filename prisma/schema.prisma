@@ -248,6 +248,7 @@ enum Stream {
 
 enum Plan {
   FREE
+  LEARNER
   PRO
   TEAM
 }
