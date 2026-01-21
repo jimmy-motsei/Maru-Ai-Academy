@@ -192,34 +192,30 @@ export async function checkStreamCompletion(
     // Import prisma dynamically to avoid circular dependencies
     const { default: prisma } = await import('@/lib/prisma')
     
-    const totalModules = stream === 'beginner' ? 4 : 4
+    // Import STREAMS to get the modules for this stream
+    const { STREAMS } = await import('@/types/modules')
+    const streamInfo = STREAMS.find((s: any) => s.id === stream)
+    const streamModuleSlugs = streamInfo?.modules.map((m: any) => m.slug) || []
+    const totalModules = streamModuleSlugs.length
 
     // Query database for actual completion status
-    const completedLessons = await prisma.lessonProgress.findMany({
+    const completedProgress = await prisma.lessonProgress.findMany({
       where: {
         userId,
-        lesson: {
-          module: {
-            stream: stream.toUpperCase()
-          }
+        moduleSlug: {
+          in: streamModuleSlugs
         },
         completed: true
       },
-      include: {
-        lesson: {
-          include: {
-            module: true
-          }
-        }
+      select: {
+        moduleSlug: true
       }
     })
 
     // Count unique completed modules
-    const completedModuleIds = new Set(
-      completedLessons.map(progress => progress.lesson.moduleId)
-    )
-    const modulesCompleted = completedModuleIds.size
-    const completed = modulesCompleted >= totalModules
+    const completedModuleSlugs = new Set(completedProgress.map(p => p.moduleSlug))
+    const modulesCompleted = completedModuleSlugs.size
+    const completed = modulesCompleted >= totalModules && totalModules > 0
 
     return {
       completed,
