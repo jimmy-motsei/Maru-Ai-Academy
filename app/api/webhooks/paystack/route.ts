@@ -19,9 +19,12 @@ export async function POST(req: NextRequest) {
 
     // Handle different event types
     if (event.event === 'charge.success') {
-      const { metadata, customer } = event.data;
+      const { metadata, customer, amount, currency } = event.data;
       const plan = metadata?.custom_fields?.find((f: any) => f.variable_name === 'plan')?.value;
       const userId = metadata?.custom_fields?.find((f: any) => f.variable_name === 'user_id')?.value;
+      const metaCurrency = metadata?.custom_fields?.find((f: any) => f.variable_name === 'currency')?.value;
+
+      console.log(`Payment success: ${amount/100} ${currency} (Meta: ${metaCurrency}) for plan ${plan}`);
 
       if (userId && plan) {
         await (prisma as any).user.update({

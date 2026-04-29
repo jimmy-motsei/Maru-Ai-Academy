@@ -1,7 +1,14 @@
 // Quick test to verify Gemini API is working
-// Run with: node test-gemini-api.js
+// Run with: GEMINI_API_KEY=your_key node test-gemini-api.js
+// Or set it in your shell: export GEMINI_API_KEY=your_key
 
-const GEMINI_API_KEY = 'AIzaSyCws1wnCMn8SpC5THzzD9ZqNCX2ftFVyTI';
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
+if (!GEMINI_API_KEY) {
+  console.error('❌ GEMINI_API_KEY environment variable is not set.');
+  console.error('   Run: GEMINI_API_KEY=your_key node test-gemini-api.js');
+  process.exit(1);
+}
 
 async function testGeminiAPI() {
   console.log('🧪 Testing Gemini API...\n');

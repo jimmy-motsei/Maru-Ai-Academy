@@ -48,7 +48,7 @@ export default function RefundPolicyPage() {
               If you believe you are entitled to a refund based on the exceptions above, please contact our support team within 7 days of the billing date.
             </p>
             <ul className="list-none text-gray-700 mb-4 space-y-2">
-              <li>Email: <a href="mailto:hello@maruonline.com" className="text-primary-600 hover:text-primary-700">hello@maruonline.com</a></li>
+              <li>Email: <a href="mailto:support@maruonline.com" className="text-primary-600 hover:text-primary-700">support@maruonline.com</a></li>
               <li>Subject Line: Refund Request - [Your Account Email]</li>
             </ul>
             <p className="text-gray-700 mb-4">
@@ -62,7 +62,7 @@ export default function RefundPolicyPage() {
 
             <h2 className="text-2xl font-bold text-gray-900 mt-8 mb-4">Contact Us</h2>
             <p className="text-gray-700 mb-4">
-              If you have questions about this policy, please contact us at <a href="mailto:hello@maruonline.com" className="text-primary-600 hover:text-primary-700">hello@maruonline.com</a>.
+              If you have questions about this policy, please contact us at <a href="mailto:support@maruonline.com" className="text-primary-600 hover:text-primary-700">support@maruonline.com</a>.
             </p>
           </div>
 

@@ -85,8 +85,8 @@ export default function ContactPage() {
                 <div>
                   <h3 className="text-lg font-bold text-gray-900 mb-1">Email Us</h3>
                   <p className="text-gray-600 mb-1">General Inquiries</p>
-                  <a href="mailto:hello@maruonline.com" className="text-primary-600 font-semibold hover:text-primary-700">
-                    hello@maruonline.com
+                  <a href="mailto:support@maruonline.com" className="text-primary-600 font-semibold hover:text-primary-700">
+                    support@maruonline.com
                   </a>
                 </div>
               </div>

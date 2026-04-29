@@ -122,7 +122,7 @@ export default function TermsPage() {
               If you have any questions about these Terms, please contact us:
             </p>
             <ul className="list-none text-gray-700 mb-4 space-y-2">
-              <li>Email: <a href="mailto:hello@maruonline.com" className="text-primary-600 hover:text-primary-700">hello@maruonline.com</a></li>
+              <li>Email: <a href="mailto:support@maruonline.com" className="text-primary-600 hover:text-primary-700">support@maruonline.com</a></li>
               <li>Website: <Link href="/contact" className="text-primary-600 hover:text-primary-700">Contact Form</Link></li>
             </ul>
           </div>

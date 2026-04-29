@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     description: 'Transform your business workflows with AI. Learn from basic concepts to advanced automation for African professionals.',
     images: [
       {
-        url: '/og-image.png',
+        url: '/social-launch.png',
         width: 1200,
         height: 630,
         alt: 'Maru AI Academy - AI Productivity Training',
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Maru AI Academy - Master AI Productivity',
     description: 'AI Productivity Training Platform for African Professionals',
-    images: ['/og-image.png'],
+    images: ['/social-launch.png'],
   },
   verification: {
     // Add these when you have them

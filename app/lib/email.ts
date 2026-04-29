@@ -26,7 +26,7 @@ export async function sendEmail(options: EmailOptions) {
       return { success: false, message: 'Email service not configured' };
     }
 
-    const from = options.from || process.env.FROM_EMAIL || 'noreply@maruonline.com';
+    const from = options.from || process.env.FROM_EMAIL || 'hello@maruonline.com';
 
     const data = await resend.emails.send({
       from,
@@ -108,6 +108,7 @@ export async function sendWelcomeEmail(to: string, name: string) {
     to,
     subject: 'Welcome to Maru AI Academy! 🎓',
     html,
+    from: 'hello@maruonline.com',
   });
 }
 
@@ -166,7 +167,7 @@ ${data.message}
   `;
 
   return sendEmail({
-    to: process.env.ADMIN_EMAIL || 'hello@maruonline.com',
+    to: process.env.ADMIN_EMAIL || 'support@maruonline.com',
     subject: `New Contact Form: ${data.type || 'General'} - ${data.name}`,
     html,
   });
@@ -282,5 +283,6 @@ export async function sendPasswordResetEmail(email: string, token: string) {
     to: email,
     subject: 'Reset Your Password - Maru AI Academy',
     html,
+    from: 'hello@maruonline.com',
   });
 }

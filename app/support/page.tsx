@@ -252,8 +252,8 @@ export default function SupportPage() {
         <div className="mt-12 text-center">
           <p className="text-gray-600">
             You can also reach us at{' '}
-            <a href="mailto:hello@maruonline.com" className="text-primary-600 hover:text-primary-700 font-semibold">
-              hello@maruonline.com
+            <a href="mailto:support@maruonline.com" className="text-primary-600 hover:text-primary-700 font-semibold">
+              support@maruonline.com
             </a>
           </p>
         </div>
