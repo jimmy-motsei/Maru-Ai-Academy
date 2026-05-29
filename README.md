@@ -1,5 +1,8 @@
 # Maru AI Academy
 
+> **Maru System** · Domain: **Product** (separate B2C model) · Status: ⚪ **parked but live** (academy.maruonline.com)
+> Leave running, no active investment, revisit deliberately. See `MARU-SYSTEM.md` in the maru-website repo for the full map.
+
 A comprehensive AI productivity training platform for African professionals.
 
 ## 🌐 Live URLs
