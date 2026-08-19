@@ -183,7 +183,7 @@ export function PromptGym({ challenge, onSuccess }: PromptGymProps) {
             <div className={cn(
               "p-3 rounded-2xl text-sm leading-relaxed shadow-sm",
               msg.role === 'user' 
-                ? "bg-maru-blue text-white rounded-tr-none" 
+                ? "bg-maru-blue-700 text-white rounded-tr-none" 
                 : "bg-white border border-maru-line rounded-tl-none text-maru-navy",
               msg.status === 'error' ? "border-atrisk-bg bg-atrisk-bg text-atrisk-fg" : "",
               msg.status === 'success' ? "border-verified-bg bg-verified-bg text-verified-fg" : ""
@@ -276,13 +276,13 @@ export function PromptGym({ challenge, onSuccess }: PromptGymProps) {
             disabled={!input.trim() || isTyping}
             className={cn(
               "h-[46px] w-[46px] rounded-lg p-0 flex items-center justify-center transition-all",
-              input.trim() && !isTyping ? "bg-maru-blue hover:bg-maru-blue-700 text-white" : "bg-maru-line text-maru-grey-300"
+              input.trim() && !isTyping ? "bg-maru-blue-700 hover:bg-maru-navy-700 text-white" : "bg-maru-line text-maru-grey"
             )}
           >
             <Send size={20} className="flex-shrink-0" />
           </Button>
         </form>
-        <div className="text-xs text-center text-maru-grey-300 mt-2 flex items-center justify-center gap-1">
+        <div className="text-xs text-center text-maru-grey mt-2 flex items-center justify-center gap-1">
           <Sparkles size={10} className="text-maru-blue-300" />
           Powered by AI grading
         </div>

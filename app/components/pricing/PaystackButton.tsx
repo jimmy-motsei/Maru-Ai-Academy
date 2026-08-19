@@ -85,7 +85,7 @@ export default function PaystackButton({
       fullWidth 
       onClick={handlePayment} 
       disabled={loading || !config.publicKey}
-      className="bg-maru-blue hover:bg-maru-blue-700 border-none text-white"
+      className="bg-maru-blue-700 hover:bg-maru-navy-700 border-none text-white"
     >
       {loading ? 'Processing...' : defaultLabel}
     </Button>

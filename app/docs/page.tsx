@@ -221,7 +221,7 @@ export default function DocsPage() {
           </p>
           <div className="flex gap-4 justify-center">
             <Link href="/support">
-              <button className="px-6 py-3 bg-maru-blue text-white rounded-lg font-semibold hover:bg-maru-blue-700 transition-colors">
+              <button className="px-6 py-3 bg-maru-blue-700 text-white rounded-lg font-semibold hover:bg-maru-navy-700 transition-colors">
                 Contact Support
               </button>
             </Link>

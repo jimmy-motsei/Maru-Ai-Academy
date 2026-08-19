@@ -37,10 +37,13 @@ const base =
   'disabled:cursor-not-allowed disabled:opacity-50'
 
 const variantClasses: Record<ButtonVariant, string> = {
+  // --maru-blue is 3.74:1 against white and fails AA for a label, so the
+  // primary fill is blue-700 (5.95:1). Hover steps to navy-700 — the system
+  // has no blue-800 and the grammar requires hover to darken.
   primary:
-    'border border-maru-blue bg-maru-blue text-white ' +
-    'hover:border-maru-blue-700 hover:bg-maru-blue-700 ' +
-    'active:border-maru-blue-700 active:bg-maru-blue-700',
+    'border border-maru-blue-700 bg-maru-blue-700 text-white ' +
+    'hover:border-maru-navy-700 hover:bg-maru-navy-700 ' +
+    'active:border-maru-navy-700 active:bg-maru-navy-700',
   secondary:
     'border border-maru-line bg-white text-maru-navy ' +
     'hover:bg-maru-cloud active:bg-maru-cloud',

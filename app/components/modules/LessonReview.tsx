@@ -191,7 +191,7 @@ export function LessonReview({
                             : submitted && isSelected && !isCorrectOption
                               ? 'border-overdue bg-overdue text-white'
                               : isSelected
-                                ? 'border-maru-blue bg-maru-blue text-white'
+                                ? 'border-maru-blue-700 bg-maru-blue-700 text-white'
                                 : 'border-maru-line'
                         }`}>
                           {String.fromCharCode(65 + oIndex)}

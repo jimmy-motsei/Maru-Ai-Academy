@@ -136,7 +136,7 @@ function VisualPlaceholder({ step, onNext }: { step: LessonStep; onNext: () => v
       
       <button 
         onClick={onNext}
-        className="flex items-center gap-2 bg-maru-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-maru-blue-700 transition-colors shadow-md"
+        className="flex items-center gap-2 bg-maru-blue-700 text-white px-6 py-3 rounded-lg font-semibold hover:bg-maru-navy-700 transition-colors shadow-md"
       >
         {isRecap ? 'Complete Lesson' : 'Continue'} <ArrowRight className="w-4 h-4" />
       </button>

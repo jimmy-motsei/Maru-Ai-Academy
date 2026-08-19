@@ -161,8 +161,10 @@
            disabled:cursor-not-allowed disabled:opacity-50;
   }
 
+  /* blue-700, not blue: white on --maru-blue is 3.74:1 and fails AA for a
+     label. See the contrast note in styles/maru-design-system/README.md. */
   .btn-primary {
-    @apply btn border border-maru-blue bg-maru-blue text-white hover:bg-maru-blue-700 hover:border-maru-blue-700;
+    @apply btn border border-maru-blue-700 bg-maru-blue-700 text-white hover:border-maru-navy-700 hover:bg-maru-navy-700;
   }
 
   .btn-secondary {

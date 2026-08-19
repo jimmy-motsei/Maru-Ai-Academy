@@ -34,7 +34,7 @@ export const CurriculumAccordion: React.FC<CurriculumAccordionProps> = ({ course
               <h3 className="text-lg font-bold text-maru-navy">{module.title}</h3>
             </div>
             <div className={`transform transition-transform duration-300 ${openModuleId === module.id ? 'rotate-180' : ''}`}>
-              <svg className="w-6 h-6 text-maru-grey-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-maru-grey" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </div>

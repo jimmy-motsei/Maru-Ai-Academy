@@ -103,7 +103,7 @@ export function LessonIntroduction({
             style={{ width: `${(lessonNumber / totalLessons) * 100}%` }}
           />
         </div>
-        <p className="text-xs text-maru-grey-300 mt-2 text-center">
+        <p className="text-xs text-maru-grey mt-2 text-center">
           {Math.round((lessonNumber / totalLessons) * 100)}% through this module
         </p>
       </div>

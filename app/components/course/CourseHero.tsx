@@ -34,7 +34,7 @@ export const CourseHero: React.FC<CourseHeroProps> = ({ course }) => {
             <Button variant="primary" size="lg" className="shadow-lg shadow-maru-blue-100 border-0">
               Enroll for Free
             </Button>
-            <div className="text-sm text-maru-grey-300">
+            <div className="text-sm text-maru-grey">
               <span className="font-bold text-white">{course.enrollmentCount.toLocaleString()}</span> already enrolled
             </div>
           </div>
@@ -44,7 +44,7 @@ export const CourseHero: React.FC<CourseHeroProps> = ({ course }) => {
                {course.instructors[0].name.charAt(0)}
             </div>
             <div className="text-sm">
-              <div className="text-maru-grey-300">Instructor</div>
+              <div className="text-maru-grey">Instructor</div>
               <div className="font-semibold">{course.instructors[0].name}</div>
             </div>
           </div>

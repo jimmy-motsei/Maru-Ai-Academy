@@ -98,7 +98,7 @@ export default function CourseLandingPage({ params }: { params: { slug: string }
                  Add this credential to your LinkedIn profile, resume, or CV. Share it on social media and in your performance review.
                </p>
                <div className="bg-maru-cloud h-40 rounded-lg flex items-center justify-center mb-6 border border-maru-line">
-                  <span className="text-maru-grey-300 font-medium">Certificate Preview</span>
+                  <span className="text-maru-grey font-medium">Certificate Preview</span>
                </div>
                <button className="text-maru-blue-700 text-sm font-semibold hover:underline">
                  View sample certificate

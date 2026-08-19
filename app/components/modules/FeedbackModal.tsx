@@ -141,7 +141,7 @@ export function FeedbackModal({
             onClick={() => handleRating(category, num)}
             className={`w-10 h-10 rounded-lg border-2 transition-all font-semibold ${
               ratings[category] === num
-                ? 'bg-maru-blue text-white border-maru-blue scale-110'
+                ? 'bg-maru-blue-700 text-white border-maru-blue-700 scale-110'
                 : 'bg-white text-maru-grey border-maru-line hover:border-maru-blue-300 hover:bg-maru-blue-100'
             }`}
           >
@@ -149,7 +149,7 @@ export function FeedbackModal({
           </button>
         ))}
       </div>
-      <div className="flex justify-between text-xs text-maru-grey-300 mt-1">
+      <div className="flex justify-between text-xs text-maru-grey mt-1">
         <span>Poor</span>
         <span>Excellent</span>
       </div>
@@ -172,7 +172,7 @@ export function FeedbackModal({
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 flex h-11 w-11 items-center justify-center rounded-input text-maru-grey-300 transition-colors hover:text-maru-grey focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue"
+          className="absolute top-2 right-2 flex h-11 w-11 items-center justify-center rounded-input text-maru-grey transition-colors hover:text-maru-grey focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue"
           aria-label="Close"
         >
           <X size={24} />
@@ -274,7 +274,7 @@ export function FeedbackModal({
                     value={feedback.whatWorked}
                     onChange={(e) => setFeedback(prev => ({ ...prev, whatWorked: e.target.value }))}
                   />
-                  <div className="text-xs text-maru-grey-300 text-right mt-1">
+                  <div className="text-xs text-maru-grey text-right mt-1">
                     {feedback.whatWorked.length}/500
                   </div>
                 </div>
@@ -292,7 +292,7 @@ export function FeedbackModal({
                     value={feedback.improvements}
                     onChange={(e) => setFeedback(prev => ({ ...prev, improvements: e.target.value }))}
                   />
-                  <div className="text-xs text-maru-grey-300 text-right mt-1">
+                  <div className="text-xs text-maru-grey text-right mt-1">
                     {feedback.improvements.length}/500
                   </div>
                 </div>
@@ -310,7 +310,7 @@ export function FeedbackModal({
                     value={feedback.comments}
                     onChange={(e) => setFeedback(prev => ({ ...prev, comments: e.target.value }))}
                   />
-                  <div className="text-xs text-maru-grey-300 text-right mt-1">
+                  <div className="text-xs text-maru-grey text-right mt-1">
                     {feedback.comments.length}/1000
                   </div>
                 </div>

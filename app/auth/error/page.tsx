@@ -39,7 +39,7 @@ function ErrorContent() {
           {errorMessage}
         </p>
         {error && (
-          <p className="text-xs text-maru-grey-300 mb-6 font-mono bg-maru-cloud p-2 rounded">
+          <p className="text-xs text-maru-grey mb-6 font-mono bg-maru-cloud p-2 rounded">
             Error code: {error}
           </p>
         )}

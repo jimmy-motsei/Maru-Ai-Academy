@@ -81,7 +81,7 @@ export default function PricingContent({ session }: PricingContentProps) {
             <div className="mb-4 flex items-baseline gap-1">
               <span className="text-3xl font-bold text-maru-navy font-mono tracking-mono">{pricing.symbol}{pricing.LEARNER}</span>
               <span className="text-maru-grey text-sm">/month</span>
-              {currency === 'ZAR' && <span className="text-xs text-maru-grey-300">($11)</span>}
+              {currency === 'ZAR' && <span className="text-xs text-maru-grey font-mono tracking-mono">($11)</span>}
             </div>
             
             <div className="w-full mb-6">
@@ -132,7 +132,7 @@ export default function PricingContent({ session }: PricingContentProps) {
             <div className="mb-2 flex items-baseline gap-1">
               <span className="text-3xl font-bold text-maru-navy font-mono tracking-mono">{pricing.symbol}{pricing.PRO}</span>
               <span className="text-maru-grey text-sm">/month</span>
-              {currency === 'ZAR' && <span className="text-xs text-maru-grey-300">($22)</span>}
+              {currency === 'ZAR' && <span className="text-xs text-maru-grey font-mono tracking-mono">($22)</span>}
             </div>
             <p className="text-xs text-verified-fg font-medium mb-4">Launch price – save 28%</p>
             
@@ -184,7 +184,7 @@ export default function PricingContent({ session }: PricingContentProps) {
             <div className="mb-4 flex items-baseline gap-1">
               <span className="text-3xl font-bold text-maru-navy font-mono tracking-mono">{pricing.symbol}{pricing.TEAM}</span>
               <span className="text-maru-grey text-sm">/user/mo</span>
-              {currency === 'ZAR' && <span className="text-xs text-maru-grey-300">($16)</span>}
+              {currency === 'ZAR' && <span className="text-xs text-maru-grey font-mono tracking-mono">($16)</span>}
             </div>
             <div className="w-full mb-6">
               <Link href="/contact">

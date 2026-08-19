@@ -62,6 +62,33 @@ system, but neither is loaded by the app:
 If the font strategy ever changes, `fonts.css` is the reference for which
 families and weights the system expects.
 
+## Contrast decision — primary buttons use `--maru-blue-700`
+
+**Decided 2026-08-19. This is a brand-level call and applies to maruonline.com
+too, not just the Academy.**
+
+White on `--maru-blue` `#008BD1` is **3.74:1**. WCAG 2.2 AA requires 4.5:1 for
+normal-size text, so a white button label on the brand blue fails. It passes
+the 3:1 threshold, so the colour remains correct for large text and for
+non-text UI.
+
+Three options were on the table: accept it as a documented exception, enlarge
+every button label past the large-text threshold, or darken the fill. The fill
+was darkened.
+
+- **Primary buttons fill with `--maru-blue-700` `#0069A0`** — white on it is
+  **5.95:1**, clearing AA at every size with no exception needed.
+- **Hover steps to `--maru-navy-700` `#0A3242`.** The system has no blue-800,
+  and the button grammar requires hover to darken the fill.
+- `--maru-blue` is unchanged as a token and is still correct for links, focus
+  rings, progress bars, dots and other non-text UI, where 3:1 applies.
+
+The same rule is applied to hand-rolled buttons that bypass the `Button`
+component: any `bg-maru-blue` carrying `text-white` uses blue-700.
+
+**Not yet applied upstream.** The design system's own `Button.jsx` still fills
+with `--maru-blue`. maruonline.com needs the same change.
+
 ## Known upstream issue
 
 `components/core/Button.jsx` upstream renders buttons at

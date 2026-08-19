@@ -73,7 +73,7 @@ export const LessonItem = ({
   // Determine status icon and styling
   const getStatusIcon = () => {
     if (isLocked) {
-      return <Lock className="w-4 h-4 text-maru-grey-300" />
+      return <Lock className="w-4 h-4 text-maru-grey" />
     }
     if (completed) {
       return <CheckCircle className="w-5 h-5 text-verified-fg" />
@@ -122,7 +122,7 @@ export const LessonItem = ({
       <div className="flex-grow">
         <div className={`text-sm font-medium ${
           isLocked 
-            ? 'text-maru-grey-300' 
+            ? 'text-maru-grey' 
             : completed 
               ? 'text-maru-grey' 
               : 'text-maru-navy'
@@ -148,7 +148,7 @@ export const LessonItem = ({
       <div className="ml-auto">
         {isLocked ? (
           <div className="p-1.5 rounded-full bg-maru-line">
-            <Lock className="w-4 h-4 text-maru-grey-300" />
+            <Lock className="w-4 h-4 text-maru-grey" />
           </div>
         ) : (
           <div className={`p-1.5 rounded-full ${
@@ -156,7 +156,7 @@ export const LessonItem = ({
               ? 'bg-verified-bg text-verified-fg' 
               : isCurrent 
                 ? 'bg-maru-blue-100 text-maru-blue-700' 
-                : 'bg-maru-cloud text-maru-grey-300 group-hover:bg-maru-blue-100 group-hover:text-maru-blue-700'
+                : 'bg-maru-cloud text-maru-grey group-hover:bg-maru-blue-100 group-hover:text-maru-blue-700'
           }`}>
             <PlayCircle className="w-4 h-4" />
           </div>

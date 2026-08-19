@@ -138,7 +138,7 @@ export function BadgeShowcase({ userBadges }: BadgeShowcaseProps) {
             >
               {!isUnlocked && (
                 <div className="absolute inset-0 flex items-center justify-center z-10 bg-maru-cloud backdrop-blur-[1px] rounded-xl">
-                  <Lock className="w-6 h-6 text-maru-grey-300" />
+                  <Lock className="w-6 h-6 text-maru-grey" />
                 </div>
               )}
 

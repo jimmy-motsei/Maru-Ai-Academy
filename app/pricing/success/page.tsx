@@ -15,7 +15,7 @@ export default function PaymentSuccessPage({ searchParams }: { searchParams: { o
         
         <p className="text-maru-grey">
            Thank you for your subscription. Your account has been upgraded.
-           {searchParams.order_id && <span className="block text-xs mt-2 text-maru-grey-300">Order ID: {searchParams.order_id}</span>}
+           {searchParams.order_id && <span className="block text-xs mt-2 text-maru-grey">Order ID: {searchParams.order_id}</span>}
         </p>
 
         <div className="pt-6">

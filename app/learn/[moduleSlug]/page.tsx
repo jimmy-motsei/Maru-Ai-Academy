@@ -92,7 +92,7 @@ export default function ModulePage() {
                       <h3 className="font-semibold text-maru-navy group-hover:text-maru-blue-700 transition-colors">
                         {lesson.title}
                       </h3>
-                      <ChevronRight className="w-4 h-4 text-maru-grey-300 group-hover:text-maru-blue-700 group-hover:translate-x-1 transition-all" />
+                      <ChevronRight className="w-4 h-4 text-maru-grey group-hover:text-maru-blue-700 group-hover:translate-x-1 transition-all" />
                     </div>
                     <p className="text-sm text-maru-grey mb-2">{lesson.description}</p>
                     <div className="flex items-center gap-4 text-xs text-maru-grey">
@@ -130,7 +130,7 @@ export default function ModulePage() {
               {/* Start Button */}
               <Link
                 href={`/learn/${moduleSlug}/${module.lessons[0]?.slug}`}
-                className="mt-6 w-full bg-maru-blue text-white py-3 px-4 rounded-lg font-semibold hover:bg-maru-blue-700 transition-colors flex items-center justify-center gap-2"
+                className="mt-6 w-full bg-maru-blue-700 text-white py-3 px-4 rounded-lg font-semibold hover:bg-maru-navy-700 transition-colors flex items-center justify-center gap-2"
               >
                 Start Module
                 <ChevronRight className="w-4 h-4" />

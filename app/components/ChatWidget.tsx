@@ -137,13 +137,13 @@ export default function ChatWidget() {
                 </div>
                 <div>
                   <h3 className="font-bold text-white text-sm">Learning assistant</h3>
-                  <p className="text-xs text-maru-grey-300 flex items-center gap-1">
+                  <p className="text-xs text-maru-grey flex items-center gap-1">
                     <span className="w-2 h-2 rounded-full bg-verified"></span>
                     Online
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 text-maru-grey-300">
+              <div className="flex items-center gap-2 text-maru-grey">
                 <button
                   onClick={() => setIsMinimized(!isMinimized)}
                   className="hover:text-white transition-colors p-1"
@@ -224,7 +224,7 @@ export default function ChatWidget() {
                   <Send size={18} />
                 </button>
               </form>
-              <p className="text-[10px] text-center text-maru-grey-300 mt-2">
+              <p className="text-[10px] text-center text-maru-grey mt-2">
                 Maru AI can make mistakes. Please verify important info.
               </p>
             </div>

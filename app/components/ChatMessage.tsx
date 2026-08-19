@@ -49,7 +49,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
           </div>
           
           {/* Timestamp */}
-          <p className={`text-[10px] mt-1 ${isBot ? 'text-maru-grey-300' : 'text-maru-grey-300'}`}>
+          <p className={`text-[10px] mt-1 ${isBot ? 'text-maru-grey' : 'text-maru-grey'}`}>
             {new Date(message.timestamp).toLocaleTimeString([], {
               hour: '2-digit',
               minute: '2-digit',

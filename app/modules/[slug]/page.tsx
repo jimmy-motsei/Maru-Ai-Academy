@@ -121,7 +121,7 @@ export default async function ModulePage({ params }: { params: { slug: string } 
                 <Badge variant={module.stream === 'beginner' ? 'teal' : 'blue'}>
                   {module.stream === 'beginner' ? 'Beginner Stream' : 'Intermediate Stream'}
                 </Badge>
-                <span className="text-maru-grey-300">•</span>
+                <span className="text-maru-grey">•</span>
                 <span className="text-maru-grey font-medium">Module {module.order}</span>
               </div>
               
