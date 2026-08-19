@@ -95,7 +95,7 @@ export function PromptGym({ challenge, onSuccess }: PromptGymProps) {
     setIsTyping(true);
 
     try {
-      // Call the Gemini-powered grading API
+      // Call the Anthropic-powered grading API
       const response = await fetch('/api/prompt-grader', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

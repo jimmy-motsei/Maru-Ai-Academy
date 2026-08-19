@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { generateResponse, addEducationalGuardrails } from '@/lib/gemini';
+import { generateResponse, addEducationalGuardrails } from '@/lib/anthropic';
 import EDUCATION_SYSTEM_PROMPT from '@/lib/chatbot-prompt';
 
 export async function POST(request: NextRequest) {

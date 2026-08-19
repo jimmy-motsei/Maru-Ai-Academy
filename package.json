@@ -14,7 +14,6 @@
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.1",
-    "@google/generative-ai": "^0.24.1",
     "@next/eslint-plugin-next": "^15.0.1",
     "@paypal/react-paypal-js": "^8.9.2",
     "@prisma/client": "^5.22.0",

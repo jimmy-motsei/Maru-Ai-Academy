@@ -1,7 +1,5 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextRequest, NextResponse } from 'next/server';
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+import { generateResponse } from '@/lib/anthropic';
 
 interface GradeRequest {
   userPrompt: string;
@@ -31,11 +29,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const systemPrompt = `You are an AI prompt engineering instructor evaluating a student's prompt. Respond only with valid JSON.`;
 
-    const systemPrompt = `You are an AI prompt engineering instructor evaluating a student's prompt.
-
-CHALLENGE GOAL:
+    const evaluationPrompt = `CHALLENGE GOAL:
 ${challengeContext.goal}
 
 EVALUATION CRITERIA:
@@ -56,9 +52,10 @@ Evaluate the student's prompt and respond ONLY with valid JSON in this exact for
 
 Be encouraging but honest. Focus on teaching, not just grading.`;
 
-    const result = await model.generateContent(systemPrompt);
-    const response = result.response;
-    const text = response.text();
+    const text = await generateResponse(
+      [{ role: 'user', content: evaluationPrompt }],
+      systemPrompt
+    );
     
     // Extract JSON from response (handle markdown code blocks)
     let jsonStr = text;
@@ -73,7 +70,7 @@ Be encouraging but honest. Focus on teaching, not just grading.`;
       gradeResult = JSON.parse(jsonStr);
     } catch {
       // If parsing fails, create a fallback response
-      console.error('Failed to parse Gemini response:', text);
+      console.error('Failed to parse Anthropic response:', text);
       gradeResult = {
         isValid: userPrompt.length >= 20,
         score: userPrompt.length >= 20 ? 70 : 40,
