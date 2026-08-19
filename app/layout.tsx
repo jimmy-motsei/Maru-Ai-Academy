@@ -1,19 +1,37 @@
 // Maru AI Academy v1.1.0 - Jan 9, 2026
 import type { Metadata, Viewport } from 'next'
-import { Inter, Outfit } from 'next/font/google'
+import { Inter, Poppins, IBM_Plex_Mono } from 'next/font/google'
 import './globals.css'
 import { Header, Footer } from './components/layouts'
 import { SessionProvider } from './components/providers'
+import { brandTokens } from './lib/brand-tokens'
 
-const inter = Inter({ 
+/**
+ * The Maru Online Design System's three families, self-hosted by next/font.
+ *
+ * The system's own tokens/fonts.css pulls these from Google Fonts with an
+ * @import, which is a render-blocking request; next/font serves them from our
+ * own origin instead. Weights are exactly those the system specifies — do not
+ * add more. app/globals.css re-points --maru-font-* at these faces.
+ */
+const poppins = Poppins({
   subsets: ['latin'],
+  weight: ['500', '600', '700'],
+  variable: '--font-poppins',
+  display: 'swap',
+})
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-inter',
   display: 'swap',
 })
 
-const outfit = Outfit({
+const plexMono = IBM_Plex_Mono({
   subsets: ['latin'],
-  variable: '--font-outfit',
+  weight: ['400', '500', '600'],
+  variable: '--font-plex-mono',
   display: 'swap',
 })
 
@@ -21,7 +39,8 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
-  themeColor: '#2563eb',
+  // Viewport metadata is a plain string, so it cannot read the CSS token.
+  themeColor: brandTokens.navy,
 }
 
 export const metadata: Metadata = {
@@ -88,7 +107,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
+    <html lang="en" className={`${inter.variable} ${poppins.variable} ${plexMono.variable}`}>
       <body className="font-sans">
         <SessionProvider>
           <Header />
