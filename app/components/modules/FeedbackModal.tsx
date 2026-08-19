@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Button, Card } from '@/components/ui';
-import { X } from 'lucide-react';
+import { Award, X } from 'lucide-react';
 
 interface FeedbackModalProps {
   moduleSlug: string;
@@ -102,10 +102,10 @@ export function FeedbackModal({
     description: string;
   }) => (
     <div className="mb-6">
-      <label className="block text-sm font-semibold text-gray-900 mb-1">
+      <label className="block text-sm font-semibold text-maru-navy mb-1">
         {label}
       </label>
-      <p className="text-xs text-gray-500 mb-3">{description}</p>
+      <p className="text-xs text-maru-grey mb-3">{description}</p>
       <div className="flex gap-2">
         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
           <button
@@ -114,15 +114,15 @@ export function FeedbackModal({
             onClick={() => handleRating(category, num)}
             className={`w-10 h-10 rounded-lg border-2 transition-all font-semibold ${
               ratings[category] === num
-                ? 'bg-primary-600 text-white border-primary-600 scale-110'
-                : 'bg-white text-gray-700 border-gray-300 hover:border-primary-300 hover:bg-primary-50'
+                ? 'bg-maru-blue text-white border-maru-blue scale-110'
+                : 'bg-white text-maru-grey border-maru-line hover:border-maru-blue-300 hover:bg-maru-blue-100'
             }`}
           >
             {num}
           </button>
         ))}
       </div>
-      <div className="flex justify-between text-xs text-gray-400 mt-1">
+      <div className="flex justify-between text-xs text-maru-grey-300 mt-1">
         <span>Poor</span>
         <span>Excellent</span>
       </div>
@@ -135,7 +135,7 @@ export function FeedbackModal({
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+          className="absolute top-4 right-4 text-maru-grey-300 hover:text-maru-grey transition-colors"
           aria-label="Close"
         >
           <X size={24} />
@@ -147,37 +147,36 @@ export function FeedbackModal({
             {awardedBadges.length > 0 ? (
               // Badge awarded state
               <>
-                <div className="text-6xl mb-4 animate-bounce">🏆</div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                  Congratulations! 🎉
-                </h2>
-                <p className="text-gray-600 mb-6">
+                <div className="text-6xl mb-4 animate-bounce"></div>
+                <h2 className="text-2xl font-bold text-maru-navy mb-2">
+                  Congratulations!</h2>
+                <p className="text-maru-grey mb-6">
                   You've earned {awardedBadges.length > 1 ? 'new badges' : 'a new badge'}!
                 </p>
                 <div className="flex flex-wrap justify-center gap-4 mb-6">
                   {awardedBadges.map((badge: any) => (
                     <div 
                       key={badge.id} 
-                      className="bg-gradient-to-br from-amber-50 to-yellow-100 border-2 border-amber-300 rounded-xl p-4 text-center animate-pulse"
+                      className="bg-atrisk-bg border-2 border-atrisk rounded-xl p-4 text-center animate-pulse"
                     >
-                      <div className="text-4xl mb-2">🎖️</div>
-                      <h3 className="font-bold text-gray-900">{badge.name}</h3>
-                      <p className="text-xs text-gray-600">{badge.description}</p>
+                      <div className="mb-2"><Award className="h-8 w-8 text-maru-teal" aria-hidden="true" /></div>
+                      <h3 className="font-bold text-maru-navy">{badge.name}</h3>
+                      <p className="text-xs text-maru-grey">{badge.description}</p>
                     </div>
                   ))}
                 </div>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-maru-grey">
                   View all your badges in your Dashboard
                 </p>
               </>
             ) : (
               // Standard thank you state
               <>
-                <div className="text-6xl mb-4">🎉</div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                  Thank You!
+                <div className="text-6xl mb-4"></div>
+                <h2 className="text-2xl font-bold text-maru-navy mb-2">
+                  Thank you!
                 </h2>
-                <p className="text-gray-600">
+                <p className="text-maru-grey">
                   Your feedback helps us improve the learning experience for everyone.
                 </p>
               </>
@@ -187,10 +186,10 @@ export function FeedbackModal({
           // Feedback form
           <>
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
+              <h2 className="text-2xl font-bold text-maru-navy mb-2">
                 How was this lesson?
               </h2>
-              <p className="text-gray-600">
+              <p className="text-maru-grey">
                 Tell us about <strong>{lessonTitle}</strong>
               </p>
             </div>
@@ -221,57 +220,57 @@ export function FeedbackModal({
                 description="How would you rate this lesson overall?"
               />
 
-              <hr className="my-6 border-gray-200" />
+              <hr className="my-6 border-maru-line" />
 
               {/* Text feedback */}
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                  <label className="block text-sm font-semibold text-maru-navy mb-2">
                     What worked well? (Optional)
                   </label>
                   <textarea
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
+                    className="w-full px-4 py-3 border border-maru-line rounded-lg focus:ring-2 focus:ring-maru-blue focus:border-transparent resize-none"
                     rows={3}
                     maxLength={500}
                     placeholder="What did you enjoy or find helpful?"
                     value={feedback.whatWorked}
                     onChange={(e) => setFeedback(prev => ({ ...prev, whatWorked: e.target.value }))}
                   />
-                  <div className="text-xs text-gray-400 text-right mt-1">
+                  <div className="text-xs text-maru-grey-300 text-right mt-1">
                     {feedback.whatWorked.length}/500
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                  <label className="block text-sm font-semibold text-maru-navy mb-2">
                     What could be improved? (Optional)
                   </label>
                   <textarea
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
+                    className="w-full px-4 py-3 border border-maru-line rounded-lg focus:ring-2 focus:ring-maru-blue focus:border-transparent resize-none"
                     rows={3}
                     maxLength={500}
                     placeholder="What could make this lesson better?"
                     value={feedback.improvements}
                     onChange={(e) => setFeedback(prev => ({ ...prev, improvements: e.target.value }))}
                   />
-                  <div className="text-xs text-gray-400 text-right mt-1">
+                  <div className="text-xs text-maru-grey-300 text-right mt-1">
                     {feedback.improvements.length}/500
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">
+                  <label className="block text-sm font-semibold text-maru-navy mb-2">
                     Additional Comments (Optional)
                   </label>
                   <textarea
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
+                    className="w-full px-4 py-3 border border-maru-line rounded-lg focus:ring-2 focus:ring-maru-blue focus:border-transparent resize-none"
                     rows={3}
                     maxLength={1000}
                     placeholder="Any other thoughts or suggestions?"
                     value={feedback.comments}
                     onChange={(e) => setFeedback(prev => ({ ...prev, comments: e.target.value }))}
                   />
-                  <div className="text-xs text-gray-400 text-right mt-1">
+                  <div className="text-xs text-maru-grey-300 text-right mt-1">
                     {feedback.comments.length}/1000
                   </div>
                 </div>
@@ -281,7 +280,7 @@ export function FeedbackModal({
               <div className="flex gap-3 mt-8">
                 <Button
                   type="button"
-                  variant="outline"
+                  variant="secondary"
                   onClick={onClose}
                   fullWidth
                   disabled={loading}

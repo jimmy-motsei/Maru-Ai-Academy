@@ -19,11 +19,6 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Calm shadow lift on hover. No transform: the system is not flashy. */
   hover?: boolean
   noPadding?: boolean
-  /**
-   * @deprecated Pre-reskin prop. `glass` and `gradient` are not in the Maru
-   * system and both now render the standard surface. Removed in Phase 3.
-   */
-  variant?: 'default' | 'glass' | 'gradient'
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -33,7 +28,6 @@ export const Card: React.FC<CardProps> = ({
   intelligent = false,
   hover = true,
   noPadding = false,
-  variant,
   ...props
 }) => (
   <div

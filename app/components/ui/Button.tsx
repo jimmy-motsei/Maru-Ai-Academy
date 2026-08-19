@@ -16,11 +16,10 @@ import React from 'react'
  * Hover darkens the fill. The button never resizes on press.
  */
 
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'accent' | 'outline'
+export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'accent'
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'icon'
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  /** `outline` is a deprecated alias for `secondary`, removed in Phase 3. */
   variant?: ButtonVariant
   size?: ButtonSize
   fullWidth?: boolean
@@ -37,7 +36,7 @@ const base =
   'focus-visible:ring-offset-2 focus-visible:ring-offset-white ' +
   'disabled:cursor-not-allowed disabled:opacity-50'
 
-const variantClasses: Record<Exclude<ButtonVariant, 'outline'>, string> = {
+const variantClasses: Record<ButtonVariant, string> = {
   primary:
     'border border-maru-blue bg-maru-blue text-white ' +
     'hover:border-maru-blue-700 hover:bg-maru-blue-700 ' +
@@ -74,13 +73,11 @@ export const Button: React.FC<ButtonProps> = ({
   disabled,
   ...props
 }) => {
-  const resolved = variant === 'outline' ? 'secondary' : variant
-
   return (
     <button
       className={[
         base,
-        variantClasses[resolved],
+        variantClasses[variant],
         sizeClasses[size],
         fullWidth ? 'w-full' : '',
         className,

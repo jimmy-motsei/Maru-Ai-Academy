@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { Card, Button } from '@/components/ui'
 import { Suspense } from 'react'
+import { AlertTriangle } from 'lucide-react'
 
 function ErrorContent() {
   const searchParams = useSearchParams()
@@ -28,19 +29,17 @@ function ErrorContent() {
   const errorMessage = error ? errorMessages[error] || errorMessages.Default : errorMessages.Default
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-maru-cloud flex items-center justify-center p-4">
       <Card className="max-w-md w-full text-center p-8">
-        <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center text-3xl mx-auto mb-6">
-          ⚠️
-        </div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">
-          Authentication Error
+        <div className="w-16 h-16 bg-overdue-bg rounded-full flex items-center justify-center mx-auto mb-6"><AlertTriangle className="h-8 w-8 text-maru-teal" aria-hidden="true" /></div>
+        <h1 className="text-2xl font-bold text-maru-navy mb-4">
+          Authentication error
         </h1>
-        <p className="text-gray-600 mb-6">
+        <p className="text-maru-grey mb-6">
           {errorMessage}
         </p>
         {error && (
-          <p className="text-xs text-gray-400 mb-6 font-mono bg-gray-100 p-2 rounded">
+          <p className="text-xs text-maru-grey-300 mb-6 font-mono bg-maru-cloud p-2 rounded">
             Error code: {error}
           </p>
         )}
@@ -51,7 +50,7 @@ function ErrorContent() {
             </Button>
           </Link>
           <Link href="/" className="block">
-            <Button variant="outline" fullWidth>
+            <Button variant="secondary" fullWidth>
               Go Home
             </Button>
           </Link>
@@ -64,7 +63,7 @@ function ErrorContent() {
 export default function AuthErrorPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-maru-cloud flex items-center justify-center">
         <p>Loading...</p>
       </div>
     }>

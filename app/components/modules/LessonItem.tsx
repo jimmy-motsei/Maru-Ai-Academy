@@ -73,33 +73,33 @@ export const LessonItem = ({
   // Determine status icon and styling
   const getStatusIcon = () => {
     if (isLocked) {
-      return <Lock className="w-4 h-4 text-gray-400" />
+      return <Lock className="w-4 h-4 text-maru-grey-300" />
     }
     if (completed) {
-      return <CheckCircle className="w-5 h-5 text-green-500" />
+      return <CheckCircle className="w-5 h-5 text-verified-fg" />
     }
     if (isCurrent) {
-      return <PlayCircle className="w-5 h-5 text-primary-500" />
+      return <PlayCircle className="w-5 h-5 text-maru-blue-700" />
     }
-    return <Circle className="w-5 h-5 text-gray-300" />
+    return <Circle className="w-5 h-5 text-maru-grey-on-dark" />
   }
 
   const getContainerStyles = () => {
     if (isLocked) {
-      return 'opacity-60 cursor-not-allowed bg-gray-50'
+      return 'opacity-60 cursor-not-allowed bg-maru-cloud'
     }
     if (isCurrent) {
-      return 'bg-primary-50 border-l-4 border-l-primary-500'
+      return 'bg-maru-blue-100 border-l-4 border-l-primary-500'
     }
     if (completed) {
-      return 'bg-green-50/50'
+      return 'bg-verified-bg'
     }
-    return 'hover:bg-gray-50'
+    return 'hover:bg-maru-cloud'
   }
 
   const content = (
     <div 
-      className={`flex items-center p-3 rounded-lg transition-colors border-b last:border-0 border-gray-100 ${getContainerStyles()}`}
+      className={`flex items-center p-3 rounded-lg transition-colors border-b last:border-0 border-maru-line ${getContainerStyles()}`}
       onClick={handleClick}
     >
       {/* Status Icon */}
@@ -107,12 +107,12 @@ export const LessonItem = ({
         onClick={!isLocked ? toggleCompletion : undefined}
         className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mr-3 transition-colors ${
           isLocked 
-            ? 'bg-gray-100' 
+            ? 'bg-maru-cloud' 
             : completed 
-              ? 'bg-green-100' 
+              ? 'bg-verified-bg' 
               : isCurrent 
-                ? 'bg-primary-100' 
-                : 'bg-gray-100 hover:bg-gray-200'
+                ? 'bg-maru-blue-100' 
+                : 'bg-maru-cloud hover:bg-maru-line'
         }`}
       >
         {getStatusIcon()}
@@ -122,22 +122,22 @@ export const LessonItem = ({
       <div className="flex-grow">
         <div className={`text-sm font-medium ${
           isLocked 
-            ? 'text-gray-400' 
+            ? 'text-maru-grey-300' 
             : completed 
-              ? 'text-gray-500' 
-              : 'text-gray-900'
+              ? 'text-maru-grey' 
+              : 'text-maru-navy'
         }`}>
           {index}. {title}
         </div>
-        <div className="text-xs text-gray-500 flex items-center gap-2">
+        <div className="text-xs text-maru-grey flex items-center gap-2">
           <span>{duration}</span>
           {isLocked && (
-            <span className="text-xs text-amber-600 font-medium">
+            <span className="text-xs text-atrisk-fg font-medium">
               Complete previous lesson to unlock
             </span>
           )}
           {isCurrent && !isLocked && (
-            <span className="text-xs text-primary-600 font-medium">
+            <span className="text-xs text-maru-blue-700 font-medium">
               Current lesson
             </span>
           )}
@@ -147,16 +147,16 @@ export const LessonItem = ({
       {/* Action indicator */}
       <div className="ml-auto">
         {isLocked ? (
-          <div className="p-1.5 rounded-full bg-gray-200">
-            <Lock className="w-4 h-4 text-gray-400" />
+          <div className="p-1.5 rounded-full bg-maru-line">
+            <Lock className="w-4 h-4 text-maru-grey-300" />
           </div>
         ) : (
           <div className={`p-1.5 rounded-full ${
             completed 
-              ? 'bg-green-100 text-green-600' 
+              ? 'bg-verified-bg text-verified-fg' 
               : isCurrent 
-                ? 'bg-primary-100 text-primary-600' 
-                : 'bg-gray-100 text-gray-400 group-hover:bg-primary-100 group-hover:text-primary-500'
+                ? 'bg-maru-blue-100 text-maru-blue-700' 
+                : 'bg-maru-cloud text-maru-grey-300 group-hover:bg-maru-blue-100 group-hover:text-maru-blue-700'
           }`}>
             <PlayCircle className="w-4 h-4" />
           </div>

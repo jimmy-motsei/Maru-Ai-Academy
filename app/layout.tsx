@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'en_US',
+    locale: 'en_ZA',
     url: 'https://academy.maruonline.com',
     siteName: 'Maru AI Academy',
     title: 'Maru AI Academy - Master AI Productivity',
@@ -107,7 +107,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable} ${plexMono.variable}`}>
+    <html lang="en-ZA" className={`${inter.variable} ${poppins.variable} ${plexMono.variable}`}>
       <body className="font-sans">
         <SessionProvider>
           <Header />

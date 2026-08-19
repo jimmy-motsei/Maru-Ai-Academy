@@ -35,13 +35,13 @@ export default async function LessonPage({ params }: Props) {
     if (!lessonDef) notFound()
 
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-maru-cloud flex items-center justify-center p-4">
         <div className="text-center max-w-md">
-          <h1 className="text-2xl font-bold mb-4">Coming Soon 🚧</h1>
-          <p className="text-gray-600 mb-6">
+          <h1 className="text-2xl font-bold mb-4">Coming soon</h1>
+          <p className="text-maru-grey mb-6">
             The content for <strong>{lessonDef.title}</strong> is being created.
           </p>
-          <a href={`/modules/${params.slug}`} className="text-primary-600 hover:underline">
+          <a href={`/modules/${params.slug}`} className="text-maru-blue-700 hover:underline">
             &larr; Back to Module
           </a>
         </div>

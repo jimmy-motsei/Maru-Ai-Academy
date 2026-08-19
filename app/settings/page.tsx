@@ -20,24 +20,24 @@ export default async function SettingsPage() {
   const user = session.user as any
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-maru-cloud py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
         {/* Header */}
         <div className="mb-8">
           <Link 
             href="/dashboard"
-            className="text-gray-600 hover:text-primary-600 mb-4 inline-flex items-center text-sm font-medium transition-colors"
+            className="text-maru-grey hover:text-maru-blue-700 mb-4 inline-flex items-center text-sm font-medium transition-colors"
           >
             ← Back to Dashboard
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900 mt-4">Account Settings</h1>
-          <p className="text-gray-600 mt-2">Manage your profile and preferences</p>
+          <h1 className="text-3xl font-bold text-maru-navy mt-4">Account settings</h1>
+          <p className="text-maru-grey mt-2">Manage your profile and preferences</p>
         </div>
 
         <div className="space-y-6">
           {/* Profile Information */}
           <Card className="p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Profile Information</h2>
+            <h2 className="text-xl font-semibold text-maru-navy mb-4">Profile information</h2>
             <form className="space-y-4">
               <Input
                 label="Full Name"
@@ -53,7 +53,7 @@ export default async function SettingsPage() {
                 disabled
                 fullWidth
               />
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-maru-grey">
                 Contact support to change your email address
               </p>
               <Button variant="primary" type="submit">
@@ -64,12 +64,12 @@ export default async function SettingsPage() {
 
           {/* Plan Information */}
           <Card className="p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Subscription Plan</h2>
+            <h2 className="text-xl font-semibold text-maru-navy mb-4">Subscription plan</h2>
             <div className="flex items-center justify-between mb-4">
               <div>
-                <p className="text-gray-600">Current Plan</p>
+                <p className="text-maru-grey">Current Plan</p>
                 <div className="flex items-center gap-2 mt-1">
-                  <Badge variant={user.plan === 'FREE' ? 'neutral' : 'primary'}>
+                  <Badge variant={user.plan === 'FREE' ? 'neutral' : 'blue'}>
                     {user.plan || 'FREE'} PLAN
                   </Badge>
                 </div>
@@ -83,7 +83,7 @@ export default async function SettingsPage() {
               )}
             </div>
             {user.plan === 'PRO' && (
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-maru-grey">
                 You have access to all modules and learning paths.
               </p>
             )}
@@ -91,7 +91,7 @@ export default async function SettingsPage() {
 
           {/* Security */}
           <Card className="p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Security</h2>
+            <h2 className="text-xl font-semibold text-maru-navy mb-4">Security</h2>
             <form className="space-y-4">
               <Input
                 label="Current Password"
@@ -119,32 +119,32 @@ export default async function SettingsPage() {
 
           {/* Preferences */}
           <Card className="p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Preferences</h2>
+            <h2 className="text-xl font-semibold text-maru-navy mb-4">Preferences</h2>
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-medium text-gray-900">Email Notifications</p>
-                  <p className="text-sm text-gray-500">Receive updates about new modules and features</p>
+                  <p className="font-medium text-maru-navy">Email Notifications</p>
+                  <p className="text-sm text-maru-grey">Receive updates about new modules and features</p>
                 </div>
-                <input type="checkbox" defaultChecked className="w-5 h-5 text-primary-600" />
+                <input type="checkbox" defaultChecked className="w-5 h-5 text-maru-blue-700" />
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-medium text-gray-900">Progress Emails</p>
-                  <p className="text-sm text-gray-500">Weekly summary of your learning progress</p>
+                  <p className="font-medium text-maru-navy">Progress Emails</p>
+                  <p className="text-sm text-maru-grey">Weekly summary of your learning progress</p>
                 </div>
-                <input type="checkbox" defaultChecked className="w-5 h-5 text-primary-600" />
+                <input type="checkbox" defaultChecked className="w-5 h-5 text-maru-blue-700" />
               </div>
             </div>
           </Card>
 
           {/* Danger Zone */}
-          <Card className="p-6 border-red-200">
-            <h2 className="text-xl font-semibold text-red-600 mb-4">Danger Zone</h2>
-            <p className="text-gray-600 mb-4">
+          <Card className="p-6 border-overdue-bg">
+            <h2 className="text-xl font-semibold text-overdue-fg mb-4">Danger zone</h2>
+            <p className="text-maru-grey mb-4">
               Once you delete your account, there is no going back. Please be certain.
             </p>
-            <Button variant="outline" className="text-red-600 border-red-600 hover:bg-red-50">
+            <Button variant="secondary" className="text-overdue-fg border-overdue hover:bg-overdue-bg">
               Delete Account
             </Button>
           </Card>

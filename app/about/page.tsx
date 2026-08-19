@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { Badge, Button, Card } from '@/components/ui'
 import Image from 'next/image'
+import { ShieldCheck, Sprout, Wrench } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'About Us',
@@ -16,13 +17,13 @@ export default function AboutPage() {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary-50 via-white to-secondary-50 py-20">
+      <section className="relative overflow-hidden bg-maru-cloud py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <Badge variant="primary" className="mb-6">Our Mission</Badge>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-gray-900 mb-6">
-            Democratizing AI for <span className="gradient-text">Everyone</span>
+          <Badge variant="blue" className="mb-6">Our Mission</Badge>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-maru-navy mb-6">
+            Democratizing AI for everyone
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-10">
+          <p className="text-xl text-maru-grey max-w-3xl mx-auto mb-10">
             We believe that Artificial Intelligence shouldn't be reserved for tech giants. 
             Our mission is to empower individuals and businesses with practical, 
             hands-on AI skills that transform the way they work.
@@ -34,39 +35,33 @@ export default function AboutPage() {
       <section className="py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-heading font-bold text-gray-900 mb-4">Our Core Values</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-heading font-bold text-maru-navy mb-4">Our core values</h2>
+            <p className="text-maru-grey max-w-2xl mx-auto">
               Principles that guide how we teach, build, and support our community.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="text-center p-8" hover>
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center text-3xl mx-auto mb-6">
-                🛠️
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Practicality First</h3>
-              <p className="text-gray-600">
+              <div className="w-16 h-16 bg-maru-blue-100 rounded-full flex items-center justify-center mx-auto mb-6"><Wrench className="h-8 w-8 text-maru-teal" aria-hidden="true" /></div>
+              <h3 className="text-xl font-bold text-maru-navy mb-3">Practicality first</h3>
+              <p className="text-maru-grey">
                 We skip the hype and focus on real-world applications. If it doesn't save you time or money, we don't teach it.
               </p>
             </Card>
             
             <Card className="text-center p-8" hover>
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center text-3xl mx-auto mb-6">
-                🛡️
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Responsible AI</h3>
-              <p className="text-gray-600">
+              <div className="w-16 h-16 bg-maru-blue-100 rounded-full flex items-center justify-center mx-auto mb-6"><ShieldCheck className="h-8 w-8 text-maru-teal" aria-hidden="true" /></div>
+              <h3 className="text-xl font-bold text-maru-navy mb-3">Responsible AI</h3>
+              <p className="text-maru-grey">
                 Safety, ethics, and data privacy are foundational. We teach you how to use AI securely and responsibly.
               </p>
             </Card>
             
             <Card className="text-center p-8" hover>
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center text-3xl mx-auto mb-6">
-                🌱
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Continuous Growth</h3>
-              <p className="text-gray-600">
+              <div className="w-16 h-16 bg-verified-bg rounded-full flex items-center justify-center mx-auto mb-6"><Sprout className="h-8 w-8 text-maru-teal" aria-hidden="true" /></div>
+              <h3 className="text-xl font-bold text-maru-navy mb-3">Continuous growth</h3>
+              <p className="text-maru-grey">
                 AI moves fast. Our curriculum evolves constantly to keep you ahead of the curve with the latest tools.
               </p>
             </Card>
@@ -75,15 +70,15 @@ export default function AboutPage() {
       </section>
 
       {/* Team/Story Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-maru-cloud">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <Badge variant="secondary" className="mb-4">Our Story</Badge>
-              <h2 className="text-3xl font-heading font-bold text-gray-900 mb-6">
-                From Experiment to Academy
+              <Badge variant="neutral" className="mb-4">Our Story</Badge>
+              <h2 className="text-3xl font-heading font-bold text-maru-navy mb-6">
+                From experiment to Academy
               </h2>
-              <div className="space-y-4 text-gray-600 text-lg">
+              <div className="space-y-4 text-maru-grey text-lg">
                 <p>
                   Maru AI Academy started as a simple internal workshop. We realized that while everyone was talking about ChatGPT, very few people knew how to actually integrate it into their daily workflows.
                 </p>
@@ -114,24 +109,24 @@ export default function AboutPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-gray-900 text-white">
+      <section className="py-20 bg-maru-navy text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-4xl font-bold text-primary-400 mb-2">50k+</div>
-              <div className="text-gray-400">Students Taught</div>
+              <div className="text-3xl sm:text-4xl font-bold text-maru-blue-300 mb-2 font-mono tracking-mono">50k+</div>
+              <div className="text-maru-grey-300">Students Taught</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-secondary-400 mb-2">100+</div>
-              <div className="text-gray-400">Enterprise Partners</div>
+              <div className="text-3xl sm:text-4xl font-bold text-maru-blue-700 mb-2 font-mono tracking-mono">100+</div>
+              <div className="text-maru-grey-300">Enterprise Partners</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-green-400 mb-2">500+</div>
-              <div className="text-gray-400">Workflows Built</div>
+              <div className="text-3xl sm:text-4xl font-bold text-verified-fg mb-2 font-mono tracking-mono">500+</div>
+              <div className="text-maru-grey-300">Workflows Built</div>
             </div>
             <div>
-              <div className="text-4xl font-bold text-yellow-400 mb-2">4.9/5</div>
-              <div className="text-gray-400">Student Rating</div>
+              <div className="text-3xl sm:text-4xl font-bold text-atrisk-fg mb-2 font-mono tracking-mono">4.9/5</div>
+              <div className="text-maru-grey-300">Student Rating</div>
             </div>
           </div>
         </div>

@@ -17,24 +17,24 @@ export const CurriculumAccordion: React.FC<CurriculumAccordionProps> = ({ course
 
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">
+      <h2 className="text-2xl font-bold text-maru-navy mb-6">
         There are {course.modules.length} modules in this course
       </h2>
       
       {course.modules.map((module) => (
-        <Card key={module.id} className="p-0 overflow-hidden border border-gray-200 shadow-none hover:shadow-md transition-shadow">
+        <Card key={module.id} className="p-0 overflow-hidden border border-maru-line shadow-none hover:shadow-md transition-shadow">
           <button 
             onClick={() => toggleModule(module.id)}
-            className="w-full text-left p-6 flex items-start justify-between bg-white hover:bg-gray-50 transition-colors"
+            className="w-full text-left p-6 flex items-start justify-between bg-white hover:bg-maru-cloud transition-colors"
           >
             <div>
-              <div className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">
+              <div className="text-xs font-bold text-maru-grey uppercase tracking-widest mb-1">
                 Module {module.order}
               </div>
-              <h3 className="text-lg font-bold text-gray-900">{module.title}</h3>
+              <h3 className="text-lg font-bold text-maru-navy">{module.title}</h3>
             </div>
             <div className={`transform transition-transform duration-300 ${openModuleId === module.id ? 'rotate-180' : ''}`}>
-              <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-maru-grey-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </div>
@@ -45,23 +45,23 @@ export const CurriculumAccordion: React.FC<CurriculumAccordionProps> = ({ course
               openModuleId === module.id ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
             }`}
           >
-            <div className="p-6 pt-0 bg-white border-t border-gray-100">
-              <p className="text-gray-600 mb-4">{module.description}</p>
+            <div className="p-6 pt-0 bg-white border-t border-maru-line">
+              <p className="text-maru-grey mb-4">{module.description}</p>
               
-              <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+              <div className="flex flex-wrap gap-4 text-sm text-maru-grey">
                 <div className="flex items-center">
-                  <span className="mr-2">📺</span> {module.lessonsCount} Video Lessons
+                  <span className="mr-2"></span> {module.lessonsCount} Video Lessons
                 </div>
                 <div className="flex items-center">
-                  <span className="mr-2">📖</span> 2 Readings
+                  <span className="mr-2"></span> 2 Readings
                 </div>
                 <div className="flex items-center">
-                  <span className="mr-2">⏱️</span> {module.duration}
+                  <span className="mr-2">⏱</span> {module.duration}
                 </div>
               </div>
               
               <div className="mt-4">
-                 <button className="text-primary-600 font-semibold text-sm hover:text-primary-700">
+                 <button className="text-maru-blue-700 font-semibold text-sm hover:text-maru-blue-700">
                    View Module Details &rarr;
                  </button>
               </div>

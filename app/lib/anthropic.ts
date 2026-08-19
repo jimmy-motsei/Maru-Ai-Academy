@@ -128,15 +128,15 @@ export function isAskingForQuizAnswers(message: string): boolean {
  */
 export function addEducationalGuardrails(userMessage: string, aiResponse: string): string {
   if (isAskingForAssignmentHelp(userMessage)) {
-    return `⚠️ **Learning Reminder**: I can't complete assignments for you, but I'm happy to help you understand the concepts!
+    return `**Learning Reminder**: I can't complete assignments for you, but I'm happy to help you understand the concepts!
 
 ${aiResponse}
 
-Remember: The goal is to learn and build your own skills. You've got this! 💪`;
+Remember: The goal is to learn and build your own skills. You've got this!`;
   }
 
   if (isAskingForQuizAnswers(userMessage)) {
-    return `📚 **Study Tip**: I can't give direct quiz answers, but I can help you understand the material!
+    return `**Study Tip**: I can't give direct quiz answers, but I can help you understand the material!
 
 ${aiResponse}
 

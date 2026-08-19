@@ -27,13 +27,6 @@ export type BadgeTone =
   | 'verified'
   | 'atrisk'
   | 'overdue'
-  // Deprecated pre-reskin aliases, removed in Phase 3.
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'warning'
-  | 'danger'
-  | 'info'
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   children: React.ReactNode
@@ -41,18 +34,6 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
   size?: 'sm' | 'md' | 'lg'
   /** Status tones show a dot by default; set explicitly to override. */
   dot?: boolean
-}
-
-/** Pre-reskin names mapped onto the system's vocabulary. */
-const alias: Record<string, Exclude<BadgeTone, 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info'>> = {
-  primary: 'blue',
-  info: 'blue',
-  // `secondary` was the violet ramp. Maru has no purple, and teal is reserved,
-  // so it lands on neutral rather than borrowing the signature accent.
-  secondary: 'neutral',
-  success: 'verified',
-  warning: 'atrisk',
-  danger: 'overdue',
 }
 
 const toneClasses = {
@@ -91,7 +72,7 @@ export const Badge: React.FC<BadgeProps> = ({
   className = '',
   ...props
 }) => {
-  const tone = (alias[variant] ?? variant) as keyof typeof toneClasses
+  const tone = variant as keyof typeof toneClasses
   const showDot = dot ?? (STATUS_TONES as readonly string[]).includes(tone)
 
   return (

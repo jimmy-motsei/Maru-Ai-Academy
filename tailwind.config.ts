@@ -20,6 +20,11 @@ import type { Config } from 'tailwindcss'
  * It does NOT catch arbitrary values: `bg-[#3DD6D0]` sidesteps the palette
  * entirely and Tailwind will happily emit it. Those have to be found by
  * grepping for `-[#` and fixed by hand.
+ *
+ * The Phase 1 compatibility bridge — which re-pointed the old `primary`,
+ * `gray`, `green`, `red` and `amber` family names at Maru tokens while the
+ * consumer sweep was in flight — was removed at the end of Phase 3. Those
+ * class names no longer resolve to anything.
  */
 
 /** The four Maru blue stops. */
@@ -64,120 +69,6 @@ const status = {
   },
 }
 
-/**
- * ── TEMPORARY BRIDGE — delete at the end of Phase 3 ──────────────────────────
- *
- * 46 files still reference the pre-reskin class names. Rather than leave the
- * app colourless between this phase and the consumer sweep, the old family
- * names are re-pointed at Maru tokens so every existing page renders on-brand
- * immediately and each phase stays independently reviewable.
- *
- * Two consequences worth knowing:
- *
- * 1. The old ramps had 11 stops; Maru blue has 4 and the neutrals have 6, so
- *    stops collapse. Tints that used to differ now match. This is correct —
- *    inventing intermediate hexes would defeat the point of the token system.
- * 2. `indigo`, `violet`, `purple`, `pink`, `cyan` and `secondary` are
- *    deliberately absent. Maru has no purple at all, and these have no token
- *    equivalent, so they generate no CSS and must be fixed by hand in Phase 3.
- */
-const bridge = {
-  primary: {
-    50: blue[100],
-    100: blue[100],
-    200: blue[100],
-    300: blue[300],
-    400: blue[300],
-    500: blue.DEFAULT,
-    600: blue.DEFAULT,
-    700: blue[700],
-    800: blue[700],
-    900: 'var(--maru-navy)',
-    950: 'var(--maru-navy)',
-  },
-  blue: {
-    50: blue[100],
-    100: blue[100],
-    200: blue[100],
-    300: blue[300],
-    400: blue[300],
-    500: blue.DEFAULT,
-    600: blue.DEFAULT,
-    700: blue[700],
-    800: blue[700],
-    900: 'var(--maru-navy)',
-  },
-  gray: {
-    50: 'var(--maru-cloud)',
-    100: 'var(--maru-cloud)',
-    200: 'var(--maru-line)',
-    300: 'var(--maru-line)',
-    400: 'var(--maru-grey-300)',
-    500: 'var(--maru-grey-300)',
-    600: 'var(--maru-grey)',
-    700: 'var(--maru-grey)',
-    800: 'var(--maru-navy)',
-    900: 'var(--maru-navy)',
-    950: 'var(--maru-navy)',
-  },
-  // green / emerald -> the Verified state
-  green: {
-    50: status.verified.bg,
-    100: status.verified.bg,
-    200: status.verified.bg,
-    400: status.verified.DEFAULT,
-    500: status.verified.DEFAULT,
-    600: status.verified.fg,
-    700: status.verified.fg,
-    800: status.verified.fg,
-    900: status.verified.fg,
-  },
-  emerald: {
-    200: status.verified.bg,
-    500: status.verified.DEFAULT,
-    600: status.verified.fg,
-  },
-  // red -> the Overdue state
-  red: {
-    50: status.overdue.bg,
-    100: status.overdue.bg,
-    200: status.overdue.bg,
-    300: status.overdue.DEFAULT,
-    400: status.overdue.DEFAULT,
-    500: status.overdue.DEFAULT,
-    600: status.overdue.fg,
-    700: status.overdue.fg,
-    800: status.overdue.fg,
-  },
-  // amber / yellow / orange -> the At-risk state
-  amber: {
-    50: status.atrisk.bg,
-    100: status.atrisk.bg,
-    200: status.atrisk.bg,
-    300: status.atrisk.DEFAULT,
-    400: status.atrisk.DEFAULT,
-    500: status.atrisk.DEFAULT,
-    600: status.atrisk.fg,
-    700: status.atrisk.fg,
-    800: status.atrisk.fg,
-    900: status.atrisk.fg,
-  },
-  yellow: {
-    100: status.atrisk.bg,
-    400: status.atrisk.DEFAULT,
-    500: status.atrisk.DEFAULT,
-    800: status.atrisk.fg,
-  },
-  orange: {
-    50: status.atrisk.bg,
-    100: status.atrisk.bg,
-    200: status.atrisk.bg,
-    500: status.atrisk.DEFAULT,
-    600: status.atrisk.fg,
-    800: status.atrisk.fg,
-  },
-}
-
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -212,7 +103,6 @@ const config: Config = {
       },
 
       ...status,
-      ...bridge,
     },
 
     extend: {
@@ -326,8 +216,6 @@ const config: Config = {
       backgroundImage: {
         /** Reserved for hero, nav and cover surfaces. */
         'maru-navy': 'var(--maru-gradient-navy)',
-        /** Bridge alias — Phase 3 renames consumers to bg-maru-navy. */
-        'gradient-primary': 'var(--maru-gradient-navy)',
       },
 
       animation: {

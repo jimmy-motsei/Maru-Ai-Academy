@@ -7,18 +7,19 @@ import {
   StyleSheet,
   Font,
 } from '@react-pdf/renderer';
+import { brandTokens } from '@/lib/brand-tokens';
 
 // Register fonts (optional - using system fonts for now)
 // Font.register({ family: 'Inter', src: '/fonts/Inter-Regular.ttf' });
 
 // Maru Brand Colors
 const colors = {
-  primary: '#3DD6D0', // Maru Turquoise
-  secondary: '#1a365d', // Deep Navy
-  accent: '#2D3748', // Dark Gray
-  gold: '#D69E2E', // Certificate Gold
-  white: '#FFFFFF',
-  lightGray: '#F7FAFC',
+  primary: brandTokens.teal,
+  secondary: brandTokens.navy,
+  accent: brandTokens.grey, // Dark Gray
+  gold: brandTokens.atRisk, // Certificate Gold
+  white: brandTokens.white,
+  lightGray: brandTokens.cloud,
 };
 
 const styles = StyleSheet.create({

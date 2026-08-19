@@ -21,3 +21,6 @@ export type { KickerLabelProps } from './KickerLabel'
 
 export { Logo } from './Logo'
 export type { LogoProps } from './Logo'
+
+export { ModuleIcon } from './ModuleIcon'
+export type { ModuleIconProps } from './ModuleIcon'

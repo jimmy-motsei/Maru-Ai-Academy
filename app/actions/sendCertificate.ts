@@ -4,6 +4,7 @@ import { renderToBuffer } from '@react-pdf/renderer'
 import { Resend } from 'resend'
 import { CertificateData } from '@/components/pdf/CertificatePDF'
 import React from 'react'
+import { brandTokens } from '@/lib/brand-tokens'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -98,51 +99,51 @@ export async function sendCertificate(
     const { error } = await resend.emails.send({
       from: 'Maru AI Academy <certificates@maruonline.com>',
       to: recipientEmail,
-      subject: `🎓 Congratulations! Your ${stream} Stream Certificate`,
+      subject: `Congratulations! Your ${stream} Stream Certificate`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          <div style="background: linear-gradient(135deg, #3DD6D0, #1a365d); padding: 30px; text-align: center;">
-            <h1 style="color: white; margin: 0;">🎉 Congratulations!</h1>
+          <div style="background: ${brandTokens.navy}; padding: 30px; text-align: center;">
+            <h1 style="color: white; margin: 0;">Congratulations!</h1>
           </div>
           
-          <div style="padding: 30px; background: #f8f9fa;">
-            <p style="font-size: 18px; color: #333;">Dear ${recipientName},</p>
+          <div style="padding: 30px; background: ${brandTokens.cloud};">
+            <p style="font-size: 18px; color: ${brandTokens.navy};">Dear ${recipientName},</p>
             
-            <p style="color: #555; line-height: 1.6;">
+            <p style="color: ${brandTokens.grey}; line-height: 1.6;">
               Congratulations on completing the <strong>${courseName}</strong> in the 
               <strong>${stream} Stream</strong>!
             </p>
             
-            <div style="background: white; border-left: 4px solid #3DD6D0; padding: 20px; margin: 20px 0;">
-              <h3 style="color: #1a365d; margin-top: 0;">Your Achievement</h3>
-              <ul style="color: #555;">
+            <div style="background: white; border-left: 4px solid ${brandTokens.teal}; padding: 20px; margin: 20px 0;">
+              <h3 style="color: ${brandTokens.navy}; margin-top: 0;">Your Achievement</h3>
+              <ul style="color: ${brandTokens.grey};">
                 <li>Completed ${modulesCompleted} of ${totalModules} modules</li>
                 ${totalHours ? `<li>Invested ${totalHours}+ hours of learning</li>` : ''}
                 <li>Certificate ID: <strong>${certificateId}</strong></li>
               </ul>
             </div>
             
-            <p style="color: #555; line-height: 1.6;">
+            <p style="color: ${brandTokens.grey}; line-height: 1.6;">
               Your certificate is attached to this email. You can also verify it anytime at:
               <br>
-              <a href="https://academy.maruonline.com/verify/${certificateId}" style="color: #3DD6D0;">
+              <a href="https://academy.maruonline.com/verify/${certificateId}" style="color: ${brandTokens.teal};">
                 academy.maruonline.com/verify/${certificateId}
               </a>
             </p>
             
             <div style="text-align: center; margin: 30px 0;">
               <a href="https://academy.maruonline.com/dashboard" 
-                 style="background: #3DD6D0; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold;">
+                 style="background: ${brandTokens.teal}; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold;">
                 Continue Learning
               </a>
             </div>
             
-            <p style="color: #888; font-size: 14px;">
+            <p style="color: ${brandTokens.grey300}; font-size: 14px;">
               Share your achievement on LinkedIn and tag @MaruOnline!
             </p>
           </div>
           
-          <div style="background: #1a365d; padding: 20px; text-align: center;">
+          <div style="background: ${brandTokens.navy}; padding: 20px; text-align: center;">
             <p style="color: #white; margin: 0; font-size: 12px;">
               © ${new Date().getFullYear()} Maru AI Academy. All rights reserved.
             </p>

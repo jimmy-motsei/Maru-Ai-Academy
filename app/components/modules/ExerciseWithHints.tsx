@@ -86,16 +86,16 @@ export function ExerciseWithHints({
   return (
     <Card className="mb-6 overflow-hidden">
       {/* Exercise Header */}
-      <div className="bg-gray-50 p-4 border-b border-gray-200">
+      <div className="bg-maru-cloud p-4 border-b border-maru-line">
         <div className="flex items-center justify-between">
-          <h3 className="font-bold text-gray-900 flex items-center gap-2">
-            <span className="w-6 h-6 rounded bg-primary-100 text-primary-600 flex items-center justify-center text-sm">
+          <h3 className="font-bold text-maru-navy flex items-center gap-2">
+            <span className="w-6 h-6 rounded bg-maru-blue-100 text-maru-blue-700 flex items-center justify-center text-sm">
               Ex
             </span>
             {title}
           </h3>
           {isCorrect !== null && (
-            <div className={`flex items-center gap-1 text-sm ${isCorrect ? 'text-green-600' : 'text-orange-500'}`}>
+            <div className={`flex items-center gap-1 text-sm ${isCorrect ? 'text-verified-fg' : 'text-atrisk-fg'}`}>
               {isCorrect ? (
                 <>
                   <CheckCircle size={16} />
@@ -113,8 +113,8 @@ export function ExerciseWithHints({
       </div>
 
       {/* Instructions */}
-      <div className="p-6 border-b border-gray-100">
-        <p className="text-gray-700">{instructions}</p>
+      <div className="p-6 border-b border-maru-line">
+        <p className="text-maru-grey">{instructions}</p>
       </div>
 
       {/* Exercise Content (passed as children) */}
@@ -124,33 +124,33 @@ export function ExerciseWithHints({
 
       {/* Hint Panel */}
       {hints.length > 0 && (
-        <div className="border-t border-gray-100">
+        <div className="border-t border-maru-line">
           {/* Hint Toggle Button */}
           <button
             onClick={() => setShowHintPanel(!showHintPanel)}
-            className="w-full px-6 py-3 flex items-center justify-between bg-amber-50 hover:bg-amber-100 transition-colors"
+            className="w-full px-6 py-3 flex items-center justify-between bg-atrisk-bg hover:bg-atrisk-bg transition-colors"
           >
-            <div className="flex items-center gap-2 text-amber-700">
+            <div className="flex items-center gap-2 text-atrisk-fg">
               <Lightbulb size={18} />
               <span className="font-medium">
                 {hintsRevealed === 0 ? 'Stuck? Get a hint' : `Hints (${hintsRevealed}/${hints.length})`}
               </span>
             </div>
-            {showHintPanel ? <ChevronUp size={18} className="text-amber-600" /> : <ChevronDown size={18} className="text-amber-600" />}
+            {showHintPanel ? <ChevronUp size={18} className="text-atrisk-fg" /> : <ChevronDown size={18} className="text-atrisk-fg" />}
           </button>
 
           {/* Expanded Hints */}
           {showHintPanel && (
-            <div className="px-6 py-4 bg-amber-50 border-t border-amber-100">
+            <div className="px-6 py-4 bg-atrisk-bg border-t border-atrisk-bg">
               {hintsRevealed === 0 ? (
                 <div className="text-center py-4">
-                  <p className="text-amber-700 mb-4">
+                  <p className="text-atrisk-fg mb-4">
                     Need some help? We'll reveal hints one at a time.
                   </p>
                   <Button
-                    variant="outline"
+                    variant="secondary"
                     onClick={revealNextHint}
-                    className="border-amber-300 text-amber-700 hover:bg-amber-100"
+                    className="border-atrisk text-atrisk-fg hover:bg-atrisk-bg"
                   >
                     <Lightbulb size={16} className="mr-2" />
                     Show First Hint
@@ -161,13 +161,13 @@ export function ExerciseWithHints({
                   {hints.slice(0, hintsRevealed).map((hint, i) => (
                     <div 
                       key={i} 
-                      className="bg-white rounded-lg p-4 border border-amber-200 animate-fade-in"
+                      className="bg-white rounded-lg p-4 border border-atrisk-bg animate-fade-in"
                     >
                       <div className="flex items-start gap-3">
-                        <span className="w-6 h-6 rounded-full bg-amber-200 text-amber-700 flex items-center justify-center text-sm font-bold flex-shrink-0">
+                        <span className="w-6 h-6 rounded-full bg-atrisk-bg text-atrisk-fg flex items-center justify-center text-sm font-bold flex-shrink-0">
                           {i + 1}
                         </span>
-                        <p className="text-gray-700">{hint.content}</p>
+                        <p className="text-maru-grey">{hint.content}</p>
                       </div>
                     </div>
                   ))}
@@ -175,10 +175,10 @@ export function ExerciseWithHints({
                   {hintsRevealed < hints.length && (
                     <div className="text-center pt-2">
                       <Button
-                        variant="outline"
+                        variant="secondary"
                         size="sm"
                         onClick={revealNextHint}
-                        className="border-amber-300 text-amber-700 hover:bg-amber-100"
+                        className="border-atrisk text-atrisk-fg hover:bg-atrisk-bg"
                       >
                         <Lightbulb size={14} className="mr-1" />
                         Show Another Hint ({hints.length - hintsRevealed} remaining)
@@ -187,8 +187,8 @@ export function ExerciseWithHints({
                   )}
 
                   {hintsRevealed === hints.length && (
-                    <p className="text-center text-amber-600 text-sm">
-                      💡 All hints revealed. Still stuck? Try asking the AI Assistant!
+                    <p className="text-center text-atrisk-fg text-sm">
+                      All hints revealed. Still stuck? Try asking the AI Assistant!
                     </p>
                   )}
                 </div>
@@ -200,7 +200,7 @@ export function ExerciseWithHints({
 
       {/* Attempt Counter */}
       {attempts > 0 && (
-        <div className="px-6 py-2 bg-gray-50 border-t border-gray-100 text-xs text-gray-500 text-center">
+        <div className="px-6 py-2 bg-maru-cloud border-t border-maru-line text-xs text-maru-grey text-center">
           Attempts: {attempts} | Hints used: {hintsRevealed}
         </div>
       )}

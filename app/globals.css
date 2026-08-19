@@ -63,27 +63,26 @@
     line-height: var(--maru-lh-tight);
   }
 
-  /* Dark surfaces flip heading ink to white. `.text-white` is included
-     deliberately: it catches arbitrary dark treatments such as CourseHero's
-     `bg-gradient-to-br from-gray-900 ... text-white`, which no background
-     class would match. `.surface-navy` is the Maru utility; the rest are
-     pre-reskin classes that disappear with the bridge at the end of Phase 3. */
-  .surface-navy,
-  .bg-maru-navy,
-  .bg-gradient-primary,
-  .text-white,
-  .bg-gray-900,
-  .bg-gray-800 {
-    --maru-heading-color: var(--maru-white);
-  }
-
-  /* ...and light surfaces flip it back, so a white card nested inside a navy
-     section does not inherit white headings onto a white background. */
+  /* Light surfaces pin heading ink to navy, so a white card nested inside a
+     navy section does not inherit white headings onto a white background. */
   .bg-white,
   .bg-maru-white,
   .bg-maru-cloud,
   .card {
     --maru-heading-color: var(--maru-navy);
+  }
+
+  /* Dark surfaces flip it to white. Declared AFTER the light rule on purpose:
+     an element can carry both, as the dashboard Card does (`bg-white` from the
+     component, `surface-navy` from its className), and the dark treatment is
+     the one actually painted — background-image sits over background-color.
+     `.text-white` is included because it catches dark treatments no background
+     class would match, such as `bg-gradient-to-br from-navy ... text-white`.
+     Nesting is unaffected: a rule on the element always beats inheritance. */
+  .surface-navy,
+  .bg-maru-navy,
+  .text-white {
+    --maru-heading-color: var(--maru-white);
   }
 
   /* Custom scrollbar — hairline track, muted thumb. */

@@ -7,6 +7,7 @@ import { LessonItem } from '@/components/modules/LessonItem'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import prisma from '@/lib/prisma'
+import { Award, BookOpen, Lock } from 'lucide-react'
 
 type Props = {
   params: { slug: string }
@@ -63,25 +64,22 @@ export default async function ModulePage({ params }: { params: { slug: string } 
 
   if (isLocked) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-maru-cloud flex items-center justify-center p-4">
         <Card className="max-w-xl w-full text-center p-12">
-          <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center text-4xl mx-auto mb-6">
-            🔒
-          </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            Pro Access Required
+          <div className="w-20 h-20 bg-maru-cloud rounded-full flex items-center justify-center mx-auto mb-6"><Lock className="h-8 w-8 text-maru-teal" aria-hidden="true" /></div>
+          <h1 className="text-3xl font-bold text-maru-navy mb-4">
+            Pro access required
           </h1>
-          <p className="text-lg text-gray-600 mb-8">
+          <p className="text-lg text-maru-grey mb-8">
             The <strong>{module.title}</strong> module is exclusively available to Pro Academy members. Upgrade your plan to unlock advanced workflows, governance templates, and more.
           </p>
           <div className="space-y-4">
             <Link href="/pricing" className="block w-full">
               <Button variant="primary" size="lg" fullWidth>
-                Upgrade to Pro Academy ✨
-              </Button>
+                Upgrade to Pro Academy</Button>
             </Link>
             <Link href="/modules" className="block w-full">
-              <Button variant="outline" size="lg" fullWidth>
+              <Button variant="secondary" size="lg" fullWidth>
                 Back to Curriculum
               </Button>
             </Link>
@@ -106,11 +104,11 @@ export default async function ModulePage({ params }: { params: { slug: string } 
   }))
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
+    <div className="min-h-screen bg-maru-cloud pb-20">
       {/* Hero Header */}
-      <div className="bg-white border-b border-gray-200">
+      <div className="bg-white border-b border-maru-line">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <Link href="/modules" className="text-gray-500 hover:text-gray-900 mb-6 inline-flex items-center text-sm font-medium transition-colors">
+          <Link href="/modules" className="text-maru-grey hover:text-maru-navy mb-6 inline-flex items-center text-sm font-medium transition-colors">
             <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
             </svg>
@@ -120,28 +118,28 @@ export default async function ModulePage({ params }: { params: { slug: string } 
           <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <Badge variant={module.stream === 'beginner' ? 'success' : 'primary'}>
+                <Badge variant={module.stream === 'beginner' ? 'teal' : 'blue'}>
                   {module.stream === 'beginner' ? 'Beginner Stream' : 'Intermediate Stream'}
                 </Badge>
-                <span className="text-gray-400">•</span>
-                <span className="text-gray-600 font-medium">Module {module.order}</span>
+                <span className="text-maru-grey-300">•</span>
+                <span className="text-maru-grey font-medium">Module {module.order}</span>
               </div>
               
-              <h1 className="text-4xl sm:text-5xl font-heading font-bold text-gray-900 mb-6">
+              <h1 className="text-4xl sm:text-5xl font-heading font-bold text-maru-navy mb-6">
                 {module.title}
               </h1>
               
-              <div className="flex flex-wrap items-center gap-6 text-gray-600">
+              <div className="flex flex-wrap items-center gap-6 text-maru-grey">
                 <div className="flex items-center">
-                  <span className="text-2xl mr-2">⏱️</span>
+                  <span className="text-2xl mr-2">⏱</span>
                   {module.duration}
                 </div>
                 <div className="flex items-center">
-                  <span className="text-2xl mr-2">📚</span>
+                  <BookOpen className="h-6 w-6 text-maru-teal" aria-hidden="true" />
                   {module.lessonsCount} Lessons
                 </div>
                 <div className="flex items-center">
-                  <span className="text-2xl mr-2">🎖️</span>
+                  <Award className="h-6 w-6 text-maru-teal" aria-hidden="true" />
                   Earn Badges on completion
                 </div>
               </div>
@@ -149,13 +147,13 @@ export default async function ModulePage({ params }: { params: { slug: string } 
 
             <Card className="w-full md:w-80 flex-shrink-0 p-6">
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-primary-50 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-primary-100" style={{ height: `${100 - percentComplete}%` }}></div>
-                  <span className="relative z-10">{module.icon === 'bulb' ? '💡' : module.icon === 'rocket' ? '🚀' : '📚'}</span>
+                <div className="w-16 h-16 bg-maru-blue-100 rounded-2xl flex items-center justify-center text-3xl mx-auto mb-4 relative overflow-hidden">
+                  <div className="absolute inset-0 bg-maru-blue-100" style={{ height: `${100 - percentComplete}%` }}></div>
+                  <span className="relative z-10">{module.icon === 'bulb' ? '' : module.icon === 'rocket' ? '' : ''}</span>
                 </div>
-                <div className="text-sm text-gray-500">Current Status</div>
-                <div className="text-lg font-bold text-gray-900">
-                  {percentComplete === 100 ? 'Completed! 🎉' : `${percentComplete}% Complete`}
+                <div className="text-sm text-maru-grey">Current Status</div>
+                <div className="text-lg font-bold text-maru-navy">
+                  {percentComplete === 100 ? 'Completed!' : `${percentComplete}% Complete`}
                 </div>
               </div>
               <Link href={`/modules/${module.slug}/lesson/${lessons[0].id}`} className="block">
@@ -175,20 +173,20 @@ export default async function ModulePage({ params }: { params: { slug: string } 
           <div className="lg:col-span-2 space-y-8">
             <Card>
               <h2 className="text-2xl font-bold mb-4">About this Module</h2>
-              <p className="text-gray-600 leading-relaxed text-lg">
+              <p className="text-maru-grey leading-relaxed text-lg">
                 {module.description}
               </p>
             </Card>
 
             <Card>
-              <h2 className="text-2xl font-bold mb-6">What You'll Learn</h2>
+              <h2 className="text-2xl font-bold mb-6">What you'll learn</h2>
               <ul className="space-y-4">
                 {module.learningObjectives?.map((objective, i) => (
                   <li key={i} className="flex items-start">
-                    <svg className="w-6 h-6 text-green-500 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6 text-verified-fg mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
-                    <span className="text-gray-700">{objective}</span>
+                    <span className="text-maru-grey">{objective}</span>
                   </li>
                 ))}
               </ul>
@@ -198,8 +196,8 @@ export default async function ModulePage({ params }: { params: { slug: string } 
           {/* Sidebar */}
           <div className="space-y-6">
             <Card>
-              <h3 className="font-bold text-gray-900 mb-4">Course Content</h3>
-              <p className="text-sm text-gray-500 mb-4">
+              <h3 className="font-bold text-maru-navy mb-4">Course content</h3>
+              <p className="text-sm text-maru-grey mb-4">
                 Complete lessons in order to unlock the next one.
               </p>
               <div className="space-y-0">
