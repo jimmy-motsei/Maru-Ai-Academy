@@ -20,7 +20,7 @@ const NAV_LINKS = [
 ]
 
 const navLinkClass =
-  'font-medium text-maru-navy transition-colors hover:text-maru-blue-700 ' +
+  'whitespace-nowrap font-medium text-maru-navy transition-colors hover:text-maru-blue-700 ' +
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue ' +
   'focus-visible:ring-offset-2 rounded-input'
 
@@ -37,14 +37,14 @@ export const Header = () => {
             className="flex items-center gap-2.5 rounded-input focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue focus-visible:ring-offset-2"
           >
             <Logo markOnly height={28} priority />
-            <span className="font-display text-xl font-semibold text-maru-navy">Maru AI Academy</span>
+            <span className="whitespace-nowrap font-display text-lg font-semibold text-maru-navy sm:text-xl">Maru AI Academy</span>
           </Link>
 
           {/* Desktop navigation */}
-          <div className="hidden items-center gap-8 md:flex">
+          <div className="hidden items-center gap-6 lg:flex xl:gap-8">
             <a
               href="https://maruonline.com"
-              className="flex items-center gap-1 rounded-input text-sm font-medium text-maru-grey transition-colors hover:text-maru-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue focus-visible:ring-offset-2"
+              className="flex items-center gap-1 whitespace-nowrap rounded-input text-sm font-medium text-maru-grey transition-colors hover:text-maru-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue focus-visible:ring-offset-2"
             >
               ← Maru Online
             </a>
@@ -92,7 +92,7 @@ export const Header = () => {
             aria-expanded={mobileMenuOpen}
             aria-controls="mobile-menu"
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-            className="-mr-2 flex h-11 w-11 items-center justify-center rounded-input text-maru-navy transition-colors hover:bg-maru-cloud focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue focus-visible:ring-offset-2 md:hidden"
+            className="-mr-2 flex h-11 w-11 items-center justify-center rounded-input text-maru-navy transition-colors hover:bg-maru-cloud focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue focus-visible:ring-offset-2 lg:hidden"
           >
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               {mobileMenuOpen ? (
@@ -106,7 +106,7 @@ export const Header = () => {
 
         {/* Mobile menu */}
         {mobileMenuOpen && (
-          <div id="mobile-menu" className="border-t border-maru-line py-4 md:hidden">
+          <div id="mobile-menu" className="border-t border-maru-line py-4 lg:hidden">
             <div className="flex flex-col gap-4">
               <a
                 href="https://maruonline.com"
