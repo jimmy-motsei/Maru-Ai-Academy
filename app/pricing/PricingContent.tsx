@@ -237,7 +237,7 @@ export default function PricingContent() {
           <p className="text-maru-grey mb-4">
             Want to see what you'll learn?
           </p>
-          <Link href="/modules">
+          <Link href="/learn">
             <Button variant="secondary" size="lg">
               View Full Curriculum →
             </Button>

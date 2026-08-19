@@ -10,7 +10,7 @@ import { Logo } from '../ui'
  */
 
 const QUICK_LINKS = [
-  { href: '/modules', label: 'Modules' },
+  { href: '/learn', label: 'Modules' },
   { href: '/about', label: 'About' },
   { href: '/pricing', label: 'Pricing' },
 ]

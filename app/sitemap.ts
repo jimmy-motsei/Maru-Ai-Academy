@@ -3,6 +3,8 @@ import { MetadataRoute } from 'next'
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://academy.maruonline.com'
   
+  // /courses is deliberately absent: only app/courses/[slug] exists, there is
+  // no index route, and the URL 404s live. Re-add it if an index is built.
   return [
     {
       url: baseUrl,
@@ -11,16 +13,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${baseUrl}/modules`,
+      url: `${baseUrl}/learn`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/courses`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.8,
     },
     {
       url: `${baseUrl}/pricing`,

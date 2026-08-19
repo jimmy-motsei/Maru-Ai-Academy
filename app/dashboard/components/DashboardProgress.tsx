@@ -89,7 +89,7 @@ export function DashboardProgress({ userId }: { userId: string }) {
           <p className="text-sm text-maru-grey">
             Lessons Completed: <strong>{totalCompleted} / {totalLessons}</strong>
           </p>
-          <Link href="/modules">
+          <Link href="/learn">
             <Button size="sm">Browse Modules &rarr;</Button>
           </Link>
         </div>

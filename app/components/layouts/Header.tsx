@@ -14,7 +14,7 @@ import { Button, Logo } from '../ui'
  */
 
 const NAV_LINKS = [
-  { href: '/modules', label: 'Modules' },
+  { href: '/learn', label: 'Modules' },
   { href: '/about', label: 'About' },
   { href: '/pricing', label: 'Pricing' },
 ]

@@ -30,7 +30,7 @@ export default function Home() {
                   Start Learning Free
                 </Button>
               </Link>
-              <Link href="/modules">
+              <Link href="/learn">
                 <Button variant="secondary" size="lg">
                   View Curriculum
                 </Button>
@@ -112,7 +112,7 @@ export default function Home() {
                 </div>
               </div>
               
-              <Link href="/modules">
+              <Link href="/learn">
                 <Button variant="primary" fullWidth>
                   Start Beginner Path
                 </Button>
@@ -162,7 +162,7 @@ export default function Home() {
                 </div>
               </div>
               
-              <Link href="/modules">
+              <Link href="/learn">
                 <Button variant="primary" fullWidth>
                   Start Intermediate Path
                 </Button>

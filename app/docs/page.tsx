@@ -31,7 +31,7 @@ export default function DocsPage() {
                 <Link href="/auth/signup" className="text-maru-blue-700 hover:text-maru-blue-700 font-semibold block">
                   1. Create your free account →
                 </Link>
-                <Link href="/modules" className="text-maru-blue-700 hover:text-maru-blue-700 font-semibold block">
+                <Link href="/learn" className="text-maru-blue-700 hover:text-maru-blue-700 font-semibold block">
                   2. Explore the Beginner Stream →
                 </Link>
                 <Link href="/dashboard" className="text-maru-blue-700 hover:text-maru-blue-700 font-semibold block">
@@ -78,12 +78,12 @@ export default function DocsPage() {
             <h3 className="text-xl font-bold text-maru-navy mb-3">Learning paths</h3>
             <ul className="space-y-2 text-maru-grey">
               <li>
-                <Link href="/modules" className="hover:text-maru-blue-700 transition-colors">
+                <Link href="/learn" className="hover:text-maru-blue-700 transition-colors">
                   → Beginner Stream (Free)
                 </Link>
               </li>
               <li>
-                <Link href="/modules" className="hover:text-maru-blue-700 transition-colors">
+                <Link href="/learn" className="hover:text-maru-blue-700 transition-colors">
                   → Intermediate Stream (Pro)
                 </Link>
               </li>

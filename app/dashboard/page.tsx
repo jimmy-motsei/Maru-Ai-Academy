@@ -112,7 +112,7 @@ export default async function DashboardPage() {
             <Card className="bg-maru-blue-100 border-maru-blue-100">
               <h3 className="font-bold text-maru-navy mb-4">Quick actions</h3>
               <div className="space-y-3">
-                <Link href="/modules">
+                <Link href="/learn">
                   <Button variant="secondary" size="sm" fullWidth>Browse All Modules
                   </Button>
                 </Link>
