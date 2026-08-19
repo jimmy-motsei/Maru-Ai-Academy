@@ -1,91 +1,95 @@
 import Link from 'next/link'
+import { Logo } from '../ui'
+
+/**
+ * Site footer. Navy surface with the reversed logo lockup.
+ *
+ * Body copy uses --maru-grey-on-dark, the token the design system provides
+ * for exactly this (8.13:1 on navy). Links go teal-300 on hover — 6.52:1 —
+ * rather than blue, which is unreadable against navy.
+ */
+
+const QUICK_LINKS = [
+  { href: '/modules', label: 'Modules' },
+  { href: '/about', label: 'About' },
+  { href: '/pricing', label: 'Pricing' },
+]
+
+const RESOURCE_LINKS = [
+  { href: '/docs', label: 'Documentation' },
+  { href: '/support', label: 'Support' },
+  { href: '/contact', label: 'Contact' },
+]
+
+const LEGAL_LINKS = [
+  { href: '/privacy', label: 'Privacy policy' },
+  { href: '/terms', label: 'Terms of service' },
+  { href: '/refund-policy', label: 'Refund policy' },
+  { href: '/cancellation-policy', label: 'Cancellation policy' },
+]
+
+const footerLinkClass =
+  'rounded-input transition-colors hover:text-maru-teal-300 ' +
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-teal-300 focus-visible:ring-offset-2 ' +
+  'focus-visible:ring-offset-maru-navy'
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-gray-900 text-gray-300">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Brand */}
+    <footer className="bg-maru-navy text-maru-grey-on-dark">
+      <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-xl">M</span>
-              </div>
-              <span className="font-heading font-bold text-xl text-white">
-                Maru AI Academy
-              </span>
-            </div>
-            <p className="text-gray-400 max-w-md">
-              Master AI productivity tools and transform your business workflows. 
-              Learn from basic AI concepts to advanced team automation.
+            <Link
+              href="/"
+              className="mb-4 inline-flex rounded-input focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-teal-300 focus-visible:ring-offset-2 focus-visible:ring-offset-maru-navy"
+            >
+              <Logo variant="reversed" height={32} />
+            </Link>
+            <p className="max-w-md">
+              Master AI productivity tools and transform your business workflows. Learn from basic AI concepts to
+              advanced team automation.
             </p>
           </div>
 
-          {/* Quick Links */}
           <div>
-            <h3 className="font-semibold text-white mb-4">Quick Links</h3>
+            <h3 className="mb-4 font-semibold">Quick links</h3>
             <ul className="space-y-2">
-              <li>
-                <Link href="/modules" className="hover:text-primary-400 transition-colors">
-                  Modules
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="hover:text-primary-400 transition-colors">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/pricing" className="hover:text-primary-400 transition-colors">
-                  Pricing
-                </Link>
-              </li>
+              {QUICK_LINKS.map(({ href, label }) => (
+                <li key={href}>
+                  <Link href={href} className={footerLinkClass}>
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Resources */}
           <div>
-            <h3 className="font-semibold text-white mb-4">Resources</h3>
+            <h3 className="mb-4 font-semibold">Resources</h3>
             <ul className="space-y-2">
-              <li>
-                <Link href="/docs" className="hover:text-primary-400 transition-colors">
-                  Documentation
-                </Link>
-              </li>
-              <li>
-                <Link href="/support" className="hover:text-primary-400 transition-colors">
-                  Support
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-primary-400 transition-colors">
-                  Contact
-                </Link>
-              </li>
+              {RESOURCE_LINKS.map(({ href, label }) => (
+                <li key={href}>
+                  <Link href={href} className={footerLinkClass}>
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm">
-            © {currentYear} Maru AI Academy. All rights reserved.
+        <div className="mt-8 flex flex-col items-center justify-between border-t border-maru-navy-700 pt-8 md:flex-row">
+          <p className="text-sm">
+            © <span className="font-mono tracking-mono">{currentYear}</span> Maru AI Academy. All rights reserved.
           </p>
-          <div className="flex flex-wrap justify-center gap-4 md:gap-6 mt-4 md:mt-0">
-            <Link href="/privacy" className="text-gray-400 hover:text-primary-400 text-sm transition-colors">
-              Privacy Policy
-            </Link>
-            <Link href="/terms" className="text-gray-400 hover:text-primary-400 text-sm transition-colors">
-              Terms of Service
-            </Link>
-            <Link href="/refund-policy" className="text-gray-400 hover:text-primary-400 text-sm transition-colors">
-              Refund Policy
-            </Link>
-            <Link href="/cancellation-policy" className="text-gray-400 hover:text-primary-400 text-sm transition-colors">
-              Cancellation Policy
-            </Link>
+          <div className="mt-4 flex flex-wrap justify-center gap-4 md:mt-0 md:gap-6">
+            {LEGAL_LINKS.map(({ href, label }) => (
+              <Link key={href} href={href} className={`text-sm ${footerLinkClass}`}>
+                {label}
+              </Link>
+            ))}
           </div>
         </div>
       </div>
