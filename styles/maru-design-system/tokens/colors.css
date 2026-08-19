@@ -1,0 +1,61 @@
+/* ============================================================
+   Maru Online — Colour tokens
+   Navy & blue carry institutional trust. Teal is the SIGNATURE
+   accent — Maru's "intelligent layer" — used sparingly. Status
+   colours form a consistent state language (active / attention / inactive).
+   ============================================================ */
+:root {
+  /* --- Core brand (Maru Online core) --- */
+  --maru-blue:        #008BD1;  /* primary action / link            */
+  --maru-blue-700:    #0069A0;  /* hover / pressed blue             */
+  --maru-blue-300:    #66BEE6;
+  --maru-blue-100:    #D8EFF9;
+  --maru-navy:        #001C2A;  /* ink, dark surfaces, headings     */
+  --maru-navy-700:    #0A3242;  /* gradient pair / raised dark      */
+  --maru-slate:       #262832;  /* secondary dark surface           */
+
+  /* --- Maru Online signature (the differentiator) --- */
+  --maru-teal:        #1A7A8A;  /* the "IQ" accent — intelligence   */
+  --maru-teal-600:    #14606D;  /* hover / pressed teal             */
+  --maru-teal-300:    #5FA9B4;  /* reversed "IQ", tints on dark     */
+  --maru-teal-100:    #DCEDEF;  /* teal wash background             */
+
+  /* --- Status / compliance --- */
+  --maru-verified:    #55BB53;  /* compliant / pass (inherited)     */
+  --maru-verified-bg: #E9F7E8;
+  --maru-verified-fg: #2E7D2C;
+  --maru-atrisk:      #F2A100;  /* flagged by the AI layer          */
+  --maru-atrisk-bg:   #FDF1DA;
+  --maru-atrisk-fg:   #9A6800;
+  --maru-overdue:     #E0533D;  /* non-compliant / overdue          */
+  --maru-overdue-bg:  #FBE6E1;
+  --maru-overdue-fg:  #A8331F;
+
+  /* --- Neutrals --- */
+  --maru-ink:         #001C2A;
+  --maru-grey:        #5F5F5F;  /* body text                        */
+  --maru-grey-300:    #9AA3AB;  /* muted / placeholder              */
+  --maru-grey-on-dark:#9FB4BE;  /* body text on navy                */
+  --maru-line:        #E2E8EC;  /* hairlines / borders              */
+  --maru-cloud:       #F5F7FA;  /* light app / section background   */
+  --maru-white:       #FFFFFF;
+
+  /* --- Semantic aliases --- */
+  --color-action:        var(--maru-blue);
+  --color-action-hover:  var(--maru-blue-700);
+  --color-accent:        var(--maru-teal);
+  --color-accent-hover:  var(--maru-teal-600);
+  --text-heading:        var(--maru-navy);
+  --text-body:           var(--maru-grey);
+  --text-muted:          var(--maru-grey-300);
+  --text-on-dark:        var(--maru-white);
+  --text-body-on-dark:   var(--maru-grey-on-dark);
+  --surface-page:        var(--maru-cloud);
+  --surface-card:        var(--maru-white);
+  --surface-dark:        var(--maru-navy);
+  --surface-tint:        var(--maru-teal-100);
+  --border-default:      var(--maru-line);
+
+  /* Signature dark gradient (cover, hero, nav surfaces) */
+  --maru-gradient-navy: linear-gradient(135deg, #001C2A 0%, #0A3242 100%); /* @kind color */
+}

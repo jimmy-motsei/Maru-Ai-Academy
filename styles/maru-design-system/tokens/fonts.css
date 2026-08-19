@@ -1,0 +1,7 @@
+/* ============================================================
+   Maru Online — Webfonts
+   Poppins (display), Inter (body/UI), IBM Plex Mono (data).
+   All three are on Google Fonts — served via @import.
+   If you self-host, replace this with local @font-face rules.
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');

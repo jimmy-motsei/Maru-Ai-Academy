@@ -1,3 +1,17 @@
+/* ============================================================
+   Maru Online Design System — vendored tokens.
+   Source of truth for colour, type, spacing, radius, elevation.
+   See styles/maru-design-system/README.md before editing anything
+   here; the token files themselves are a verbatim copy and must
+   not be edited in this repo.
+
+   fonts.css is deliberately NOT imported — the three families are
+   loaded via next/font/google in app/layout.tsx instead.
+   ============================================================ */
+@import '../styles/maru-design-system/tokens/colors.css';
+@import '../styles/maru-design-system/tokens/typography.css';
+@import '../styles/maru-design-system/tokens/spacing.css';
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap');
 
 @tailwind base;
