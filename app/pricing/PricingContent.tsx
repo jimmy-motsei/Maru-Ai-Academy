@@ -1,19 +1,35 @@
 'use client';
 
 import { useState } from 'react';
+import { useSession } from 'next-auth/react';
 import { Badge, Button, Card } from '@/components/ui';
 import Link from 'next/link';
-import PaystackButton from '@/components/pricing/PaystackButton';
+import dynamic from 'next/dynamic';
+
+// react-paystack touches `window` at module scope, so a static import pulls it
+// into the prerender and fails the build with "window is not defined" — even
+// though the button only renders for signed-in visitors. Loading it lazily
+// keeps it out of the server bundle entirely.
+const PaystackButton = dynamic(() => import('@/components/pricing/PaystackButton'), {
+  ssr: false,
+});
 import CurrencySelector from '@/components/pricing/CurrencySelector';
 import { PRICING, Currency } from '@/lib/pricing';
 
-interface PricingContentProps {
-  session: any;
-}
-
-export default function PricingContent({ session }: PricingContentProps) {
+export default function PricingContent() {
   const [currency, setCurrency] = useState<Currency>('ZAR');
+
+  // Read the session on the client, not the server. Doing it server-side makes
+  // the route dynamic and hides the whole page from crawlers behind the
+  // loading fallback — see the note in page.tsx.
+  //
+  // `status` is checked rather than truthiness of `data`: during prerender and
+  // the first client frame it is 'loading', and treating that as signed-in
+  // would flash a Dashboard link at signed-out visitors.
+  const { data: session, status } = useSession();
+  const isSignedIn = status === 'authenticated';
   const user = session?.user;
+
   const pricing = PRICING[currency];
 
   return (
@@ -49,8 +65,8 @@ export default function PricingContent({ session }: PricingContentProps) {
               <span className="text-3xl font-bold text-maru-navy font-mono tracking-mono">{pricing.symbol}0</span>
               <span className="text-maru-grey text-sm">/month</span>
             </div>
-            <Link href={session ? "/dashboard" : "/auth/signup?plan=starter"} className="w-full mb-6">
-              <Button variant="secondary" fullWidth size="sm">{session ? 'Go to Dashboard' : 'Get Started Free'}</Button>
+            <Link href={isSignedIn ? "/dashboard" : "/auth/signup?plan=starter"} className="w-full mb-6">
+              <Button variant="secondary" fullWidth size="sm">{isSignedIn ? 'Go to Dashboard' : 'Get Started Free'}</Button>
             </Link>
             
             <div className="space-y-3 flex-grow">
@@ -85,7 +101,7 @@ export default function PricingContent({ session }: PricingContentProps) {
             </div>
             
             <div className="w-full mb-6">
-              {session ? (
+              {isSignedIn ? (
                 <PaystackButton
                   email={user?.email || ''}
                   amount={pricing.LEARNER}
@@ -137,7 +153,7 @@ export default function PricingContent({ session }: PricingContentProps) {
             <p className="text-xs text-verified-fg font-medium mb-4">Launch price – save 28%</p>
             
             <div className="w-full mb-6">
-              {session ? (
+              {isSignedIn ? (
                 <PaystackButton
                   email={user?.email || ''}
                   amount={pricing.PRO}
