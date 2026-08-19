@@ -110,33 +110,33 @@ export const Header = () => {
             <div className="flex flex-col gap-4">
               <a
                 href="https://maruonline.com"
-                className="rounded-input font-medium text-maru-grey transition-colors hover:text-maru-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue focus-visible:ring-offset-2"
+                className="flex min-h-11 items-center rounded-input font-medium text-maru-grey transition-colors hover:text-maru-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue focus-visible:ring-offset-2"
               >
                 ← Back to Maru Online
               </a>
 
               {NAV_LINKS.map(({ href, label }) => (
-                <Link key={href} href={href} className={navLinkClass}>
+                <Link key={href} href={href} className={`flex min-h-11 items-center ${navLinkClass}`}>
                   {label}
                 </Link>
               ))}
 
               {session ? (
                 <>
-                  <Link href="/dashboard" className={navLinkClass}>
+                  <Link href="/dashboard" className={`flex min-h-11 items-center ${navLinkClass}`}>
                     Dashboard
                   </Link>
                   <button
                     type="button"
                     onClick={() => signOut()}
-                    className="rounded-input text-left font-medium text-overdue-fg transition-colors hover:text-overdue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue focus-visible:ring-offset-2"
+                    className="flex min-h-11 items-center rounded-input text-left font-medium text-overdue-fg transition-colors hover:text-overdue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue focus-visible:ring-offset-2"
                   >
                     Sign out
                   </button>
                 </>
               ) : (
                 <>
-                  <Link href="/auth/signin" className={navLinkClass}>
+                  <Link href="/auth/signin" className={`flex min-h-11 items-center ${navLinkClass}`}>
                     Log in
                   </Link>
                   <Link href="/auth/signup">

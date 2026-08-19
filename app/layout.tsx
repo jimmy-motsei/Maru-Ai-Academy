@@ -110,8 +110,19 @@ export default function RootLayout({
     <html lang="en-ZA" className={`${inter.variable} ${poppins.variable} ${plexMono.variable}`}>
       <body className="font-sans">
         <SessionProvider>
+          {/* Visible only on keyboard focus — lets keyboard and screen-reader
+              users jump the nav instead of tabbing it on every page. */}
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100]
+                       focus:rounded-pill focus:bg-maru-navy focus:px-5 focus:py-2.5
+                       focus:font-semibold focus:text-white focus:outline-none
+                       focus:ring-2 focus:ring-maru-blue focus:ring-offset-2"
+          >
+            Skip to content
+          </a>
           <Header />
-          <main className="min-h-screen">
+          <main id="main-content" tabIndex={-1} className="min-h-screen">
             {children}
           </main>
           <Footer />

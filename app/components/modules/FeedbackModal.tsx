@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button, Card } from '@/components/ui';
 import { Award, X } from 'lucide-react';
 
@@ -37,6 +37,33 @@ export function FeedbackModal({
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [awardedBadges, setAwardedBadges] = useState<any[]>([]);
+
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const returnFocusRef = useRef<HTMLElement | null>(null)
+
+  useEffect(() => {
+    if (!isOpen) return
+
+    returnFocusRef.current = document.activeElement as HTMLElement
+    dialogRef.current?.focus()
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.stopPropagation()
+        onClose()
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.body.style.overflow = prevOverflow
+      returnFocusRef.current?.focus()
+    }
+  }, [isOpen, onClose])
 
   if (!isOpen) return null;
 
@@ -130,12 +157,22 @@ export function FeedbackModal({
   );
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 animate-fade-in">
-      <Card className="max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
+    <div
+      className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 animate-fade-in"
+      onMouseDown={(e) => { if (e.target === e.currentTarget) onClose() }}
+    >
+      <Card
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="feedback-modal-title"
+        tabIndex={-1}
+        className="max-w-2xl w-full max-h-[90vh] overflow-y-auto relative focus:outline-none"
+      >
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-maru-grey-300 hover:text-maru-grey transition-colors"
+          className="absolute top-2 right-2 flex h-11 w-11 items-center justify-center rounded-input text-maru-grey-300 transition-colors hover:text-maru-grey focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue"
           aria-label="Close"
         >
           <X size={24} />
@@ -148,7 +185,7 @@ export function FeedbackModal({
               // Badge awarded state
               <>
                 <div className="text-6xl mb-4 animate-bounce"></div>
-                <h2 className="text-2xl font-bold text-maru-navy mb-2">
+                <h2 id="feedback-modal-title" className="text-2xl font-bold text-maru-navy mb-2">
                   Congratulations!</h2>
                 <p className="text-maru-grey mb-6">
                   You've earned {awardedBadges.length > 1 ? 'new badges' : 'a new badge'}!
@@ -173,7 +210,7 @@ export function FeedbackModal({
               // Standard thank you state
               <>
                 <div className="text-6xl mb-4"></div>
-                <h2 className="text-2xl font-bold text-maru-navy mb-2">
+                <h2 id="feedback-modal-title" className="text-2xl font-bold text-maru-navy mb-2">
                   Thank you!
                 </h2>
                 <p className="text-maru-grey">
@@ -186,7 +223,7 @@ export function FeedbackModal({
           // Feedback form
           <>
             <div className="mb-6">
-              <h2 className="text-2xl font-bold text-maru-navy mb-2">
+              <h2 id="feedback-modal-title" className="text-2xl font-bold text-maru-navy mb-2">
                 How was this lesson?
               </h2>
               <p className="text-maru-grey">
@@ -225,10 +262,11 @@ export function FeedbackModal({
               {/* Text feedback */}
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-semibold text-maru-navy mb-2">
+                  <label htmlFor="fb-worked" className="block text-sm font-semibold text-maru-navy mb-2">
                     What worked well? (Optional)
                   </label>
                   <textarea
+                    id="fb-worked"
                     className="w-full px-4 py-3 border border-maru-line rounded-lg focus:ring-2 focus:ring-maru-blue focus:border-transparent resize-none"
                     rows={3}
                     maxLength={500}
@@ -242,10 +280,11 @@ export function FeedbackModal({
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-maru-navy mb-2">
+                  <label htmlFor="fb-confusing" className="block text-sm font-semibold text-maru-navy mb-2">
                     What could be improved? (Optional)
                   </label>
                   <textarea
+                    id="fb-confusing"
                     className="w-full px-4 py-3 border border-maru-line rounded-lg focus:ring-2 focus:ring-maru-blue focus:border-transparent resize-none"
                     rows={3}
                     maxLength={500}
@@ -259,10 +298,11 @@ export function FeedbackModal({
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-maru-navy mb-2">
+                  <label htmlFor="fb-suggestions" className="block text-sm font-semibold text-maru-navy mb-2">
                     Additional Comments (Optional)
                   </label>
                   <textarea
+                    id="fb-suggestions"
                     className="w-full px-4 py-3 border border-maru-line rounded-lg focus:ring-2 focus:ring-maru-blue focus:border-transparent resize-none"
                     rows={3}
                     maxLength={1000}

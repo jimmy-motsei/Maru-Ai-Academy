@@ -266,6 +266,7 @@ export function PromptGym({ challenge, onSuccess }: PromptGymProps) {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            aria-label="Type your prompt"
             placeholder="Type your prompt here..."
             disabled={isTyping}
             className="flex-1 px-4 py-3 rounded-xl border border-maru-line focus:outline-none focus:ring-2 focus:ring-maru-blue-100 focus:border-maru-blue transition-all bg-maru-cloud hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"

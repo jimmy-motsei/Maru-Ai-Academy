@@ -157,14 +157,15 @@ export default function ContactPage() {
               />
               
               <div>
-                <label className="block text-sm font-semibold text-maru-grey mb-2">
-                  Topic
+                <label htmlFor="contact-topic" className="block text-sm font-semibold text-maru-grey mb-2">
+                    Topic
                 </label>
-                <select 
+                <select
+                  id="contact-topic"
                   name="topic"
                   value={formData.topic}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-maru-line focus:border-maru-blue focus:ring-2 focus:ring-maru-blue-100 transition-colors bg-white"
+                  className="w-full rounded-input border border-maru-line bg-white px-3 py-2.5 text-maru-navy transition-[border-color,box-shadow] duration-150 focus:border-maru-blue focus:outline-none focus:ring-[3px] focus:ring-maru-blue-100"
                 >
                   <option>General Inquiry</option>
                   <option>Course Support</option>

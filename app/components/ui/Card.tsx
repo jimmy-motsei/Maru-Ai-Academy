@@ -21,16 +21,22 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   noPadding?: boolean
 }
 
-export const Card: React.FC<CardProps> = ({
-  children,
-  className = '',
-  raised = false,
-  intelligent = false,
-  hover = true,
-  noPadding = false,
-  ...props
-}) => (
+/** forwardRef so callers can focus the surface — a modal needs to. */
+export const Card = React.forwardRef<HTMLDivElement, CardProps>(function Card(
+  {
+    children,
+    className = '',
+    raised = false,
+    intelligent = false,
+    hover = true,
+    noPadding = false,
+    ...props
+  },
+  ref,
+) {
+  return (
   <div
+    ref={ref}
     className={[
       'rounded-card border bg-white transition-shadow duration-200',
       intelligent ? 'border-maru-teal-300' : 'border-maru-line',
@@ -45,6 +51,7 @@ export const Card: React.FC<CardProps> = ({
   >
     {children}
   </div>
-)
+  )
+})
 
 export default Card

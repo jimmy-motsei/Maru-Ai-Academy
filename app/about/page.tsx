@@ -113,20 +113,20 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-              <div className="text-3xl sm:text-4xl font-bold text-maru-blue-300 mb-2 font-mono tracking-mono">50k+</div>
-              <div className="text-maru-grey-300">Students Taught</div>
+              <div className="text-3xl sm:text-4xl font-bold text-white mb-2 font-mono tracking-mono">50k+</div>
+              <div className="text-maru-grey-on-dark">Students Taught</div>
             </div>
             <div>
-              <div className="text-3xl sm:text-4xl font-bold text-maru-blue-700 mb-2 font-mono tracking-mono">100+</div>
-              <div className="text-maru-grey-300">Enterprise Partners</div>
+              <div className="text-3xl sm:text-4xl font-bold text-white mb-2 font-mono tracking-mono">100+</div>
+              <div className="text-maru-grey-on-dark">Enterprise Partners</div>
             </div>
             <div>
-              <div className="text-3xl sm:text-4xl font-bold text-verified-fg mb-2 font-mono tracking-mono">500+</div>
-              <div className="text-maru-grey-300">Workflows Built</div>
+              <div className="text-3xl sm:text-4xl font-bold text-white mb-2 font-mono tracking-mono">500+</div>
+              <div className="text-maru-grey-on-dark">Workflows Built</div>
             </div>
             <div>
-              <div className="text-3xl sm:text-4xl font-bold text-atrisk-fg mb-2 font-mono tracking-mono">4.9/5</div>
-              <div className="text-maru-grey-300">Student Rating</div>
+              <div className="text-3xl sm:text-4xl font-bold text-white mb-2 font-mono tracking-mono">4.9/5</div>
+              <div className="text-maru-grey-on-dark">Student Rating</div>
             </div>
           </div>
         </div>

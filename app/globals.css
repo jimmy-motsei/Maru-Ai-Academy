@@ -40,6 +40,25 @@
     @apply scroll-smooth;
   }
 
+  /* Respect a reduced-motion preference everywhere, including the animations
+     declared in tailwind.config.ts and any third-party CSS. Motion is not
+     removed outright — it is collapsed to a single frame, so anything that
+     depends on an animation/transition end event still fires. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   body {
     @apply bg-maru-cloud text-maru-grey font-sans antialiased;
     font-size: var(--maru-fs-body);

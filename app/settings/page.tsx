@@ -123,17 +123,17 @@ export default async function SettingsPage() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-medium text-maru-navy">Email Notifications</p>
+                  <p id="notify-email-label" className="font-medium text-maru-navy">Email Notifications</p>
                   <p className="text-sm text-maru-grey">Receive updates about new modules and features</p>
                 </div>
-                <input type="checkbox" defaultChecked className="w-5 h-5 text-maru-blue-700" />
+                <input type="checkbox" defaultChecked aria-labelledby="notify-email-label" className="h-5 w-5 accent-maru-blue" />
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-medium text-maru-navy">Progress Emails</p>
+                  <p id="notify-progress-label" className="font-medium text-maru-navy">Progress Emails</p>
                   <p className="text-sm text-maru-grey">Weekly summary of your learning progress</p>
                 </div>
-                <input type="checkbox" defaultChecked className="w-5 h-5 text-maru-blue-700" />
+                <input type="checkbox" defaultChecked aria-labelledby="notify-progress-label" className="h-5 w-5 accent-maru-blue" />
               </div>
             </div>
           </Card>

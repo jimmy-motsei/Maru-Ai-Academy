@@ -212,6 +212,7 @@ export default function ChatWidget() {
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
+                  aria-label="Ask a question about your lesson"
                   placeholder="Ask a question about your lesson..."
                   className="flex-1 bg-transparent border-none focus:ring-0 p-2 text-sm max-h-24"
                 />

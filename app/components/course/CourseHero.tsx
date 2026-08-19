@@ -14,12 +14,11 @@ export const CourseHero: React.FC<CourseHeroProps> = ({ course }) => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl">
           <div className="flex items-center gap-4 mb-6">
-            <Badge variant="blue" className="bg-maru-blue-100 text-maru-blue-100 border border-maru-blue-100">
+            <Badge variant="blue">
               Course
             </Badge>
             <div className="flex items-center text-sm text-maru-grey-on-dark">
-              <span className="text-atrisk-fg mr-1"></span>
-              {course.rating} ({course.totalReviews.toLocaleString()} reviews)
+                            {course.rating} ({course.totalReviews.toLocaleString()} reviews)
             </div>
           </div>
           

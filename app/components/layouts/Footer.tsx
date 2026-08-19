@@ -29,7 +29,7 @@ const LEGAL_LINKS = [
 ]
 
 const footerLinkClass =
-  'rounded-input transition-colors hover:text-maru-teal-300 ' +
+  'inline-flex min-h-[24px] items-center rounded-input transition-colors hover:text-maru-teal-300 ' +
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-teal-300 focus-visible:ring-offset-2 ' +
   'focus-visible:ring-offset-maru-navy'
 
@@ -86,7 +86,7 @@ export const Footer = () => {
           </p>
           <div className="mt-4 flex flex-wrap justify-center gap-4 md:mt-0 md:gap-6">
             {LEGAL_LINKS.map(({ href, label }) => (
-              <Link key={href} href={href} className={`text-sm ${footerLinkClass}`}>
+              <Link key={href} href={href} className={`min-h-11 text-sm ${footerLinkClass}`}>
                 {label}
               </Link>
             ))}
