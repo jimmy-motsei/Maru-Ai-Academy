@@ -122,56 +122,56 @@ export function QuizPlayground({
         <div className="max-w-2xl w-full text-center">
           <div className={cn(
             "w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6",
-            passed ? "bg-green-100" : "bg-orange-100"
+            passed ? "bg-verified-bg" : "bg-atrisk-bg"
           )}>
             {passed ? (
-              <Award className="w-12 h-12 text-green-600" />
+              <Award className="w-12 h-12 text-verified-fg" />
             ) : (
-              <RotateCcw className="w-12 h-12 text-orange-600" />
+              <RotateCcw className="w-12 h-12 text-atrisk-fg" />
             )}
           </div>
 
           <h2 className="text-3xl font-bold mb-2">
-            {passed ? '🎉 Congratulations!' : 'Keep Practicing!'}
+            {passed ? 'Congratulations!' : 'Keep Practicing!'}
           </h2>
           
-          <p className="text-gray-600 mb-6">
-            You scored <span className="font-bold text-2xl text-gray-900">{scorePercentage}%</span>
+          <p className="text-maru-grey mb-6">
+            You scored <span className="font-bold text-2xl text-maru-navy">{scorePercentage}%</span>
           </p>
 
-          <div className="bg-gray-50 rounded-lg p-6 mb-8 border border-gray-200">
+          <div className="bg-maru-cloud rounded-lg p-6 mb-8 border border-maru-line">
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
-                <div className="text-2xl font-bold text-gray-900">{correctAnswers}</div>
-                <div className="text-sm text-gray-600">Correct</div>
+                <div className="text-2xl font-bold text-maru-navy font-mono tracking-mono">{correctAnswers}</div>
+                <div className="text-sm text-maru-grey">Correct</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-900">{questions.length - correctAnswers}</div>
-                <div className="text-sm text-gray-600">Incorrect</div>
+                <div className="text-2xl font-bold text-maru-navy font-mono tracking-mono">{questions.length - correctAnswers}</div>
+                <div className="text-sm text-maru-grey">Incorrect</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-gray-900">{questions.length}</div>
-                <div className="text-sm text-gray-600">Total</div>
+                <div className="text-2xl font-bold text-maru-navy font-mono tracking-mono">{questions.length}</div>
+                <div className="text-sm text-maru-grey">Total</div>
               </div>
             </div>
           </div>
 
           {passed ? (
-            <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
-              <p className="text-green-800">
-                ✓ You've passed! (Minimum: {passingScore}%)
+            <div className="bg-verified-bg border border-verified-bg rounded-lg p-4 mb-6">
+              <p className="text-verified-fg">
+                You've passed! (Minimum: {passingScore}%)
               </p>
             </div>
           ) : (
-            <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
-              <p className="text-orange-800">
+            <div className="bg-atrisk-bg border border-atrisk-bg rounded-lg p-4 mb-6">
+              <p className="text-atrisk-fg">
                 You need {passingScore}% to pass. You can retake the quiz to improve your score.
               </p>
             </div>
           )}
 
           <div className="flex gap-3 justify-center">
-            <Button variant="outline" onClick={handleReview} className="gap-2">
+            <Button variant="secondary" onClick={handleReview} className="gap-2">
               Review Answers
             </Button>
             {!passed && (
@@ -193,20 +193,20 @@ export function QuizPlayground({
   return (
     <div className="h-full flex flex-col">
       {/* Progress Bar */}
-      <div className="px-6 pt-6 pb-4 border-b border-gray-200">
+      <div className="px-6 pt-6 pb-4 border-b border-maru-line">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium text-gray-700">
+          <span className="text-sm font-medium text-maru-grey">
             Question {currentQuestionIndex + 1} of {questions.length}
           </span>
           {quizState === 'reviewing' && (
-            <span className="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded font-medium">
+            <span className="text-xs px-2 py-1 bg-maru-blue-100 text-maru-blue-700 rounded font-medium">
               Review Mode
             </span>
           )}
         </div>
-        <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+        <div className="w-full h-2 bg-maru-cloud rounded-full overflow-hidden">
           <div 
-            className="h-full bg-primary-600 transition-all duration-300"
+            className="h-full bg-maru-blue transition-all duration-300"
             style={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}
           />
         </div>
@@ -214,7 +214,7 @@ export function QuizPlayground({
 
       {/* Question */}
       <div className="flex-1 overflow-y-auto p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-6">
+        <h3 className="text-xl font-bold text-maru-navy mb-6">
           {currentQuestion.question}
         </h3>
 
@@ -233,17 +233,17 @@ export function QuizPlayground({
                 disabled={quizState === 'reviewing'}
                 className={cn(
                   "w-full text-left p-4 rounded-lg border-2 transition-all",
-                  "hover:border-primary-300 hover:bg-primary-50",
-                  isSelected && !showExplanation && "border-primary-500 bg-primary-50",
-                  showAsCorrect && "border-green-500 bg-green-50",
-                  showAsWrong && "border-red-500 bg-red-50",
-                  !isSelected && !showAsCorrect && !showAsWrong && "border-gray-200"
+                  "hover:border-maru-blue-300 hover:bg-maru-blue-100",
+                  isSelected && !showExplanation && "border-maru-blue bg-maru-blue-100",
+                  showAsCorrect && "border-verified bg-verified-bg",
+                  showAsWrong && "border-overdue bg-overdue-bg",
+                  !isSelected && !showAsCorrect && !showAsWrong && "border-maru-line"
                 )}
               >
                 <div className="flex items-center justify-between">
-                  <span className="flex-1 text-gray-900">{option}</span>
-                  {showAsCorrect && <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 ml-2" />}
-                  {showAsWrong && <XCircle className="w-5 h-5 text-red-600 flex-shrink-0 ml-2" />}
+                  <span className="flex-1 text-maru-navy">{option}</span>
+                  {showAsCorrect && <CheckCircle className="w-5 h-5 text-verified-fg flex-shrink-0 ml-2" />}
+                  {showAsWrong && <XCircle className="w-5 h-5 text-overdue-fg flex-shrink-0 ml-2" />}
                 </div>
               </button>
             );
@@ -254,23 +254,23 @@ export function QuizPlayground({
         {showExplanation && (
           <div className={cn(
             "p-4 rounded-lg border-2 mb-6",
-            isCorrect ? "bg-green-50 border-green-200" : "bg-blue-50 border-blue-200"
+            isCorrect ? "bg-verified-bg border-verified-bg" : "bg-maru-blue-100 border-maru-blue-100"
           )}>
             <div className="flex items-start gap-3">
               {isCorrect ? (
-                <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                <CheckCircle className="w-5 h-5 text-verified-fg flex-shrink-0 mt-0.5" />
               ) : (
                 <div className="w-5 h-5 flex-shrink-0">
-                  <div className="w-5 h-5 rounded-full border-2 border-blue-600 flex items-center justify-center">
-                    <span className="text-xs font-bold text-blue-600">i</span>
+                  <div className="w-5 h-5 rounded-full border-2 border-maru-blue flex items-center justify-center">
+                    <span className="text-xs font-bold text-maru-blue-700">i</span>
                   </div>
                 </div>
               )}
               <div className="flex-1">
-                <p className="font-semibold mb-1 text-gray-900">
+                <p className="font-semibold mb-1 text-maru-navy">
                   {isCorrect ? 'Correct!' : 'Not quite'}
                 </p>
-                <p className="text-sm text-gray-700">{currentQuestion.explanation}</p>
+                <p className="text-sm text-maru-grey">{currentQuestion.explanation}</p>
               </div>
             </div>
           </div>
@@ -278,9 +278,9 @@ export function QuizPlayground({
       </div>
 
       {/* Navigation */}
-      <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between bg-white">
+      <div className="px-6 py-4 border-t border-maru-line flex items-center justify-between bg-white">
         <Button
-          variant="outline"
+          variant="secondary"
           onClick={handlePrevious}
           disabled={currentQuestionIndex === 0}
         >
@@ -289,7 +289,7 @@ export function QuizPlayground({
 
         <div className="flex gap-2">
           {!showExplanation && hasSelectedAnswer && quizState === 'taking' && (
-            <Button variant="outline" onClick={handleCheckAnswer}>
+            <Button variant="secondary" onClick={handleCheckAnswer}>
               Check Answer
             </Button>
           )}
@@ -307,7 +307,7 @@ export function QuizPlayground({
             quizState === 'taking' && selectedAnswers.every(a => a !== null) && (
               <Button 
                 onClick={handleSubmitQuiz}
-                className="gap-2 bg-green-600 hover:bg-green-700"
+                className="gap-2 bg-verified hover:bg-verified-fg"
               >
                 Submit Quiz
                 <CheckCircle className="w-4 h-4" />
@@ -316,7 +316,7 @@ export function QuizPlayground({
           )}
 
           {quizState === 'reviewing' && (
-            <Button onClick={() => setQuizState('completed')} variant="outline">
+            <Button onClick={() => setQuizState('completed')} variant="secondary">
               Back to Results
             </Button>
           )}

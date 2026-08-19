@@ -64,7 +64,7 @@ function SignUpForm() {
       }
 
       // Account created successfully! Show success and redirect to sign in
-      alert('✅ Account created successfully! Check your email for a welcome message. Click OK to sign in.')
+      alert('Account created successfully! Check your email for a welcome message. Click OK to sign in.')
       router.push('/auth/signin')
       
     } catch (error) {
@@ -75,25 +75,25 @@ function SignUpForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-maru-cloud flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           {planName && (
-            <Badge variant="primary" className="mb-4">
+            <Badge variant="blue" className="mb-4">
               Selected: {planName}
             </Badge>
           )}
-          <h1 className="text-3xl font-heading font-bold text-gray-900">
+          <h1 className="text-3xl font-heading font-bold text-maru-navy">
             Create your account
           </h1>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-maru-grey">
             Start your AI learning journey today
           </p>
         </div>
 
         <Card className="p-8">
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
+            <div className="mb-6 p-4 bg-overdue-bg border border-overdue-bg text-overdue-fg rounded-lg text-sm">
               {error}
             </div>
           )}
@@ -151,11 +151,11 @@ function SignUpForm() {
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-gray-600">
+            <p className="text-maru-grey">
               Already have an account?{' '}
               <Link
                 href="/auth/signin"
-                className="text-primary-600 font-semibold hover:text-primary-700"
+                className="text-maru-blue-700 font-semibold hover:text-maru-blue-700"
               >
                 Sign in
               </Link>

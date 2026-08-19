@@ -134,20 +134,20 @@ export function LessonView({
       const parts = line.split(/(\*\*[^*]+\*\*)/g)
       return parts.map((part, j) => {
         if (part.startsWith('**') && part.endsWith('**')) {
-          return <strong key={j} className="font-semibold text-gray-900">{part.slice(2, -2)}</strong>
+          return <strong key={j} className="font-semibold text-maru-navy">{part.slice(2, -2)}</strong>
         }
         return part
       })
     }
 
     return text.split('\n').map((line, i) => {
-      if (line.startsWith('### ')) return <h3 key={i} className="text-xl font-bold mt-6 mb-3 text-gray-900">{processInline(line.replace('### ', ''))}</h3>
-      if (line.startsWith('- ')) return <li key={i} className="ml-4 text-gray-700 mb-2">{processInline(line.replace('- ', ''))}</li>
-      if (line.startsWith('| ')) return <p key={i} className="text-gray-700 font-mono text-sm bg-gray-50 p-2 rounded mb-2">{line}</p>
-      if (line.startsWith('> ')) return <blockquote key={i} className="border-l-4 border-primary-500 pl-4 italic text-gray-600 my-4">{processInline(line.replace('> ', ''))}</blockquote>
+      if (line.startsWith('### ')) return <h3 key={i} className="text-xl font-bold mt-6 mb-3 text-maru-navy">{processInline(line.replace('### ', ''))}</h3>
+      if (line.startsWith('- ')) return <li key={i} className="ml-4 text-maru-grey mb-2">{processInline(line.replace('- ', ''))}</li>
+      if (line.startsWith('| ')) return <p key={i} className="text-maru-grey font-mono text-sm bg-maru-cloud p-2 rounded mb-2">{line}</p>
+      if (line.startsWith('> ')) return <blockquote key={i} className="border-l-4 border-maru-blue pl-4 italic text-maru-grey my-4">{processInline(line.replace('> ', ''))}</blockquote>
       if (line.startsWith('```')) return null
       if (line.trim() === '') return <div key={i} className="h-4"></div>
-      return <p key={i} className="text-gray-700 leading-relaxed mb-4">{processInline(line)}</p>
+      return <p key={i} className="text-maru-grey leading-relaxed mb-4">{processInline(line)}</p>
     })
   }
 
@@ -207,20 +207,20 @@ export function LessonView({
       <div className="mb-6">
         <Link 
           href={`/modules/${moduleSlug}`}
-          className="text-sm text-gray-500 hover:text-primary-600 mb-4 inline-flex items-center gap-1"
+          className="text-sm text-maru-grey hover:text-maru-blue-700 mb-4 inline-flex items-center gap-1"
         >
           <ChevronLeft size={16} />
           Back to Module
         </Link>
         <div className="flex items-center gap-3 mb-2">
-          <Badge variant="primary">{content.type.toUpperCase()}</Badge>
-          <Badge variant={currentSection === 'intro' ? 'warning' : currentSection === 'content' ? 'info' : 'secondary'}>
+          <Badge variant="blue">{content.type.toUpperCase()}</Badge>
+          <Badge variant={currentSection === 'intro' ? 'neutral' : currentSection === 'content' ? 'blue' : 'navy'}>
             {currentSection === 'intro' ? 'INTRODUCTION' : currentSection === 'content' ? 'LEARNING' : 'REVIEW'}
           </Badge>
-          {completed && <Badge variant="success">COMPLETED</Badge>}
+          {completed && <Badge variant="verified">COMPLETED</Badge>}
         </div>
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">{content.title}</h1>
-        {content.description && <p className="text-xl text-gray-600 mt-2">{content.description}</p>}
+        <h1 className="text-3xl sm:text-4xl font-bold text-maru-navy">{content.title}</h1>
+        {content.description && <p className="text-xl text-maru-grey mt-2">{content.description}</p>}
       </div>
 
       {/* Section Progress Indicator */}
@@ -228,21 +228,21 @@ export function LessonView({
         <button
           onClick={() => setCurrentSection('intro')}
           className={`flex-1 h-2 rounded-full transition-colors ${
-            currentSection === 'intro' ? 'bg-primary-500' : 'bg-gray-200'
+            currentSection === 'intro' ? 'bg-maru-blue' : 'bg-maru-line'
           }`}
           title="Introduction"
         />
         <button
           onClick={() => setCurrentSection('content')}
           className={`flex-1 h-2 rounded-full transition-colors ${
-            currentSection === 'content' ? 'bg-primary-500' : 'bg-gray-200'
+            currentSection === 'content' ? 'bg-maru-blue' : 'bg-maru-line'
           }`}
           title="Content"
         />
         <button
           onClick={() => setCurrentSection('review')}
           className={`flex-1 h-2 rounded-full transition-colors ${
-            currentSection === 'review' ? 'bg-primary-500' : completed ? 'bg-green-500' : 'bg-gray-200'
+            currentSection === 'review' ? 'bg-maru-blue' : completed ? 'bg-verified' : 'bg-maru-line'
           }`}
           title="Review"
         />
@@ -295,7 +295,7 @@ export function LessonView({
             {/* TEXT CONTENT / VIDEO NOTES */}
             {content.content && (
               <div className="p-8 sm:p-10">
-                {content.type === 'video' && <h2 className="text-2xl font-bold mb-6">Lesson Notes</h2>}
+                {content.type === 'video' && <h2 className="text-2xl font-bold mb-6">Lesson notes</h2>}
                 <div className="prose max-w-none">
                   {renderMarkdown(content.content)}
                 </div>
@@ -307,9 +307,9 @@ export function LessonView({
               <div className="p-8 sm:p-10">
                 {quizSubmitted ? (
                   <div className="text-center py-8">
-                    <div className="text-6xl mb-4">{quizScore >= 70 ? '🎉' : '📚'}</div>
+                    <div className="text-6xl mb-4">{quizScore >= 70 ? '' : ''}</div>
                     <h2 className="text-3xl font-bold mb-2">You scored {quizScore}%</h2>
-                    <p className="text-gray-600 mb-8">
+                    <p className="text-maru-grey mb-8">
                       {quizScore >= 70 
                         ? 'Great job! You have passed this lesson.' 
                         : 'Review the material and try again.'}
@@ -326,22 +326,22 @@ export function LessonView({
                 ) : (
                   <div className="space-y-8">
                     {content.quiz.map((q: any, qIndex: number) => (
-                      <div key={qIndex} className="bg-gray-50 p-6 rounded-lg">
-                        <h3 className="text-lg font-bold text-gray-900 mb-4">{qIndex + 1}. {q.question}</h3>
+                      <div key={qIndex} className="bg-maru-cloud p-6 rounded-lg">
+                        <h3 className="text-lg font-bold text-maru-navy mb-4">{qIndex + 1}. {q.question}</h3>
                         <div className="space-y-3">
                           {q.options.map((option: string, oIndex: number) => (
                             <label 
                               key={oIndex} 
                               className={`flex items-center p-4 rounded-lg border cursor-pointer transition-colors ${
                                 quizAnswers[qIndex] === oIndex 
-                                  ? 'bg-primary-50 border-primary-500 ring-1 ring-primary-500' 
-                                  : 'bg-white border-gray-200 hover:border-gray-300'
+                                  ? 'bg-maru-blue-100 border-maru-blue ring-1 ring-maru-blue' 
+                                  : 'bg-white border-maru-line hover:border-maru-line'
                               }`}
                             >
                               <input 
                                 type="radio" 
                                 name={`q-${qIndex}`} 
-                                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300"
+                                className="h-4 w-4 text-maru-blue-700 focus:ring-maru-blue border-maru-line"
                                 checked={quizAnswers[qIndex] === oIndex}
                                 onChange={() => {
                                   const newAnswers = [...quizAnswers]
@@ -349,7 +349,7 @@ export function LessonView({
                                   setQuizAnswers(newAnswers)
                                 }}
                               />
-                              <span className="ml-3 text-gray-900">{option}</span>
+                              <span className="ml-3 text-maru-navy">{option}</span>
                             </label>
                           ))}
                         </div>
@@ -372,17 +372,17 @@ export function LessonView({
           </Card>
 
           {/* AI Assistant Prompt */}
-          <Card className="mb-6 bg-gradient-to-r from-secondary-50 to-white border-secondary-200">
+          <Card className="mb-6 bg-maru-blue-100 border-maru-blue-100">
             <div className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-full bg-secondary-100 flex items-center justify-center flex-shrink-0">
-                <MessageSquare className="w-5 h-5 text-secondary-600" />
+              <div className="w-10 h-10 rounded-full bg-maru-blue-100 flex items-center justify-center flex-shrink-0">
+                <MessageSquare className="w-5 h-5 text-maru-blue-700" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900 mb-1">Need more help?</h3>
-                <p className="text-sm text-gray-600 mb-3">
+                <h3 className="font-semibold text-maru-navy mb-1">Need more help?</h3>
+                <p className="text-sm text-maru-grey mb-3">
                   Ask the AI Assistant for a deeper explanation of any concept in this lesson.
                 </p>
-                <Button variant="outline" size="sm" className="border-secondary-300 text-secondary-700">
+                <Button variant="secondary" size="sm" className="border-maru-blue-300 text-maru-blue-700">
                   Open AI Assistant
                 </Button>
               </div>
@@ -392,7 +392,7 @@ export function LessonView({
           {/* Navigation to Review or Next Section */}
           <div className="flex justify-between items-center">
             <Button 
-              variant="outline"
+              variant="secondary"
               onClick={() => setCurrentSection('intro')}
             >
               <ChevronLeft size={16} className="mr-1" />
@@ -427,10 +427,10 @@ export function LessonView({
 
           {/* Navigation after review */}
           {(completed || reviewPassed) && (
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-gray-200 pt-8">
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-maru-line pt-8">
               {prevLessonSlug ? (
                 <Link href={`/modules/${moduleSlug}/lesson/${prevLessonSlug}`}>
-                  <Button variant="outline">
+                  <Button variant="secondary">
                     <ChevronLeft size={16} className="mr-1" />
                     Previous Lesson
                   </Button>
@@ -447,8 +447,7 @@ export function LessonView({
               ) : (
                 <Link href={`/modules/${moduleSlug}`}>
                   <Button variant="primary" className="flex items-center gap-2">
-                    Complete Module 🎉
-                    <ChevronRight size={16} />
+                    Complete Module<ChevronRight size={16} />
                   </Button>
                 </Link>
               )}
@@ -458,7 +457,7 @@ export function LessonView({
           {!completed && !reviewPassed && (
             <div className="mt-6 flex justify-start">
               <Button 
-                variant="outline"
+                variant="secondary"
                 onClick={() => setCurrentSection('content')}
               >
                 <ChevronLeft size={16} className="mr-1" />

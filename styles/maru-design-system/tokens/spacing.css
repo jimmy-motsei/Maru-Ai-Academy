@@ -1,0 +1,41 @@
+/* ============================================================
+   Maru Online — Spacing, radius & elevation tokens
+   8pt grid. Soft radii. Quiet, low-contrast shadows tinted navy
+   (never neutral black) — institutional, never flashy.
+   ============================================================ */
+:root {
+  /* 8pt spacing scale */
+  --maru-space-unit: 8px;
+  --maru-space-1: 4px;
+  --maru-space-2: 8px;
+  --maru-space-3: 12px;
+  --maru-space-4: 16px;
+  --maru-space-5: 24px;
+  --maru-space-6: 32px;
+  --maru-space-7: 48px;
+  --maru-space-8: 64px;
+  --maru-space-9: 96px;
+
+  /* Radius */
+  --maru-radius-sm:   6px;   /* inputs, small chips           */
+  --maru-radius-md:   12px;  /* cards, panels (default)       */
+  --maru-radius-lg:   20px;  /* the logo mark, large surfaces */
+  --maru-radius-pill: 999px; /* status pills, tags, buttons   */
+
+  /* Elevation — navy-tinted, soft, low */
+  --maru-shadow-sm: 0 1px 3px rgba(0,28,42,.08);
+  --maru-shadow-md: 0 8px 24px rgba(0,28,42,.10);
+  --maru-shadow-lg: 0 16px 48px rgba(0,28,42,.14);
+
+  /* Semantic aliases */
+  --radius-card:  var(--maru-radius-md);
+  --radius-input: var(--maru-radius-sm);
+  --radius-pill:  var(--maru-radius-pill);
+  --shadow-card:  var(--maru-shadow-sm);
+  --shadow-raised:var(--maru-shadow-md);
+  --shadow-modal: var(--maru-shadow-lg);
+
+  /* Layout */
+  --maru-content-max: 1080px;
+  --maru-border-width: 1px;
+}

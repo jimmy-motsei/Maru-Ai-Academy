@@ -162,7 +162,7 @@ export function PromptGym({ challenge, onSuccess }: PromptGymProps) {
   return (
     <div className="flex flex-col h-full bg-white">
       {/* Chat Area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50/50">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-maru-cloud">
         {messages.map((msg, index) => (
           <div 
             key={index} 
@@ -174,7 +174,7 @@ export function PromptGym({ challenge, onSuccess }: PromptGymProps) {
             {/* Avatar */}
             <div className={cn(
               "w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0",
-              msg.role === 'assistant' ? "bg-primary-100 text-primary-600" : "bg-gray-200 text-gray-600"
+              msg.role === 'assistant' ? "bg-maru-blue-100 text-maru-blue-700" : "bg-maru-line text-maru-grey"
             )}>
               {msg.role === 'assistant' ? <Bot size={18} /> : <UserIcon size={18} />}
             </div>
@@ -183,28 +183,28 @@ export function PromptGym({ challenge, onSuccess }: PromptGymProps) {
             <div className={cn(
               "p-3 rounded-2xl text-sm leading-relaxed shadow-sm",
               msg.role === 'user' 
-                ? "bg-primary-600 text-white rounded-tr-none" 
-                : "bg-white border border-gray-100 rounded-tl-none text-gray-800",
-              msg.status === 'error' ? "border-amber-200 bg-amber-50 text-amber-900" : "",
-              msg.status === 'success' ? "border-green-200 bg-green-50 text-green-800" : ""
+                ? "bg-maru-blue-700 text-white rounded-tr-none" 
+                : "bg-white border border-maru-line rounded-tl-none text-maru-navy",
+              msg.status === 'error' ? "border-atrisk-bg bg-atrisk-bg text-atrisk-fg" : "",
+              msg.status === 'success' ? "border-verified-bg bg-verified-bg text-verified-fg" : ""
             )}>
               {msg.status === 'error' && (
-                <div className="flex items-center gap-1.5 font-semibold mb-1 text-amber-700">
+                <div className="flex items-center gap-1.5 font-semibold mb-1 text-atrisk-fg">
                   <AlertCircle size={14} />
                   <span>Keep trying!</span>
                   {msg.score !== undefined && (
-                    <span className="ml-2 text-xs font-normal bg-amber-200 px-2 py-0.5 rounded-full">
+                    <span className="ml-2 text-xs font-normal bg-atrisk-bg px-2 py-0.5 rounded-full">
                       Score: {msg.score}/100
                     </span>
                   )}
                 </div>
               )}
               {msg.status === 'success' && (
-                <div className="flex items-center gap-1.5 font-semibold mb-1 text-green-700">
+                <div className="flex items-center gap-1.5 font-semibold mb-1 text-verified-fg">
                   <CheckCircle2 size={14} />
                   <span>Excellent!</span>
                   {msg.score !== undefined && (
-                    <span className="ml-2 text-xs font-normal bg-green-200 px-2 py-0.5 rounded-full">
+                    <span className="ml-2 text-xs font-normal bg-verified-bg px-2 py-0.5 rounded-full">
                       Score: {msg.score}/100
                     </span>
                   )}
@@ -215,15 +215,15 @@ export function PromptGym({ challenge, onSuccess }: PromptGymProps) {
               
               {/* AI Suggestions */}
               {msg.suggestions && msg.suggestions.length > 0 && msg.status === 'error' && (
-                <div className="mt-3 pt-3 border-t border-amber-200">
-                  <div className="text-xs font-semibold text-amber-700 mb-1.5 flex items-center gap-1">
+                <div className="mt-3 pt-3 border-t border-atrisk-bg">
+                  <div className="text-xs font-semibold text-atrisk-fg mb-1.5 flex items-center gap-1">
                     <Sparkles size={12} />
                     Suggestions:
                   </div>
                   <ul className="space-y-1">
                     {msg.suggestions.map((suggestion, i) => (
-                      <li key={i} className="text-xs text-amber-800 flex items-start gap-1.5">
-                        <span className="text-amber-400 mt-0.5">•</span>
+                      <li key={i} className="text-xs text-atrisk-fg flex items-start gap-1.5">
+                        <span className="text-atrisk-fg mt-0.5">•</span>
                         {suggestion}
                       </li>
                     ))}
@@ -236,18 +236,18 @@ export function PromptGym({ challenge, onSuccess }: PromptGymProps) {
         
         {isTyping && (
           <div className="flex w-full max-w-[85%] gap-3">
-             <div className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center flex-shrink-0">
+             <div className="w-8 h-8 rounded-full bg-maru-blue-100 text-maru-blue-700 flex items-center justify-center flex-shrink-0">
                <Bot size={18} />
              </div>
-             <div className="bg-white border border-gray-100 p-4 rounded-2xl rounded-tl-none shadow-sm">
-               <div className="flex items-center gap-2 text-gray-500 text-sm">
-                 <Sparkles className="w-4 h-4 text-primary-500 animate-pulse" />
+             <div className="bg-white border border-maru-line p-4 rounded-2xl rounded-tl-none shadow-sm">
+               <div className="flex items-center gap-2 text-maru-grey text-sm">
+                 <Sparkles className="w-4 h-4 text-maru-blue-700 animate-pulse" />
                  <span>Analyzing your prompt...</span>
                </div>
                <div className="flex gap-1 mt-2">
-                 <div className="w-2 h-2 bg-primary-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                 <div className="w-2 h-2 bg-primary-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                 <div className="w-2 h-2 bg-primary-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                 <div className="w-2 h-2 bg-maru-blue-300 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                 <div className="w-2 h-2 bg-maru-blue-300 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                 <div className="w-2 h-2 bg-maru-blue-300 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
                </div>
              </div>
           </div>
@@ -256,7 +256,7 @@ export function PromptGym({ challenge, onSuccess }: PromptGymProps) {
       </div>
 
       {/* Input Area */}
-      <div className="p-4 bg-white border-t border-gray-100 relative z-10">
+      <div className="p-4 bg-white border-t border-maru-line relative z-10">
         <form 
           onSubmit={handleSubmit}
           className="relative flex items-center gap-2"
@@ -266,23 +266,24 @@ export function PromptGym({ challenge, onSuccess }: PromptGymProps) {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            aria-label="Type your prompt"
             placeholder="Type your prompt here..."
             disabled={isTyping}
-            className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all bg-gray-50 hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex-1 px-4 py-3 rounded-xl border border-maru-line focus:outline-none focus:ring-2 focus:ring-maru-blue-100 focus:border-maru-blue transition-all bg-maru-cloud hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
           />
           <Button 
             type="submit" 
             disabled={!input.trim() || isTyping}
             className={cn(
               "h-[46px] w-[46px] rounded-lg p-0 flex items-center justify-center transition-all",
-              input.trim() && !isTyping ? "bg-primary-600 hover:bg-primary-700 text-white" : "bg-gray-200 text-gray-400"
+              input.trim() && !isTyping ? "bg-maru-blue-700 hover:bg-maru-navy-700 text-white" : "bg-maru-line text-maru-grey"
             )}
           >
             <Send size={20} className="flex-shrink-0" />
           </Button>
         </form>
-        <div className="text-xs text-center text-gray-400 mt-2 flex items-center justify-center gap-1">
-          <Sparkles size={10} className="text-primary-400" />
+        <div className="text-xs text-center text-maru-grey mt-2 flex items-center justify-center gap-1">
+          <Sparkles size={10} className="text-maru-blue-300" />
           Powered by AI grading
         </div>
       </div>

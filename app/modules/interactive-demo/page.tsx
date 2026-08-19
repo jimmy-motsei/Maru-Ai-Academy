@@ -12,30 +12,30 @@ const steps = [
     content: (
       <div className="space-y-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Whatever you ask, be specific.</h2>
-          <p className="text-gray-600 leading-relaxed">
+          <h2 className="text-2xl font-bold text-maru-navy mb-2">Whatever you ask, be specific.</h2>
+          <p className="text-maru-grey leading-relaxed">
             AI models are like brilliant interns who don't know your business context. If you ask vague questions, you get average answers.
           </p>
         </div>
         
-        <div className="bg-blue-50 border border-blue-100 rounded-xl p-5">
-          <h3 className="font-semibold text-blue-900 mb-2 flex items-center gap-2">
-            <Lightbulb className="w-4 h-4 text-blue-600" />
+        <div className="bg-maru-blue-100 border border-maru-blue-100 rounded-xl p-5">
+          <h3 className="font-semibold text-maru-navy mb-2 flex items-center gap-2">
+            <Lightbulb className="w-4 h-4 text-maru-blue-700" />
             The Golden Rule
           </h3>
-          <p className="text-blue-800 text-sm">
+          <p className="text-maru-blue-700 text-sm">
             Always include <strong>Context</strong>, <strong>Instruction</strong>, and <strong>Output Format</strong>.
           </p>
         </div>
 
-        <div className="border-l-4 border-gray-200 pl-4 py-1">
-          <p className="text-sm text-gray-500 italic mb-1">Bad Prompt:</p>
-          <p className="text-gray-800 font-medium">"Write an email."</p>
+        <div className="border-l-4 border-maru-line pl-4 py-1">
+          <p className="text-sm text-maru-grey italic mb-1">Bad Prompt:</p>
+          <p className="text-maru-navy font-medium">"Write an email."</p>
         </div>
 
-        <div className="border-l-4 border-green-400 pl-4 py-1">
-          <p className="text-sm text-green-600 italic mb-1">Good Prompt:</p>
-          <p className="text-gray-800 font-medium">"Act as a Customer Support Manager. Write a polite email apologizing for a shipping delay. Keep it under 100 words."</p>
+        <div className="border-l-4 border-verified pl-4 py-1">
+          <p className="text-sm text-verified-fg italic mb-1">Good Prompt:</p>
+          <p className="text-maru-navy font-medium">"Act as a Customer Support Manager. Write a polite email apologizing for a shipping delay. Keep it under 100 words."</p>
         </div>
       </div>
     ),
@@ -47,28 +47,28 @@ const steps = [
     content: (
       <div className="space-y-6">
         <div>
-           <div className="inline-block px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-bold uppercase tracking-wide mb-3">
+           <div className="inline-block px-3 py-1 bg-atrisk-bg text-atrisk-fg rounded-full text-xs font-bold uppercase tracking-wide mb-3">
             Mission 1
            </div>
-           <h2 className="text-2xl font-bold text-gray-900 mb-4">Draft a Response</h2>
-           <p className="text-gray-600 mb-4">
+           <h2 className="text-2xl font-bold text-maru-navy mb-4">Draft a response</h2>
+           <p className="text-maru-grey mb-4">
              You received a complaint from a client, "TechCorp", who is upset their project is late.
            </p>
-           <p className="text-gray-600">
+           <p className="text-maru-grey">
              Your goal is to use AI to write a first draft. You need to verify the delay but maintain the relationship.
            </p>
         </div>
 
         <div className="space-y-3">
-          <h3 className="font-semibold text-gray-900">Requirements:</h3>
+          <h3 className="font-semibold text-maru-navy">Requirements:</h3>
           <ul className="space-y-2">
             {[
               "Set the role (e.g., Project Manager)",
               "Mention the client name 'TechCorp'",
               "Ask for a specific tone (e.g., professional, empathetic)"
             ].map((req, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary-500 mt-2" />
+              <li key={i} className="flex items-start gap-2 text-sm text-maru-grey">
+                <div className="w-1.5 h-1.5 rounded-full bg-maru-blue mt-2" />
                 {req}
               </li>
             ))}
@@ -104,25 +104,25 @@ const steps = [
     content: (
       <div className="space-y-6">
         <div>
-           <div className="inline-block px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-xs font-bold uppercase tracking-wide mb-3">
+           <div className="inline-block px-3 py-1 bg-atrisk-bg text-atrisk-fg rounded-full text-xs font-bold uppercase tracking-wide mb-3">
             Mission 2
            </div>
-           <h2 className="text-2xl font-bold text-gray-900 mb-4">Summarize for Executives</h2>
-           <p className="text-gray-600 mb-4">
+           <h2 className="text-2xl font-bold text-maru-navy mb-4">Summarize for executives</h2>
+           <p className="text-maru-grey mb-4">
              You have a transcript of a 1-hour meeting. You need to create a summary for the CEO who only has 1 minute.
            </p>
         </div>
 
         <div className="space-y-3">
-          <h3 className="font-semibold text-gray-900">Requirements:</h3>
+          <h3 className="font-semibold text-maru-navy">Requirements:</h3>
           <ul className="space-y-2">
             {[
               "Ask for bullet points",
               "Limit the length (e.g., 3 key points)",
               "Focus on 'Action Items'"
             ].map((req, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary-500 mt-2" />
+              <li key={i} className="flex items-start gap-2 text-sm text-maru-grey">
+                <div className="w-1.5 h-1.5 rounded-full bg-maru-blue mt-2" />
                 {req}
               </li>
             ))}
@@ -196,20 +196,20 @@ export default function InteractiveDemoPage() {
             onSuccess={handleChallengeSuccess}
           />
         ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center bg-gray-50 text-center p-8">
+          <div className="w-full h-full flex flex-col items-center justify-center bg-maru-cloud text-center p-8">
             <div className="w-64 h-64 bg-white rounded-full flex items-center justify-center shadow-lg mb-8 relative">
-               <div className="absolute inset-0 bg-blue-500/5 rounded-full animate-pulse"></div>
-               <div className="w-48 h-48 bg-blue-100 rounded-full flex items-center justify-center">
-                 <BotIcon className="w-24 h-24 text-blue-600" />
+               <div className="absolute inset-0 bg-maru-blue-100 rounded-full animate-pulse"></div>
+               <div className="w-48 h-48 bg-maru-blue-100 rounded-full flex items-center justify-center">
+                 <BotIcon className="w-24 h-24 text-maru-blue-700" />
                </div>
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Concept Visualization</h3>
-            <p className="text-gray-500 max-w-sm">
+            <h3 className="text-xl font-bold text-maru-navy mb-2">Concept visualization</h3>
+            <p className="text-maru-grey max-w-sm">
               In this section, you'd normally see an interactive diagram or animation explaining the concept of LLM context windows.
             </p>
             <button 
               onClick={handleNext}
-              className="mt-8 flex items-center gap-2 text-blue-600 font-semibold hover:underline"
+              className="mt-8 flex items-center gap-2 text-maru-blue-700 font-semibold hover:underline"
             >
               Start First Challenge <ArrowRight className="w-4 h-4" />
             </button>

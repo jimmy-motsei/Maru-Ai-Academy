@@ -1,36 +1,57 @@
 import React from 'react'
 
-export interface CardProps {
+/**
+ * Maru Online surface card.
+ *
+ * Per components/core/Card.prompt.md: white, hairline border, 12px radius.
+ * The border IS the default elevation — `raised` is only for surfaces that
+ * genuinely float above other content. `intelligent` swaps the border to
+ * teal to flag an AI/insight panel, which is one of teal's few sanctioned
+ * uses.
+ */
+
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode
-  className?: string
+  /** Soft navy-tinted shadow, for panels that float above content. */
+  raised?: boolean
+  /** Teal border — AI / insight panels only. */
+  intelligent?: boolean
+  /** Calm shadow lift on hover. No transform: the system is not flashy. */
   hover?: boolean
   noPadding?: boolean
-  variant?: 'default' | 'glass' | 'gradient'
 }
 
-export const Card: React.FC<CardProps> = ({
-  children,
-  className = '',
-  hover = true,
-  noPadding = false,
-  variant = 'default',
-}) => {
-  const baseClasses = 'rounded-xl transition-all duration-300'
-  
-  const variantClasses = {
-    default: 'bg-white shadow-lg',
-    glass: 'bg-white/80 backdrop-blur-lg border border-white/20 shadow-xl',
-    gradient: 'bg-gradient-to-br from-primary-50 to-secondary-50 shadow-lg',
-  }
-  
-  const hoverClasses = hover ? 'hover:shadow-2xl hover:-translate-y-1' : ''
-  const paddingClasses = noPadding ? '' : 'p-6'
-  
+/** forwardRef so callers can focus the surface — a modal needs to. */
+export const Card = React.forwardRef<HTMLDivElement, CardProps>(function Card(
+  {
+    children,
+    className = '',
+    raised = false,
+    intelligent = false,
+    hover = true,
+    noPadding = false,
+    ...props
+  },
+  ref,
+) {
   return (
-    <div className={`${baseClasses} ${variantClasses[variant]} ${hoverClasses} ${paddingClasses} ${className}`}>
-      {children}
-    </div>
+  <div
+    ref={ref}
+    className={[
+      'rounded-card border bg-white transition-shadow duration-200',
+      intelligent ? 'border-maru-teal-300' : 'border-maru-line',
+      raised ? 'shadow-md' : 'shadow-sm',
+      hover ? 'hover:shadow-md' : '',
+      noPadding ? '' : 'p-6',
+      className,
+    ]
+      .filter(Boolean)
+      .join(' ')}
+    {...props}
+  >
+    {children}
+  </div>
   )
-}
+})
 
 export default Card

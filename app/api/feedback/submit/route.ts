@@ -90,7 +90,7 @@ export async function POST(req: NextRequest) {
       feedback,
       newBadges,  // Include any newly awarded badges in response
       message: newBadges.length > 0 
-        ? `🎉 Congratulations! You earned: ${newBadges.map(b => b.name).join(', ')}`
+        ? `Congratulations! You earned: ${newBadges.map(b => b.name).join(', ')}`
         : 'Thank you for your feedback!'
     });
 

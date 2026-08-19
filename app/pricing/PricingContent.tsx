@@ -1,35 +1,51 @@
 'use client';
 
 import { useState } from 'react';
+import { useSession } from 'next-auth/react';
 import { Badge, Button, Card } from '@/components/ui';
 import Link from 'next/link';
-import PaystackButton from '@/components/pricing/PaystackButton';
+import dynamic from 'next/dynamic';
+
+// react-paystack touches `window` at module scope, so a static import pulls it
+// into the prerender and fails the build with "window is not defined" — even
+// though the button only renders for signed-in visitors. Loading it lazily
+// keeps it out of the server bundle entirely.
+const PaystackButton = dynamic(() => import('@/components/pricing/PaystackButton'), {
+  ssr: false,
+});
 import CurrencySelector from '@/components/pricing/CurrencySelector';
 import { PRICING, Currency } from '@/lib/pricing';
 
-interface PricingContentProps {
-  session: any;
-}
-
-export default function PricingContent({ session }: PricingContentProps) {
+export default function PricingContent() {
   const [currency, setCurrency] = useState<Currency>('ZAR');
+
+  // Read the session on the client, not the server. Doing it server-side makes
+  // the route dynamic and hides the whole page from crawlers behind the
+  // loading fallback — see the note in page.tsx.
+  //
+  // `status` is checked rather than truthiness of `data`: during prerender and
+  // the first client frame it is 'loading', and treating that as signed-in
+  // would flash a Dashboard link at signed-out visitors.
+  const { data: session, status } = useSession();
+  const isSignedIn = status === 'authenticated';
   const user = session?.user;
+
   const pricing = PRICING[currency];
 
   return (
-    <div className="bg-gray-50 min-h-screen py-20">
+    <div className="bg-maru-cloud min-h-screen py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-8">
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-bold mb-6 shadow-lg">
+          <div className="inline-flex items-center gap-2 bg-maru-navy text-white px-4 py-2 rounded-full text-sm font-bold mb-6 shadow-lg">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             Launch Pricing – Limited Time Offer
           </div>
-          <h1 className="text-4xl sm:text-5xl font-heading font-bold text-gray-900 mb-6">
-            Invest in Your Future Productivity
+          <h1 className="text-4xl sm:text-5xl font-heading font-bold text-maru-navy mb-6">
+            Invest in your future productivity
           </h1>
-          <p className="text-xl text-gray-600 mb-8">
+          <p className="text-xl text-maru-grey mb-8">
             Simple, transparent pricing. Choose the plan that fits your learning goals.
           </p>
           
@@ -40,32 +56,32 @@ export default function PricingContent({ session }: PricingContentProps) {
         <div className="grid md:grid-cols-4 gap-6 max-w-7xl mx-auto">
           
           {/* Free Explorer Tier */}
-          <Card className="relative flex flex-col p-6 border hover:border-primary-200" hover>
+          <Card className="relative flex flex-col p-6 border hover:border-maru-blue-100" hover>
             <div className="mb-4">
-              <h3 className="text-lg font-bold text-gray-900">Free Explorer</h3>
-              <p className="text-gray-500 text-sm mt-1">Start your AI journey.</p>
+              <h3 className="text-lg font-bold text-maru-navy">Free explorer</h3>
+              <p className="text-maru-grey text-sm mt-1">Start your AI journey.</p>
             </div>
             <div className="mb-4">
-              <span className="text-3xl font-bold text-gray-900">{pricing.symbol}0</span>
-              <span className="text-gray-500 text-sm">/month</span>
+              <span className="text-3xl font-bold text-maru-navy font-mono tracking-mono">{pricing.symbol}0</span>
+              <span className="text-maru-grey text-sm">/month</span>
             </div>
-            <Link href={session ? "/dashboard" : "/auth/signup?plan=starter"} className="w-full mb-6">
-              <Button variant="outline" fullWidth size="sm">{session ? 'Go to Dashboard' : 'Get Started Free'}</Button>
+            <Link href={isSignedIn ? "/dashboard" : "/auth/signup?plan=starter"} className="w-full mb-6">
+              <Button variant="secondary" fullWidth size="sm">{isSignedIn ? 'Go to Dashboard' : 'Get Started Free'}</Button>
             </Link>
             
             <div className="space-y-3 flex-grow">
-              <p className="font-medium text-gray-900 text-sm">Includes:</p>
-              <ul className="space-y-2 text-gray-600 text-sm">
+              <p className="font-medium text-maru-navy text-sm">Includes:</p>
+              <ul className="space-y-2 text-maru-grey text-sm">
                 <li className="flex items-start">
-                  <svg className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                  <svg className="w-4 h-4 text-verified-fg mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                   First Module Free
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                  <svg className="w-4 h-4 text-verified-fg mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                   Basic Prompt Library
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                  <svg className="w-4 h-4 text-verified-fg mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                   AI Learning Assistant
                 </li>
               </ul>
@@ -73,19 +89,19 @@ export default function PricingContent({ session }: PricingContentProps) {
           </Card>
 
           {/* Learner Tier */}
-          <Card className="relative flex flex-col p-6 border hover:border-primary-200" hover>
+          <Card className="relative flex flex-col p-6 border hover:border-maru-blue-100" hover>
             <div className="mb-4">
-              <h3 className="text-lg font-bold text-gray-900">AI Cadet</h3>
-              <p className="text-gray-500 text-sm mt-1">Beginner Stream access.</p>
+              <h3 className="text-lg font-bold text-maru-navy">AI cadet</h3>
+              <p className="text-maru-grey text-sm mt-1">Beginner Stream access.</p>
             </div>
             <div className="mb-4 flex items-baseline gap-1">
-              <span className="text-3xl font-bold text-gray-900">{pricing.symbol}{pricing.LEARNER}</span>
-              <span className="text-gray-500 text-sm">/month</span>
-              {currency === 'ZAR' && <span className="text-xs text-gray-400">($11)</span>}
+              <span className="text-3xl font-bold text-maru-navy font-mono tracking-mono">{pricing.symbol}{pricing.LEARNER}</span>
+              <span className="text-maru-grey text-sm">/month</span>
+              {currency === 'ZAR' && <span className="text-xs text-maru-grey font-mono tracking-mono">($11)</span>}
             </div>
             
             <div className="w-full mb-6">
-              {session ? (
+              {isSignedIn ? (
                 <PaystackButton
                   email={user?.email || ''}
                   amount={pricing.LEARNER}
@@ -96,24 +112,24 @@ export default function PricingContent({ session }: PricingContentProps) {
                 />
               ) : (
                 <Link href="/auth/signup?plan=learner">
-                  <Button variant="outline" fullWidth size="sm">Start 7-Day Trial</Button>
+                  <Button variant="secondary" fullWidth size="sm">Start 7-Day Trial</Button>
                 </Link>
               )}
             </div>
             
             <div className="space-y-3 flex-grow">
-              <p className="font-medium text-gray-900 text-sm">Everything in Free, plus:</p>
-              <ul className="space-y-2 text-gray-600 text-sm">
+              <p className="font-medium text-maru-navy text-sm">Everything in Free, plus:</p>
+              <ul className="space-y-2 text-maru-grey text-sm">
                 <li className="flex items-start">
-                  <svg className="w-4 h-4 text-primary-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                  <svg className="w-4 h-4 text-maru-blue-700 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                   <strong>All Beginner Modules</strong>
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-4 h-4 text-primary-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                  <svg className="w-4 h-4 text-maru-blue-700 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                   Prompt Templates
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-4 h-4 text-primary-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                  <svg className="w-4 h-4 text-maru-blue-700 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                   Aviator Badge
                 </li>
               </ul>
@@ -121,23 +137,23 @@ export default function PricingContent({ session }: PricingContentProps) {
           </Card>
 
           {/* Pro Tier (Popular) */}
-          <Card className="relative flex flex-col p-6 border-2 border-primary-500 shadow-xl scale-105 z-10" hover>
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+          <Card className="relative flex flex-col p-6 border-2 border-maru-blue shadow-xl scale-105 z-10" hover>
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-maru-navy text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
               BEST VALUE
             </div>
             <div className="mb-4 mt-2">
-              <h3 className="text-lg font-bold text-gray-900">AI Captain</h3>
-              <p className="text-gray-500 text-sm mt-1">Full access to all content.</p>
+              <h3 className="text-lg font-bold text-maru-navy">AI captain</h3>
+              <p className="text-maru-grey text-sm mt-1">Full access to all content.</p>
             </div>
             <div className="mb-2 flex items-baseline gap-1">
-              <span className="text-3xl font-bold text-gray-900">{pricing.symbol}{pricing.PRO}</span>
-              <span className="text-gray-500 text-sm">/month</span>
-              {currency === 'ZAR' && <span className="text-xs text-gray-400">($22)</span>}
+              <span className="text-3xl font-bold text-maru-navy font-mono tracking-mono">{pricing.symbol}{pricing.PRO}</span>
+              <span className="text-maru-grey text-sm">/month</span>
+              {currency === 'ZAR' && <span className="text-xs text-maru-grey font-mono tracking-mono">($22)</span>}
             </div>
-            <p className="text-xs text-green-600 font-medium mb-4">🎉 Launch price – save 28%</p>
+            <p className="text-xs text-verified-fg font-medium mb-4">Launch price – save 28%</p>
             
             <div className="w-full mb-6">
-              {session ? (
+              {isSignedIn ? (
                 <PaystackButton
                   email={user?.email || ''}
                   amount={pricing.PRO}
@@ -153,22 +169,22 @@ export default function PricingContent({ session }: PricingContentProps) {
             </div>
             
             <div className="space-y-3 flex-grow">
-              <p className="font-medium text-gray-900 text-sm">Everything in AI Cadet, plus:</p>
-              <ul className="space-y-2 text-gray-600 text-sm">
+              <p className="font-medium text-maru-navy text-sm">Everything in AI Cadet, plus:</p>
+              <ul className="space-y-2 text-maru-grey text-sm">
                 <li className="flex items-start">
-                  <svg className="w-4 h-4 text-primary-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                  <svg className="w-4 h-4 text-maru-blue-700 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                   <strong>All Intermediate Modules</strong>
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-4 h-4 text-primary-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                  <svg className="w-4 h-4 text-maru-blue-700 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                   Full Resource Library
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-4 h-4 text-primary-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                  <svg className="w-4 h-4 text-maru-blue-700 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                   AI Learning Assistant
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-4 h-4 text-primary-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                  <svg className="w-4 h-4 text-maru-blue-700 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                   Accomplishment Badge
                 </li>
               </ul>
@@ -176,39 +192,39 @@ export default function PricingContent({ session }: PricingContentProps) {
           </Card>
 
           {/* Team Tier */}
-          <Card className="relative flex flex-col p-6 border hover:border-purple-200" hover>
+          <Card className="relative flex flex-col p-6 border hover:border-maru-blue-100" hover>
             <div className="mb-4">
-              <h3 className="text-lg font-bold text-gray-900">AI Crew</h3>
-              <p className="text-gray-500 text-sm mt-1">For organizations (5+ seats).</p>
+              <h3 className="text-lg font-bold text-maru-navy">AI crew</h3>
+              <p className="text-maru-grey text-sm mt-1">For organizations (5+ seats).</p>
             </div>
             <div className="mb-4 flex items-baseline gap-1">
-              <span className="text-3xl font-bold text-gray-900">{pricing.symbol}{pricing.TEAM}</span>
-              <span className="text-gray-500 text-sm">/user/mo</span>
-              {currency === 'ZAR' && <span className="text-xs text-gray-400">($16)</span>}
+              <span className="text-3xl font-bold text-maru-navy font-mono tracking-mono">{pricing.symbol}{pricing.TEAM}</span>
+              <span className="text-maru-grey text-sm">/user/mo</span>
+              {currency === 'ZAR' && <span className="text-xs text-maru-grey font-mono tracking-mono">($16)</span>}
             </div>
             <div className="w-full mb-6">
               <Link href="/contact">
-                <Button variant="outline" fullWidth size="sm">Contact Sales</Button>
+                <Button variant="secondary" fullWidth size="sm">Contact Sales</Button>
               </Link>
             </div>
             
             <div className="space-y-3 flex-grow">
-              <p className="font-medium text-gray-900 text-sm">Everything in Pro, plus:</p>
-              <ul className="space-y-2 text-gray-600 text-sm">
+              <p className="font-medium text-maru-navy text-sm">Everything in Pro, plus:</p>
+              <ul className="space-y-2 text-maru-grey text-sm">
                 <li className="flex items-start">
-                  <svg className="w-4 h-4 text-purple-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                  <svg className="w-4 h-4 text-maru-blue-700 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                   Admin Dashboard
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-4 h-4 text-purple-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                  <svg className="w-4 h-4 text-maru-blue-700 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                   Team Analytics
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-4 h-4 text-purple-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                  <svg className="w-4 h-4 text-maru-blue-700 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                   Custom Learning Paths
                 </li>
                 <li className="flex items-start">
-                  <svg className="w-4 h-4 text-purple-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                  <svg className="w-4 h-4 text-maru-blue-700 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                   Priority Support
                 </li>
               </ul>
@@ -218,11 +234,11 @@ export default function PricingContent({ session }: PricingContentProps) {
 
         {/* View All Courses CTA */}
         <div className="mt-16 text-center">
-          <p className="text-gray-600 mb-4">
+          <p className="text-maru-grey mb-4">
             Want to see what you'll learn?
           </p>
-          <Link href="/modules">
-            <Button variant="outline" size="lg">
+          <Link href="/learn">
+            <Button variant="secondary" size="lg">
               View Full Curriculum →
             </Button>
           </Link>

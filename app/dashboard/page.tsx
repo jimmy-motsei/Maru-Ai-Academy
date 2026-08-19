@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { DashboardProgress } from './components/DashboardProgress'
 import { BadgeShowcase } from './components/BadgeShowcase'
 import { getUserBadges } from '@/lib/badges'
+import { Lightbulb } from 'lucide-react'
 
 export const metadata = {
   title: 'My Dashboard | Maru AI Academy',
@@ -23,15 +24,14 @@ export default async function DashboardPage() {
   const userBadges = await getUserBadges(userId)
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
+    <div className="min-h-screen bg-maru-cloud py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Welcome Header */}
         <div className="mb-10">
-          <h1 className="text-3xl font-heading font-bold text-gray-900">
-            Welcome back, {user?.name || 'Scholar'}! 👋
-          </h1>
-          <p className="text-gray-600 mt-2">
+          <h1 className="text-3xl font-heading font-bold text-maru-navy">
+            Welcome back, {user?.name || 'Scholar'}!</h1>
+          <p className="text-maru-grey mt-2">
             Continue your journey to AI mastery.
           </p>
         </div>
@@ -50,28 +50,24 @@ export default async function DashboardPage() {
 
             {/* Recommended Next Steps */}
             <div>
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Recommended for You</h2>
+              <h2 className="text-xl font-bold text-maru-navy mb-4">Recommended for you</h2>
               <div className="space-y-4">
-                <Link href="/modules/ai-made-simple" className="block p-4 bg-white rounded-xl border border-gray-200 hover:border-primary-300 transition-colors">
+                <Link href="/modules/ai-made-simple" className="block p-4 bg-white rounded-xl border border-maru-line hover:border-maru-blue-300 transition-colors">
                   <div className="flex items-center">
-                    <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
-                      🤖
-                    </div>
+                    <div className="w-10 h-10 bg-maru-blue-100 rounded-lg flex items-center justify-center mr-4"></div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">AI Made Simple</h4>
-                      <p className="text-sm text-gray-500">Foundations & Safety (Beginner Stream)</p>
+                      <h4 className="font-semibold text-maru-navy">AI made simple</h4>
+                      <p className="text-sm text-maru-grey">Foundations & Safety (Beginner Stream)</p>
                     </div>
                   </div>
                 </Link>
                 
-                <Link href="/modules/prompts-that-work" className="block p-4 bg-white rounded-xl border border-gray-200 hover:border-primary-300 transition-colors">
+                <Link href="/modules/prompts-that-work" className="block p-4 bg-white rounded-xl border border-maru-line hover:border-maru-blue-300 transition-colors">
                   <div className="flex items-center">
-                    <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-4">
-                      💡
-                    </div>
+                    <div className="w-10 h-10 bg-verified-bg rounded-lg flex items-center justify-center mr-4"><Lightbulb className="h-8 w-8 text-maru-teal" aria-hidden="true" /></div>
                     <div>
-                      <h4 className="font-semibold text-gray-900">Prompts That Work at Work</h4>
-                      <p className="text-sm text-gray-500">Master the art of prompting (Beginner Stream)</p>
+                      <h4 className="font-semibold text-maru-navy">Prompts that work at work</h4>
+                      <p className="text-sm text-maru-grey">Master the art of prompting (Beginner Stream)</p>
                     </div>
                   </div>
                 </Link>
@@ -84,14 +80,14 @@ export default async function DashboardPage() {
             {/* Profile Card */}
             <Card>
               <div className="flex items-center space-x-4 mb-6">
-                <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center text-xl font-bold text-primary-700">
+                <div className="w-12 h-12 bg-maru-blue-100 rounded-full flex items-center justify-center text-xl font-bold text-maru-blue-700">
                   {user?.name?.[0] || 'U'}
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">{user?.name}</p>
-                  <p className="text-sm text-gray-500">{user?.email}</p>
+                  <p className="font-bold text-maru-navy">{user?.name}</p>
+                  <p className="text-sm text-maru-grey">{user?.email}</p>
                   <div className="mt-1">
-                    <Badge variant={(user as any).plan === 'PRO' ? 'success' : 'neutral'}>
+                    <Badge variant={(user as any).plan === 'PRO' ? 'blue' : 'neutral'}>
                       {(user as any).plan || 'FREE'} PLAN
                     </Badge>
                   </div>
@@ -102,45 +98,39 @@ export default async function DashboardPage() {
                 {(!((user as any).plan) || (user as any).plan === 'FREE') && (
                   <Link href="/pricing">
                     <Button variant="primary" size="sm" fullWidth className="mb-2">
-                      Upgrade to Pro ✨
-                    </Button>
+                      Upgrade to Pro</Button>
                   </Link>
                 )}
-                <Link href="/settings" className="block text-sm text-gray-600 hover:text-primary-600">
-                  ⚙️ Account Settings
+                <Link href="/settings" className="block text-sm text-maru-grey hover:text-maru-blue-700">Account Settings
                 </Link>
-                <Link href="/support" className="block text-sm text-gray-600 hover:text-primary-600">
-                  💬 Get Support
+                <Link href="/support" className="block text-sm text-maru-grey hover:text-maru-blue-700">Get Support
                 </Link>
               </div>
             </Card>
 
             {/* Quick Actions */}
-            <Card className="bg-primary-50 border-primary-200">
-              <h3 className="font-bold text-gray-900 mb-4">Quick Actions</h3>
+            <Card className="bg-maru-blue-100 border-maru-blue-100">
+              <h3 className="font-bold text-maru-navy mb-4">Quick actions</h3>
               <div className="space-y-3">
-                <Link href="/modules">
-                  <Button variant="outline" size="sm" fullWidth>
-                    📚 Browse All Modules
+                <Link href="/learn">
+                  <Button variant="secondary" size="sm" fullWidth>Browse All Modules
                   </Button>
                 </Link>
                 <Link href="/contact">
-                  <Button variant="outline" size="sm" fullWidth>
-                    📧 Contact Us
+                  <Button variant="secondary" size="sm" fullWidth>Contact Us
                   </Button>
                 </Link>
               </div>
             </Card>
 
             {/* Help Card */}
-            <Card className="bg-gradient-to-br from-primary-900 to-primary-700 text-white">
-              <h3 className="font-bold mb-2">Need Help?</h3>
-              <p className="text-sm text-primary-100 mb-4">
+            <Card className="surface-navy text-white">
+              <h3 className="font-bold mb-2">Need help?</h3>
+              <p className="text-sm text-maru-blue-100 mb-4">
                 Our AI assistant is available 24/7
               </p>
-              <p className="text-xs text-primary-200">
-                Click the chat icon in the bottom-right corner! 💬
-              </p>
+              <p className="text-xs text-maru-blue-100">
+                Click the chat icon in the bottom-right corner!</p>
             </Card>
           </div>
 

@@ -3,7 +3,7 @@
  * For Maru AI Academy Learning Assistant
  */
 
-export const EDUCATION_GREETING = `👋 Hi! I'm your Maru AI Learning Assistant.
+export const EDUCATION_GREETING = `Hi! I'm your Maru AI Learning Assistant.
 
 I'm here to help you **understand** the concepts in your AI courses – not do your work for you!
 
@@ -22,24 +22,25 @@ I'm here to help you **understand** the concepts in your AI courses – not do y
 
 Ask me about any concept you're struggling with!`;
 
+/** `icon` is a lucide-react export name, resolved in ChatWidget. */
 export const EDUCATION_CONVERSATION_STARTERS = [
   { 
-    icon: '🤔', 
+    icon: 'HelpCircle', 
     text: 'Explain a concept',
     query: 'Can you explain what the CRAFT framework is and how to use it?' 
   },
   { 
-    icon: '🎯', 
+    icon: 'Target', 
     text: 'Help with prompts',
     query: 'I\'m struggling to write good prompts. What makes a prompt effective?' 
   },
   { 
-    icon: '📚', 
+    icon: 'BookOpen', 
     text: 'Find a lesson',
     query: 'Which lesson covers no-code automation basics?' 
   },
   { 
-    icon: '💡', 
+    icon: 'Lightbulb', 
     text: 'Study tips',
     query: 'What\'s the best way to practice prompt engineering?' 
   },

@@ -87,49 +87,49 @@ export function LessonReview({
   const passed = score >= passingScore;
 
   return (
-    <Card className="overflow-hidden border-2 border-secondary-200">
+    <Card className="overflow-hidden border-2 border-maru-blue-100">
       {/* Header */}
-      <div className="bg-secondary-50 p-6 border-b border-secondary-100">
+      <div className="bg-maru-blue-100 p-6 border-b border-maru-blue-100">
         <div className="flex items-center justify-between mb-2">
-          <Badge variant="secondary" size="lg">
+          <Badge variant="neutral" size="lg">
             <HelpCircle size={14} className="mr-1" />
             Lesson Review
           </Badge>
           {submitted && (
-            <Badge variant={passed ? 'success' : 'warning'}>
+            <Badge variant={passed ? 'verified' : 'atrisk'}>
               Score: {score}%
             </Badge>
           )}
         </div>
-        <h2 className="text-xl font-bold text-gray-900">
-          Check Your Understanding
+        <h2 className="text-xl font-bold text-maru-navy">
+          Check your understanding
         </h2>
-        <p className="text-gray-600 text-sm mt-1">
+        <p className="text-maru-grey text-sm mt-1">
           Review the key concepts from <strong>{lessonTitle}</strong>
         </p>
-        <p className="text-xs text-gray-500 mt-2">
+        <p className="text-xs text-maru-grey mt-2">
           Passing score: {passingScore}%
         </p>
       </div>
 
       {/* Result Banner (if submitted) */}
       {submitted && (
-        <div className={`p-4 ${passed ? 'bg-green-50 border-b border-green-100' : 'bg-amber-50 border-b border-amber-100'}`}>
+        <div className={`p-4 ${passed ? 'bg-verified-bg border-b border-verified-bg' : 'bg-atrisk-bg border-b border-atrisk-bg'}`}>
           <div className="flex items-center gap-3">
             {passed ? (
               <>
-                <CheckCircle size={24} className="text-green-500" />
+                <CheckCircle size={24} className="text-verified-fg" />
                 <div>
-                  <p className="font-bold text-green-800">Great job! You passed the review.</p>
-                  <p className="text-sm text-green-600">You scored {score}% - ready for the next lesson!</p>
+                  <p className="font-bold text-verified-fg">Great job! You passed the review.</p>
+                  <p className="text-sm text-verified-fg">You scored {score}% - ready for the next lesson!</p>
                 </div>
               </>
             ) : (
               <>
-                <XCircle size={24} className="text-amber-500" />
+                <XCircle size={24} className="text-atrisk-fg" />
                 <div>
-                  <p className="font-bold text-amber-800">Almost there! Review and try again.</p>
-                  <p className="text-sm text-amber-600">
+                  <p className="font-bold text-atrisk-fg">Almost there! Review and try again.</p>
+                  <p className="text-sm text-atrisk-fg">
                     You scored {score}% - need {passingScore}% to proceed.
                   </p>
                 </div>
@@ -151,14 +151,14 @@ export function LessonReview({
               className={`rounded-lg p-4 transition-colors ${
                 submitted 
                   ? isCorrect 
-                    ? 'bg-green-50 border border-green-200' 
+                    ? 'bg-verified-bg border border-verified-bg' 
                     : isWrong 
-                      ? 'bg-red-50 border border-red-200'
-                      : 'bg-gray-50 border border-gray-200'
-                  : 'bg-gray-50 border border-gray-200'
+                      ? 'bg-overdue-bg border border-overdue-bg'
+                      : 'bg-maru-cloud border border-maru-line'
+                  : 'bg-maru-cloud border border-maru-line'
               }`}
             >
-              <p className="font-semibold text-gray-900 mb-4">
+              <p className="font-semibold text-maru-navy mb-4">
                 {qIndex + 1}. {q.question}
               </p>
               
@@ -175,33 +175,33 @@ export function LessonReview({
                       className={`w-full text-left p-3 rounded-lg border transition-all ${
                         submitted
                           ? isCorrectOption
-                            ? 'bg-green-100 border-green-400 text-green-800'
+                            ? 'bg-verified-bg border-verified text-verified-fg'
                             : isSelected && !isCorrectOption
-                              ? 'bg-red-100 border-red-400 text-red-800'
-                              : 'bg-white border-gray-200 text-gray-600'
+                              ? 'bg-overdue-bg border-overdue text-overdue-fg'
+                              : 'bg-white border-maru-line text-maru-grey'
                           : isSelected
-                            ? 'bg-primary-50 border-primary-400 ring-1 ring-primary-400'
-                            : 'bg-white border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+                            ? 'bg-maru-blue-100 border-maru-blue-300 ring-1 ring-maru-blue-300'
+                            : 'bg-white border-maru-line hover:border-maru-line hover:bg-maru-cloud'
                       }`}
                     >
                       <div className="flex items-center gap-3">
                         <span className={`w-6 h-6 rounded-full border-2 flex items-center justify-center text-xs font-bold ${
                           submitted && isCorrectOption
-                            ? 'border-green-500 bg-green-500 text-white'
+                            ? 'border-verified bg-verified text-white'
                             : submitted && isSelected && !isCorrectOption
-                              ? 'border-red-500 bg-red-500 text-white'
+                              ? 'border-overdue bg-overdue text-white'
                               : isSelected
-                                ? 'border-primary-500 bg-primary-500 text-white'
-                                : 'border-gray-300'
+                                ? 'border-maru-blue-700 bg-maru-blue-700 text-white'
+                                : 'border-maru-line'
                         }`}>
                           {String.fromCharCode(65 + oIndex)}
                         </span>
                         <span>{option}</span>
                         {submitted && isCorrectOption && (
-                          <CheckCircle size={16} className="ml-auto text-green-500" />
+                          <CheckCircle size={16} className="ml-auto text-verified-fg" />
                         )}
                         {submitted && isSelected && !isCorrectOption && (
-                          <XCircle size={16} className="ml-auto text-red-500" />
+                          <XCircle size={16} className="ml-auto text-overdue-fg" />
                         )}
                       </div>
                     </button>
@@ -211,9 +211,9 @@ export function LessonReview({
 
               {/* Explanation */}
               {submitted && showExplanations && q.explanation && (
-                <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-100">
-                  <p className="text-sm text-blue-800">
-                    <strong>💡 Explanation:</strong> {q.explanation}
+                <div className="mt-4 p-3 bg-maru-blue-100 rounded-lg border border-maru-blue-100">
+                  <p className="text-sm text-maru-blue-700">
+                    <strong>Explanation:</strong> {q.explanation}
                   </p>
                 </div>
               )}
@@ -223,7 +223,7 @@ export function LessonReview({
       </div>
 
       {/* Actions */}
-      <div className="p-6 bg-gray-50 border-t border-gray-100">
+      <div className="p-6 bg-maru-cloud border-t border-maru-line">
         {!submitted ? (
           <Button
             variant="primary"
@@ -246,7 +246,7 @@ export function LessonReview({
             </Button>
             {onRequestAIHelp && (
               <Button
-                variant="outline"
+                variant="secondary"
                 fullWidth
                 onClick={() => onRequestAIHelp(lessonTitle)}
                 className="flex items-center justify-center gap-2"
@@ -258,8 +258,8 @@ export function LessonReview({
           </div>
         ) : (
           <div className="text-center">
-            <p className="text-green-600 font-semibold mb-2">✅ Review Complete!</p>
-            <p className="text-gray-500 text-sm">You can now proceed to the next lesson.</p>
+            <p className="text-verified-fg font-semibold mb-2">Review Complete!</p>
+            <p className="text-maru-grey text-sm">You can now proceed to the next lesson.</p>
           </div>
         )}
       </div>

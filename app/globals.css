@@ -1,93 +1,250 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+/* ============================================================
+   Maru Online Design System — vendored tokens.
+   Source of truth for colour, type, spacing, radius, elevation.
+   See styles/maru-design-system/README.md before editing anything
+   here; the token files themselves are a verbatim copy and must
+   not be edited in this repo.
+
+   fonts.css is deliberately NOT imported — the three families are
+   loaded via next/font/google in app/layout.tsx instead.
+   ============================================================ */
+@import '../styles/maru-design-system/tokens/colors.css';
+@import '../styles/maru-design-system/tokens/typography.css';
+@import '../styles/maru-design-system/tokens/spacing.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================
+   Font wiring.
+   The vendored typography.css names the families literally
+   ('Poppins', 'Inter', 'IBM Plex Mono'), which assumes they were
+   loaded by fonts.css. next/font self-hosts them under generated
+   names instead, so re-point the three family tokens at those
+   faces and keep the literal names as the fallback. Every other
+   token stays exactly as the design system declares it.
+   ============================================================ */
+:root {
+  --maru-font-display: var(--font-poppins), 'Poppins', system-ui, sans-serif;
+  --maru-font-body: var(--font-inter), 'Inter', system-ui, sans-serif;
+  --maru-font-mono: var(--font-plex-mono), 'IBM Plex Mono', ui-monospace, monospace;
+}
+
 @layer base {
   * {
-    @apply border-gray-200;
+    @apply border-maru-line;
   }
-  
+
   html {
     @apply scroll-smooth;
   }
-  
+
+  /* Respect a reduced-motion preference everywhere, including the animations
+     declared in tailwind.config.ts and any third-party CSS. Motion is not
+     removed outright — it is collapsed to a single frame, so anything that
+     depends on an animation/transition end event still fires. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   body {
-    @apply bg-gradient-to-br from-blue-50 via-white to-indigo-50 text-gray-900 font-sans antialiased;
+    @apply bg-maru-cloud text-maru-grey font-sans antialiased;
+    font-size: var(--maru-fs-body);
+    line-height: var(--maru-lh-body);
   }
-  
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-heading font-bold;
+
+  /* Headings are Poppins, navy, sentence case, tight leading.
+     Ink comes from --maru-heading-color rather than a fixed colour so a dark
+     surface can flip it. A directly-applied colour always beats an inherited
+     one, so without this a heading inside a `text-white` navy section would
+     stay navy and disappear. Dark surfaces set the variable below. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
+    color: var(--maru-heading-color, var(--maru-navy));
+    font-weight: var(--maru-fw-semibold);
+    line-height: var(--maru-lh-tight);
   }
-  
-  /* Custom Scrollbar */
+
+  /* Light surfaces pin heading ink to navy, so a white card nested inside a
+     navy section does not inherit white headings onto a white background. */
+  .bg-white,
+  .bg-maru-white,
+  .bg-maru-cloud,
+  .card {
+    --maru-heading-color: var(--maru-navy);
+  }
+
+  /* Dark surfaces flip it to white. Declared AFTER the light rule on purpose:
+     an element can carry both, as the dashboard Card does (`bg-white` from the
+     component, `surface-navy` from its className), and the dark treatment is
+     the one actually painted — background-image sits over background-color.
+     `.text-white` is included because it catches dark treatments no background
+     class would match, such as `bg-gradient-to-br from-navy ... text-white`.
+     Nesting is unaffected: a rule on the element always beats inheritance. */
+  .surface-navy,
+  .bg-maru-navy,
+  .text-white {
+    --maru-heading-color: var(--maru-white);
+  }
+
+  /* Custom scrollbar — hairline track, muted thumb. */
   ::-webkit-scrollbar {
     width: 12px;
     height: 12px;
   }
-  
+
   ::-webkit-scrollbar-track {
-    @apply bg-gray-100;
+    @apply bg-maru-cloud;
   }
-  
+
   ::-webkit-scrollbar-thumb {
-    @apply bg-primary-400 rounded-full hover:bg-primary-500;
+    @apply rounded-pill bg-maru-line;
   }
-  
+
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-primary-600;
+    @apply bg-maru-grey-300;
   }
 }
 
 @layer components {
-  /* Container */
+  /* Page container — capped at the system's 1080px content width. */
   .container-custom {
-    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-content px-4 sm:px-6 lg:px-8;
   }
-  
-  /* Card */
+
+  /* ── Surfaces ───────────────────────────────────────────── */
+
+  /* White, hairline border, 12px radius. The border IS the default
+     elevation; .card-raised is for surfaces that float above content. */
   .card {
-    @apply bg-white rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-xl;
+    @apply rounded-card border border-maru-line bg-white p-6;
   }
-  
-  /* Button Base */
+
+  .card-raised {
+    @apply card shadow-md;
+  }
+
+  /* Teal border flags an AI / insight panel. Teal is reserved for
+     exactly this kind of surface — see the note in tailwind.config.ts. */
+  .card-intelligent {
+    @apply card border-maru-teal-300;
+  }
+
+  /* ── Buttons ────────────────────────────────────────────── */
+
+  /* Pill radius per readme.md, tokens/spacing.css and the written spec.
+     The upstream Button.jsx reference uses 6px and is the outlier —
+     see the "Known upstream issue" note in the vendored README. */
   .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-lg font-semibold transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-pill
+           px-5 py-2.5 font-semibold leading-none
+           transition-colors duration-150
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue
+           focus-visible:ring-offset-2 focus-visible:ring-offset-white
+           disabled:cursor-not-allowed disabled:opacity-50;
   }
-  
+
+  /* blue-700, not blue: white on --maru-blue is 3.74:1 and fails AA for a
+     label. See the contrast note in styles/maru-design-system/README.md. */
   .btn-primary {
-    @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500;
+    @apply btn border border-maru-blue-700 bg-maru-blue-700 text-white hover:border-maru-navy-700 hover:bg-maru-navy-700;
   }
-  
+
   .btn-secondary {
-    @apply btn bg-secondary-600 text-white hover:bg-secondary-700 focus:ring-secondary-500;
+    @apply btn border border-maru-line bg-white text-maru-navy hover:bg-maru-cloud;
   }
-  
-  .btn-outline {
-    @apply btn border-2 border-primary-600 text-primary-600 hover:bg-primary-50 focus:ring-primary-500;
+
+  .btn-ghost {
+    @apply btn border border-transparent bg-transparent text-maru-blue-700 hover:bg-maru-blue-100;
   }
-  
-  /* Input */
+
+  /* Teal. AI / insight actions only — never a general-purpose button. */
+  .btn-accent {
+    @apply btn border border-maru-teal bg-maru-teal text-white hover:bg-maru-teal-600 hover:border-maru-teal-600;
+  }
+
+  /* ── Fields ─────────────────────────────────────────────── */
+
   .input {
-    @apply w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-colors;
+    @apply w-full rounded-input border border-maru-line bg-white px-3 py-2.5
+           text-maru-navy placeholder:text-maru-grey-300
+           transition-[border-color,box-shadow] duration-150
+           focus:border-maru-blue focus:outline-none focus:ring-[3px] focus:ring-maru-blue-100;
   }
-  
-  /* Badge */
+
+  .input-error {
+    @apply input border-overdue focus:border-overdue focus:ring-overdue-bg;
+  }
+
+  /* ── Chips ──────────────────────────────────────────────── */
+
   .badge {
-    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+    @apply inline-flex items-center gap-1.5 rounded-pill px-2.5 py-1 text-caption font-semibold;
   }
-  
-  .badge-primary {
-    @apply badge bg-primary-100 text-primary-800;
+
+  .badge-neutral {
+    @apply badge border border-maru-line bg-maru-cloud text-maru-grey;
   }
-  
-  .badge-success {
-    @apply badge bg-green-100 text-green-800;
+
+  .badge-blue {
+    @apply badge bg-maru-blue-100 text-maru-blue-700;
   }
-  
-  .badge-warning {
-    @apply badge bg-yellow-100 text-yellow-800;
+
+  .badge-teal {
+    @apply badge bg-maru-teal-100 text-maru-teal-600;
+  }
+
+  .badge-navy {
+    @apply badge bg-maru-navy text-white;
+  }
+
+  /* Status language: Verified / At-risk / Overdue. Always colour + label. */
+  .badge-verified {
+    @apply badge bg-verified-bg text-verified-fg;
+  }
+
+  .badge-atrisk {
+    @apply badge bg-atrisk-bg text-atrisk-fg;
+  }
+
+  .badge-overdue {
+    @apply badge bg-overdue-bg text-overdue-fg;
+  }
+
+  /* ── Kicker ─────────────────────────────────────────────── */
+
+  /* The recurring section label above headings. Teal is correct here —
+     this is one of its few sanctioned uses. */
+  .kicker {
+    @apply font-display text-caption font-semibold uppercase tracking-kicker text-maru-teal;
+  }
+
+  .kicker-on-dark {
+    @apply kicker text-maru-teal-300;
+  }
+
+  /* ── Figures ────────────────────────────────────────────── */
+
+  /* Numbers, prices, percentages, durations, counts and IDs. */
+  .figure {
+    @apply font-mono tracking-mono;
   }
 }
 
@@ -95,42 +252,37 @@
   .text-balance {
     text-wrap: balance;
   }
-  
-  /* Gradient Text */
-  .gradient-text {
-    @apply bg-gradient-primary bg-clip-text text-transparent;
+
+  /* The sanctioned dark treatment — hero, nav and cover surfaces only. */
+  .surface-navy {
+    background: var(--maru-gradient-navy);
+    @apply text-white;
   }
-  
-  /* Glass Effect */
-  .glass {
-    @apply bg-white/80 backdrop-blur-lg border border-white/20;
-  }
-  
-  /* Animation Delays */
+
   .animation-delay-200 {
     animation-delay: 200ms;
   }
-  
+
   .animation-delay-400 {
     animation-delay: 400ms;
   }
-  
+
   .animation-delay-600 {
     animation-delay: 600ms;
   }
 }
 
-/* Chatbot Markdown Content */
+/* Chatbot markdown content */
 .markdown-content strong {
-  @apply font-bold text-inherit;
+  @apply font-semibold text-inherit;
 }
 
 .markdown-content ul {
-  @apply list-disc list-inside my-2 space-y-1;
+  @apply my-2 list-inside list-disc space-y-1;
 }
 
 .markdown-content ol {
-  @apply list-decimal list-inside my-2 space-y-1;
+  @apply my-2 list-inside list-decimal space-y-1;
 }
 
 .markdown-content p {
@@ -138,13 +290,13 @@
 }
 
 .markdown-content code {
-  @apply bg-black/10 rounded px-1 py-0.5 font-mono text-xs;
+  @apply rounded bg-maru-cloud px-1 py-0.5 font-mono text-xs tracking-mono text-maru-navy;
 }
 
 .markdown-content pre {
-  @apply bg-black/80 text-white rounded p-2 my-2 overflow-x-auto;
+  @apply my-2 overflow-x-auto rounded-card bg-maru-navy p-2 font-mono text-white;
 }
 
 .markdown-content a {
-  @apply text-blue-500 hover:underline;
+  @apply text-maru-blue-700 underline-offset-2 hover:underline;
 }

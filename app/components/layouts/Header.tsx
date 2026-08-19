@@ -3,77 +3,98 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { useSession, signOut } from 'next-auth/react'
-import { Button } from '../ui'
+import { Button, Logo } from '../ui'
+
+/**
+ * Site header. White surface, hairline base, Maru wordmark.
+ *
+ * Nav links use blue-700 on hover rather than blue: at 14–16px they are
+ * normal-size text, where --maru-blue is 3.74:1 on white and fails AA.
+ * blue-700 is 5.95:1.
+ */
+
+const NAV_LINKS = [
+  { href: '/learn', label: 'Modules' },
+  { href: '/about', label: 'About' },
+  { href: '/pricing', label: 'Pricing' },
+]
+
+const navLinkClass =
+  'whitespace-nowrap font-medium text-maru-navy transition-colors hover:text-maru-blue-700 ' +
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue ' +
+  'focus-visible:ring-offset-2 rounded-input'
 
 export const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { data: session } = useSession()
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-lg border-b border-gray-200 shadow-sm">
+    <header className="sticky top-0 z-50 border-b border-maru-line bg-white/95 shadow-sm backdrop-blur-lg">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-transparent border border-gray-200 rounded-lg flex items-center justify-center overflow-hidden p-1">
-              <img src="/logo.png" alt="M" className="w-full h-full object-contain" />
-            </div>
-            <span className="font-heading font-bold text-xl text-gray-900">
-              Maru AI Academy
-            </span>
+        <div className="flex h-16 items-center justify-between">
+          <Link
+            href="/"
+            className="flex items-center gap-2.5 rounded-input focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue focus-visible:ring-offset-2"
+          >
+            <Logo markOnly height={28} priority />
+            <span className="whitespace-nowrap font-display text-lg font-semibold text-maru-navy sm:text-xl">Maru AI Academy</span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="https://maruonline.com" className="text-gray-500 hover:text-primary-600 transition-colors font-medium text-sm flex items-center gap-1">
+          {/* Desktop navigation */}
+          <div className="hidden items-center gap-6 lg:flex xl:gap-8">
+            <a
+              href="https://maruonline.com"
+              className="flex items-center gap-1 whitespace-nowrap rounded-input text-sm font-medium text-maru-grey transition-colors hover:text-maru-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue focus-visible:ring-offset-2"
+            >
               ← Maru Online
             </a>
-            <Link href="/modules" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
-              Modules
-            </Link>
-            <Link href="/about" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
-              About
-            </Link>
-            <Link href="/pricing" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
-              Pricing
-            </Link>
-            
+
+            {NAV_LINKS.map(({ href, label }) => (
+              <Link key={href} href={href} className={navLinkClass}>
+                {label}
+              </Link>
+            ))}
+
             {session ? (
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center gap-4">
                 <Link href="/dashboard">
-                  <Button variant="outline" size="sm">
+                  <Button variant="secondary" size="sm">
                     Dashboard
                   </Button>
                 </Link>
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-gray-700 hidden lg:block">Hi, {session.user?.name?.split(' ')[0] || 'User'}</span>
-                  <div className="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center text-primary-700 font-bold border border-primary-200">
+                  <span className="hidden text-sm font-medium text-maru-grey lg:block">
+                    Hi, {session.user?.name?.split(' ')[0] || 'there'}
+                  </span>
+                  <div className="flex h-8 w-8 items-center justify-center rounded-pill border border-maru-blue-100 bg-maru-blue-100 font-semibold text-maru-blue-700">
                     {session.user?.name?.[0] || 'U'}
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="flex items-center space-x-4">
-                <Link href="/auth/signin">
-                  <span className="text-gray-700 hover:text-primary-600 font-medium cursor-pointer">
-                    Log in
-                  </span>
+              <div className="flex items-center gap-4">
+                <Link href="/auth/signin" className={navLinkClass}>
+                  Log in
                 </Link>
                 <Link href="/auth/signup">
                   <Button variant="primary" size="sm">
-                    Get Started
+                    Get started
                   </Button>
                 </Link>
               </div>
             )}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile menu toggle */}
           <button
+            type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            className="-mr-2 flex h-11 w-11 items-center justify-center rounded-input text-maru-navy transition-colors hover:bg-maru-cloud focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue focus-visible:ring-offset-2 lg:hidden"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               {mobileMenuOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               ) : (
@@ -83,43 +104,44 @@ export const Header = () => {
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
-            <div className="flex flex-col space-y-4">
-              <a href="https://maruonline.com" className="text-gray-500 hover:text-primary-600 transition-colors font-medium">
+          <div id="mobile-menu" className="border-t border-maru-line py-4 lg:hidden">
+            <div className="flex flex-col gap-4">
+              <a
+                href="https://maruonline.com"
+                className="flex min-h-11 items-center rounded-input font-medium text-maru-grey transition-colors hover:text-maru-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue focus-visible:ring-offset-2"
+              >
                 ← Back to Maru Online
               </a>
-              <Link href="/modules" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
-                Modules
-              </Link>
-              <Link href="/about" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
-                About
-              </Link>
-              <Link href="/pricing" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
-                Pricing
-              </Link>
-              
+
+              {NAV_LINKS.map(({ href, label }) => (
+                <Link key={href} href={href} className={`flex min-h-11 items-center ${navLinkClass}`}>
+                  {label}
+                </Link>
+              ))}
+
               {session ? (
                 <>
-                  <Link href="/dashboard" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
+                  <Link href="/dashboard" className={`flex min-h-11 items-center ${navLinkClass}`}>
                     Dashboard
                   </Link>
-                  <button 
+                  <button
+                    type="button"
                     onClick={() => signOut()}
-                    className="text-left text-red-600 hover:text-red-700 font-medium"
+                    className="flex min-h-11 items-center rounded-input text-left font-medium text-overdue-fg transition-colors hover:text-overdue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-maru-blue focus-visible:ring-offset-2"
                   >
-                    Sign Out
+                    Sign out
                   </button>
                 </>
               ) : (
                 <>
-                  <Link href="/auth/signin" className="text-gray-700 hover:text-primary-600 transition-colors font-medium">
+                  <Link href="/auth/signin" className={`flex min-h-11 items-center ${navLinkClass}`}>
                     Log in
                   </Link>
                   <Link href="/auth/signup">
                     <Button variant="primary" size="sm" fullWidth>
-                      Get Started
+                      Get started
                     </Button>
                   </Link>
                 </>

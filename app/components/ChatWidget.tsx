@@ -2,9 +2,18 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, Minimize2, MessageCircle } from 'lucide-react';
+import { X, Send, Minimize2, MessageCircle, HelpCircle, Target, BookOpen, Lightbulb, type LucideIcon } from 'lucide-react';
 import ChatMessage, { TypingIndicator, Message } from './ChatMessage';
 import { EDUCATION_GREETING, EDUCATION_CONVERSATION_STARTERS } from '@/lib/education-content';
+
+
+/** Resolves a conversation starter's lucide icon name to a component. */
+const STARTER_ICONS: Record<string, LucideIcon> = { HelpCircle, Target, BookOpen, Lightbulb }
+
+const StarterIcon = ({ name }: { name: string }) => {
+  const Icon = STARTER_ICONS[name] ?? HelpCircle
+  return <Icon className="h-5 w-5 flex-none text-maru-teal transition-transform group-hover:scale-110" aria-hidden="true" />
+}
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
@@ -96,15 +105,15 @@ export default function ChatWidget() {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group bg-white border border-gray-100"
+            className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group bg-white border border-maru-line"
           >
             <div className="relative">
-              <div className="w-8 h-8 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-sm overflow-hidden p-1">
-                <img src="/logo.png" alt="M" className="w-full h-full object-contain" />
+              <div className="w-8 h-8 bg-white border border-maru-line rounded-lg flex items-center justify-center shadow-sm overflow-hidden p-1">
+                <img src="/brand/maru-mark.png" alt="M" className="w-full h-full object-contain" />
               </div>
-              <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></span>
+              <span className="absolute -top-1 -right-1 w-3 h-3 bg-overdue rounded-full border-2 border-white"></span>
             </div>
-            <span className="font-bold tracking-wide text-gray-800">Help</span>
+            <span className="font-bold tracking-wide text-maru-navy">Help</span>
           </motion.button>
         )}
       </AnimatePresence>
@@ -121,20 +130,20 @@ export default function ChatWidget() {
             }`}
           >
             {/* Header */}
-            <div className="px-5 py-4 bg-gray-900 flex items-center justify-between flex-shrink-0">
+            <div className="px-5 py-4 bg-maru-navy flex items-center justify-between flex-shrink-0">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-transparent border border-gray-700 rounded-lg flex items-center justify-center shadow-sm overflow-hidden p-1">
-                  <img src="/logo.png" alt="M" className="w-full h-full object-contain" />
+                <div className="w-8 h-8 bg-transparent border border-maru-navy-700 rounded-lg flex items-center justify-center shadow-sm overflow-hidden p-1">
+                  <img src="/brand/maru-mark.png" alt="M" className="w-full h-full object-contain" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-white text-sm">Learning Assistant</h3>
-                  <p className="text-xs text-gray-400 flex items-center gap-1">
-                    <span className="w-2 h-2 rounded-full bg-green-500"></span>
+                  <h3 className="font-bold text-white text-sm">Learning assistant</h3>
+                  <p className="text-xs text-maru-grey flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-verified"></span>
                     Online
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 text-gray-400">
+              <div className="flex items-center gap-2 text-maru-grey">
                 <button
                   onClick={() => setIsMinimized(!isMinimized)}
                   className="hover:text-white transition-colors p-1"
@@ -151,7 +160,7 @@ export default function ChatWidget() {
             </div>
 
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto px-5 py-4 bg-gray-50 scrollbar-thin scrollbar-thumb-gray-200">
+            <div className="flex-1 overflow-y-auto px-5 py-4 bg-maru-cloud scrollbar-thin scrollbar-thumb-gray-200">
               {messages.map((message) => (
                 <ChatMessage key={message.id} message={message} />
               ))}
@@ -172,16 +181,16 @@ export default function ChatWidget() {
                            if(form) form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
                         }, 100);
                       }}
-                      className="text-left p-3 rounded-xl bg-white border border-gray-100 shadow-sm hover:border-[#3DD6D0] hover:shadow-md transition-all group"
+                      className="text-left p-3 rounded-xl bg-white border border-maru-line shadow-sm hover:border-maru-teal-300 hover:shadow-md transition-all group"
                       // Since we can't easily trigger the send from here without refactoring handledSendMessage to not start with e.preventDefault,
                       // we'll just populate for now. Better UX would be auto-send.
                       // Let's modify onClick to just populate
                     >
                       <div className="flex items-center gap-3">
-                        <span className="text-xl group-hover:scale-110 transition-transform">{starter.icon}</span>
+                        <StarterIcon name={starter.icon} />
                         <div>
-                          <span className="block text-sm font-medium text-gray-900">{starter.text}</span>
-                          <span className="block text-xs text-gray-500 truncate max-w-[200px]">{starter.query}</span>
+                          <span className="block text-sm font-medium text-maru-navy">{starter.text}</span>
+                          <span className="block text-xs text-maru-grey truncate max-w-[200px]">{starter.query}</span>
                         </div>
                       </div>
                     </button>
@@ -194,27 +203,28 @@ export default function ChatWidget() {
             </div>
 
             {/* Input Area */}
-            <div className="p-4 bg-white border-t border-gray-100 flex-shrink-0">
+            <div className="p-4 bg-white border-t border-maru-line flex-shrink-0">
               <form 
                 onSubmit={handleSendMessage} 
-                className="flex items-end gap-2 chat-input-form bg-gray-50 p-2 rounded-xl border border-gray-200 focus-within:border-[#3DD6D0] focus-within:ring-1 focus-within:ring-[#3DD6D0] transition-all"
+                className="flex items-end gap-2 chat-input-form bg-maru-cloud p-2 rounded-xl border border-maru-line focus-within:border-maru-teal focus-within:ring-1 focus-within:ring-maru-teal-100 transition-all"
               >
                 <input
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
+                  aria-label="Ask a question about your lesson"
                   placeholder="Ask a question about your lesson..."
                   className="flex-1 bg-transparent border-none focus:ring-0 p-2 text-sm max-h-24"
                 />
                 <button
                   type="submit"
                   disabled={!inputValue.trim() || isLoading}
-                  className="p-2 rounded-lg bg-[#3DD6D0] text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-[#2bc4be] transition-colors"
+                  className="p-2 rounded-lg bg-maru-teal text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-maru-teal-600 transition-colors"
                 >
                   <Send size={18} />
                 </button>
               </form>
-              <p className="text-[10px] text-center text-gray-400 mt-2">
+              <p className="text-[10px] text-center text-maru-grey mt-2">
                 Maru AI can make mistakes. Please verify important info.
               </p>
             </div>

@@ -45,20 +45,20 @@ function SignInForm() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-maru-cloud flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-heading font-bold text-gray-900">
+          <h1 className="text-3xl font-heading font-bold text-maru-navy">
             Welcome back
           </h1>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-maru-grey">
             Sign in to continue your learning journey
           </p>
         </div>
 
         <Card className="p-8">
           {(error || errorMessage) && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
+            <div className="mb-6 p-4 bg-overdue-bg border border-overdue-bg text-overdue-fg rounded-lg text-sm">
               {errorMessage || 'Authentication failed. Please try again.'}
             </div>
           )}
@@ -87,7 +87,7 @@ function SignInForm() {
             <div className="flex items-center justify-end">
               <Link
                 href="/auth/forgot-password"
-                className="text-sm text-primary-600 hover:text-primary-700 font-medium"
+                className="text-sm text-maru-blue-700 hover:text-maru-blue-700 font-medium"
               >
                 Forgot password?
               </Link>
@@ -105,11 +105,11 @@ function SignInForm() {
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-gray-600">
+            <p className="text-maru-grey">
               Don't have an account?{' '}
               <Link
                 href="/auth/signup"
-                className="text-primary-600 font-semibold hover:text-primary-700"
+                className="text-maru-blue-700 font-semibold hover:text-maru-blue-700"
               >
                 Sign up
               </Link>
@@ -124,8 +124,8 @@ function SignInForm() {
 export default function SignInPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p className="text-gray-500">Loading...</p>
+      <div className="min-h-screen bg-maru-cloud flex items-center justify-center">
+        <p className="text-maru-grey">Loading...</p>
       </div>
     }>
       <SignInForm />
